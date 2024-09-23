@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { aspect } = defineProps<{
+interface Props {
   aspect?: "auto" | "square" | [number, number];
-}>();
+}
+const { aspect } = defineProps<Props>();
 
 const aspectRatio = computed(() => {
   if (aspect === "auto") return ["", ""];
@@ -12,13 +13,19 @@ const aspectRatio = computed(() => {
 </script>
 
 <template>
-  <section <section
-    class="flex flex-col lg:flex-row gap-4 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-2">
-    <div class=" border-[3px] hidden lg:flex min-h-80 border-black rounded-xl bg-white dark:bg-black overflow-hidden"
-      :class="aspectRatio[0]">
+  <section
+    class="flex flex-col lg:flex-row gap-4 max-h-80 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-2"
+  >
+    <div
+      class="border-[3px] hidden lg:flex border-black rounded-xl bg-white dark:bg-black overflow-hidden"
+      :class="aspectRatio[0]"
+    >
       <slot name="first"></slot>
     </div>
-    <div class="border-[3px] border-black rounded-xl bg-white dark:bg-black overflow-hidden" :class="aspectRatio[1]">
+    <div
+      class="border-[3px] border-black rounded-xl bg-white dark:bg-black overflow-hidden"
+      :class="aspectRatio[1]"
+    >
       <slot name="second"></slot>
     </div>
   </section>

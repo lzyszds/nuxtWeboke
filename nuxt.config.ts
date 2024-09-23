@@ -47,9 +47,16 @@ export default defineNuxtConfig({
   },
 
   // Sitemap module configuration: https://nuxtseo.com/site-config/getting-started/how-it-works
-  // site: {
-  //   url: 'https://tdesign-vue-nuxt-starter.ataw.top', // FIXME: Your website URL
-  // },
+  site: {
+    url: process.env.NODE_ENV === 'production'
+      ? 'https://your-production-url.com'
+      : 'http://localhost:3000', // FIXME: Your website URL
+    name: 'My Awesome Site',
+    description: 'This is my great Nuxt.js website',
+    defaultLocale: 'zh', // 默认语言
+    trailingSlash: false, // URL 是否以斜杠结尾 
+
+  },
 
   ssr: true,
   nitro: {
@@ -98,7 +105,7 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap' },
       ],
       script: [
-        { src: "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" },
+        // { src: "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" },
       ]
     }
   },

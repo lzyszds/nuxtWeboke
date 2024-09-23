@@ -3,6 +3,7 @@
 export default defineEventHandler(async (event) => {
   // 获取查询参数（针对 GET 请求）
   const query = getQuery(event);
+  console.log(`lzy  query:`, query)
 
   //请求后台接口
   return await request({

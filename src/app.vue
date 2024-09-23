@@ -1,5 +1,4 @@
 <template>
-
   <LzyLoading />
   <KeepAlive>
     <NuxtLayout>
@@ -9,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-
 const colorMode = useColorMode();
 
 onBeforeMount(() => {

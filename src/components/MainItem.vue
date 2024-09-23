@@ -3,6 +3,8 @@
 import dayjs from "dayjs";
 import LzyIcon from "./LzyIcon.vue";
 import _ from "lodash";
+import { gsap } from "gsap";
+
 import type { ArticleListItem, ArticleUser } from "~/types/Articles";
 const list = [
   { name: "typcn:time" },
@@ -27,88 +29,100 @@ const selectHandle = (index: number) => {
   } else if (index == 1) {
     if (tags) result = tags.join(", ");
   } else if (index == 2) {
-    result = access_count
+    result = access_count;
   } else if (index == 3) {
-    result = (comments_count || 0)
+    result = comments_count || 0;
   }
-  return result
+  return result;
 };
 
-
-
 // 鼠标划入事件
-const mouseenter = _.debounce(function (event) {
-  const mask = event.target.querySelector('.maskContent');
+const mouseenter = _.debounce(
+  function (event) {
+    const mask = event.target.querySelector(".maskContent");
 
-  // 如果鼠标划入的是 .maskContent 本身，直接返回
-  if (event.target.classList.contains('maskContent')) {
-    return;
-  }
+    // 如果鼠标划入的是 .maskContent 本身，直接返回
+    if (event.target.classList.contains("maskContent")) {
+      return;
+    }
 
-  // 获取所有的 .maskContent 元素并重置它们的样式
-  const allMasks = document.querySelectorAll('.maskContent');
-  allMasks.forEach(maskElement => {
-    gsap.killTweensOf(maskElement); // 停止正在进行的动画
-    gsap.set(maskElement, { clearProps: "all" }); // 清除所有动画的状态和内联样式
-  });
-  // 创建一个创新的动画效果
-  const tl = gsap.timeline();
-  // 设置初始状态
-  tl.set(mask, {
-    opacity: 0,
-    scale: 0.5,
-    rotation: gsap.utils.random(1, 2) >= 1.5 ? -15 : 15,// 旋转角度
-    transformOrigin: "center center"
-  })
-    .to(mask, {
-      opacity: 1,
-      scale: 1.1,
-      rotation: 0,
-      duration: 0.4,
-      ease: "back.out(1.7)"
-    })
-    .to(mask, {
-      scale: 1,
-      duration: 0.2,
-      ease: "power1.inOut"
-    })
-    .to(mask, {
-      y: -5,
-      repeat: 1,
-      yoyo: true,
-      duration: 0.1,
-      ease: "power1.inOut"
-    })
-    .to(mask, {
-      boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-      duration: 0.3
+    // 获取所有的 .maskContent 元素并重置它们的样式
+    const allMasks = document.querySelectorAll(".maskContent");
+    allMasks.forEach((maskElement) => {
+      gsap.killTweensOf(maskElement); // 停止正在进行的动画
+      gsap.set(maskElement, { clearProps: "all" }); // 清除所有动画的状态和内联样式
     });
+    // 创建一个创新的动画效果
+    const tl = gsap.timeline();
+    // 设置初始状态
+    tl.set(mask, {
+      opacity: 0,
+      scale: 0.5,
+      rotation: gsap.utils.random(1, 2) >= 1.5 ? -15 : 15, // 旋转角度
+      transformOrigin: "center center",
+    })
+      .to(mask, {
+        opacity: 1,
+        scale: 1.1,
+        rotation: 0,
+        duration: 0.4,
+        ease: "back.out(1.7)",
+      })
+      .to(mask, {
+        scale: 1,
+        duration: 0.2,
+        ease: "power1.inOut",
+      })
+      .to(mask, {
+        y: -5,
+        repeat: 1,
+        yoyo: true,
+        duration: 0.1,
+        ease: "power1.inOut",
+      })
+      .to(mask, {
+        boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+        duration: 0.3,
+      });
 
-  // 添加颜色变化效果
-  tl.to(mask, {
-    duration: 0.5,
-    backgroundColor: "rgba(255, 114, 86, 0.2)", // 半透明的亮粉色
-    color: "#ffffff",
-    ease: "none"
-  }, "-=0.7");
+    // 添加颜色变化效果
+    tl.to(
+      mask,
+      {
+        duration: 0.5,
+        backgroundColor: "rgba(255, 114, 86, 0.2)", // 半透明的亮粉色
+        color: "#ffffff",
+        ease: "none",
+      },
+      "-=0.7"
+    );
 
-  // 最后的强调效果
-  tl.to(mask, {
-    boxShadow: "0 0 20px rgba(255, 105, 180, 0.7)",
-    duration: 0.3
-  }, "-=0.3");
+    // 最后的强调效果
+    tl.to(
+      mask,
+      {
+        boxShadow: "0 0 20px rgba(255, 105, 180, 0.7)",
+        duration: 0.3,
+      },
+      "-=0.3"
+    );
+  },
+  100,
+  { leading: true, trailing: false }
+);
 
-}, 100, { leading: true, trailing: false });
-
-const mouseleave = _.debounce(function (event) {
-  const mask = event.target.querySelector('.maskContent');
-  gsap.to(mask, {
-    duration: 0.3,
-    opacity: 0,
-    scale: 1,
-  });
-}, 100, { leading: true, trailing: false });
-
+const mouseleave = _.debounce(
+  function (event) {
+    const mask = event.target.querySelector(".maskContent");
+    gsap.to(mask, {
+      duration: 0.3,
+      opacity: 0,
+      scale: 1,
+    });
+  },
+  100,
+  { leading: true, trailing: false }
+);
 </script>
 
 <template>
@@ -152,11 +166,10 @@ const mouseleave = _.debounce(function (event) {
   transform: translate(0) !important;
 }
 
-
 .conent_div {
   padding: 10px 20px;
   border-radius: 10px;
-  transition: .5s;
+  transition: 0.5s;
   position: relative;
   /* 禁止该元素接收鼠标事件 */
   pointer-events: auto;
@@ -170,7 +183,7 @@ const mouseleave = _.debounce(function (event) {
     left: 0;
     z-index: -1;
     opacity: 0;
-    background-color: rgba(var(--themeColorRgb), .3);
+    background-color: rgba(var(--themeColorRgb), 0.3);
     border-radius: 10px;
     /* 禁止该元素接收鼠标事件 */
     pointer-events: none;
@@ -219,7 +232,7 @@ const mouseleave = _.debounce(function (event) {
     /* 禁止该元素接收鼠标事件 */
     pointer-events: none;
 
-    &>span {
+    & > span {
       height: 20px;
       line-height: 25px;
       margin-right: 10px;

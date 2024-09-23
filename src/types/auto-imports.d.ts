@@ -95,10 +95,12 @@ declare global {
   const useCssModule: (typeof import('vue'))['useCssModule']
   const useCssVars: (typeof import('vue'))['useCssVars']
   const useLazyQuery: (typeof import('@vue/apollo-composable'))['useLazyQuery']
+  const useLoadingStore: typeof import('../store/useLoading')['useLoadingStore']
   const useMutation: (typeof import('@vue/apollo-composable'))['useMutation']
   const useQuery: (typeof import('@vue/apollo-composable'))['useQuery']
   const useSlots: (typeof import('vue'))['useSlots']
   const useThemeStore: typeof import('../hooks/useTheme')['useThemeStore']
+  const useThreadTasks: typeof import('../store/useThreadTasks')['useThreadTasks']
   const useUserStore: typeof import('../store/useUserStore')['useUserStore']
   const useWeatherStore: typeof import('../store/useWeatherStore')['useWeatherStore']
   const watch: (typeof import('vue'))['watch']
@@ -123,6 +125,8 @@ declare module 'vue' {
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
+    readonly useLoadingStore: UnwrapRef<typeof import('../store/useLoading')['useLoadingStore']>
+    readonly useThreadTasks: UnwrapRef<typeof import('../store/useThreadTasks')['useThreadTasks']>
     readonly useUserStore: UnwrapRef<typeof import('../store/useUserStore')['useUserStore']>
     readonly useWeatherStore: UnwrapRef<typeof import('../store/useWeatherStore')['useWeatherStore']>
   }

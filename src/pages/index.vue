@@ -1,48 +1,64 @@
 <script setup lang="ts">
-import type { ArticleListItem } from '~/types/Articles';
-import type { ListData } from '~/types/ListData';
-import type { RequestResult } from '~/types/Result';
+import type { ArticleListItem } from "~/types/Articles";
+import type { ListData } from "~/types/ListData";
+import type { RequestResult } from "~/types/Result";
 
+type RequestResultData = RequestResult<ListData<ArticleListItem[]>>;
 
 const mytext = "编程是一场艺术，逻辑是它的画笔，创新是它的灵魂".split("");
 const isload = ref(false);
 const limit = 7;
-const pageCount = ref(5);
+const pageCount = ref(1);
 const total = ref(0);
-const posts = ref<ArticleListItem[]>(); // 文章列表数据
+const listData = ref<ArticleListItem[]>(); // 文章列表数据
+const loadingStore = useLoadingStore();
 
 const getPosts = async () => {
-  isload.value = false;
-  // 获取文章列表
-  const { data: posts, error } = await useFetch(
-    `/api/article/getArticleList?page=${pageCount.value}&limit=${limit}`,
-    {
-      lazy: false, // 立即获取数据，而不是等待组件挂载
-      transform: (response: RequestResult<ListData<ArticleListItem[]>>) => {
-        // 可以在这里对响应数据进行转换
-        return response.data;
-      },
+  try {
+    // 开启全局加载动画
+    isload.value = false;
+
+    // 获取文章列表
+    const { data: posts, error } = await useFetch(
+      `/api/article/getArticleList?pages=${pageCount.value}&limit=${limit}`
+    );
+
+    // 处理错误
+    if (error.value) {
+      console.error("Failed to fetch posts:", error.value);
+      return []; // 发生错误时返回空数组，防止渲染时出现问题
     }
-  );
-  // 关闭加载动画
-  isload.value = true;
-  // 获取文章总数
-  total.value = posts.value!.total;
-  // 报错提醒
-  if (error.value) {
-    console.error("Failed to fetch posts:", error.value);
+
+    // 重新渲染并关闭加载动画
+    isload.value = true;
+
+    // 确保 posts 存在
+    if (posts.value) {
+      // 获取文章总数
+      total.value = posts.value.data.total;
+      return posts.value.data.data;
+    } else {
+      return [];
+    }
+  } catch (err) {
+    // 捕获任何异步错误
+    console.error("Unexpected error:", err);
+    isload.value = true; // 请求失败后关闭加载动画
+
+    return []; // 发生错误时返回空数组
+  } finally {
+    // 无论如何，确保加载动画关闭
+    isload.value = true;
+    loadingStore.setLoading(true);
   }
-  return posts.value!.data
 };
-posts.value = await getPosts();
+
+listData.value = await getPosts();
 
 const onCurrentChange = async (index: number) => {
   pageCount.value = index;
-  posts.value = await getPosts();
+  listData.value = await getPosts();
 };
-
-
-
 </script>
 
 <template>
@@ -66,19 +82,27 @@ const onCurrentChange = async (index: number) => {
         </div>
       </template>
       <template #second>
-        <img class="w-full h-full object-cover rounded-lg" src="http://localhost:2024/static/img/homeItem.png" alt="" />
+        <img
+          class="w-full h-full object-cover rounded-lg max-h-72"
+          src="http://localhost:2024/static/img/homeItem.png"
+          alt=""
+        />
       </template>
     </DoubleCard>
 
-    <div class="mx-auto mt-1  max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-[auto,305px] gap-5">
+    <div
+      class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-[auto,305px] gap-5"
+    >
       <!-- 文章内容 -->
-      <div class=" w-full">
-        <div class=" grid gap-2.5 mt-5 relative">
-          <div :id="'list' + item.aid" v-for="(item, index) in posts" :key="index" v-if="isload"
-            v-transition="'animate__fadeInUp'">
-            <!-- <RouterLink :to="'/home/detail/' + item.aid">
-                  <ContentDiv :data="item" :index="index"></ContentDiv>
-                </RouterLink> -->
+      <div class="w-full">
+        <div class="grid gap-2.5 mt-5 relative">
+          <div
+            :id="'list' + item.aid"
+            v-for="(item, index) in listData"
+            :key="index"
+            v-if="isload"
+            v-transition="'animate__fadeInUp'"
+          >
             <NuxtLink :to="'/detail/' + item.aid">
               <MainItem :data="item" :index="index"></MainItem>
             </NuxtLink>
@@ -86,8 +110,12 @@ const onCurrentChange = async (index: number) => {
         </div>
         <!-- 文章分页 -->
         <div class="example-pagination-block lzy-center" id="example">
-          <ElPagination :page-size="limit" layout="prev, pager, next" :total="total"
-            @current-change="onCurrentChange" />
+          <ElPagination
+            :page-size="limit"
+            layout="prev, pager, next"
+            :total="total"
+            @current-change="onCurrentChange"
+          />
         </div>
       </div>
       <div class="systemInfo">
