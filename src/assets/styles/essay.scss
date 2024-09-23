@@ -1,0 +1,383 @@
+pre {
+  position: relative;
+  font-family: 'Red Hat Display';
+  font-variant-numeric: tabular-nums;
+  /* 使用等宽特性 */
+}
+
+.pre-numbering {
+  position: absolute;
+  top: 0;
+  left: -30px;
+  width: 30px;
+  border-right: 1px solid #c3ccd0;
+  background-color: #1c1d21;
+  text-align: center;
+  padding: 0.5em 0;
+}
+
+.pre-numbering li {
+  list-style: none;
+  color: #aaa;
+  font-size: 1em;
+}
+
+.hljs-ln-line.hljs-ln-n {
+  margin-right: 30px;
+}
+
+.v-md-prism-language-ln-numbers {
+  user-select: none;
+}
+
+.v-md-prism-::-webkit-scrollbar-track {
+  background-color: #282c34;
+  cursor: pointer;
+}
+
+.v-md-prism-::-webkit-scrollbar {
+  height: 15px;
+  background-color: var(--themeColor);
+  cursor: pointer;
+}
+
+.v-md-prism-::-webkit-scrollbar-thumb {
+  background-color: var(--themeColor);
+  border-radius: 300px;
+  border: 4px solid #282c34;
+}
+
+/* 悬停时的样式 */
+.v-md-prism-::-webkit-scrollbar-thumb:hover {
+  background-color: var(--borderColor);
+  /* 悬停时的滑块背景色 */
+}
+
+code {
+  color: #fff;
+}
+
+.v-md-prism-language {
+  color: #fff;
+  position: relative;
+  background: #21252b;
+  border-radius: 5px;
+  line-height: 1.6;
+  margin-bottom: 3.6em;
+  max-width: 100%;
+  overflow: auto;
+  text-shadow: none;
+  color: #000;
+  padding-top: 30px;
+  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
+  font-size: 17px;
+}
+
+.v-md-prism-language:before {
+  content: " ";
+  position: absolute;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: var(--themeColor);
+  width: 12px;
+  height: 12px;
+  left: 12px;
+  margin-top: -18px;
+  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  z-index: 2;
+}
+
+
+.vuepress-markdown-body {
+  position: relative;
+
+  ul {
+    li {
+      list-style: none;
+      text-decoration: none;
+    }
+  }
+
+  &>div {
+    position: relative;
+  }
+
+  &:not(.custom) a:hover {
+    // text-decoration: none;
+  }
+
+  &:not(.custom) img {
+    max-width: 99.3%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+  }
+
+  h1 {
+    padding-bottom: 0.3em;
+    font-size: 1.3em;
+    color: #000;
+    font-weight: 600;
+    font-family: "dindin";
+  }
+
+  h2 {
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #ddd;
+    color: #000;
+    font-size: 21px;
+    font-weight: 600;
+    font-family: "dindin";
+
+    &::before {
+      content: "#";
+      color: #ff6d6d;
+      margin-right: 20px;
+    }
+  }
+
+  h3 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+
+    &:before {
+      content: "🌠";
+      color: var(--themeColor);
+      margin-right: 20px;
+    }
+  }
+
+  h4 {
+    color: #222;
+    position: relative;
+    font-size: 18px;
+    font-weight: 600;
+
+    &:before {
+      content: "~";
+      color: var(--themeColor);
+    }
+  }
+
+  & a,
+  & p a code {
+    color: var(--themeColor);
+  }
+
+  a>.v-md-svg-outbound {
+    color: var(--themeColor);
+    vertical-align: text-bottom;
+    display: initial;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: max-content;
+    border-radius: 5px;
+    margin: 0 auto;
+    font-size: 15px;
+  }
+
+  th {
+    color: #fff;
+    padding: 0 8px;
+    text-align: left;
+    background-color: var(--themeColor);
+  }
+
+  td {
+    padding: 0 8px;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: none;
+  }
+
+  details.details {
+    border-radius: 5px;
+    padding: 10px 20px;
+    background: #21252b;
+    color: #ffff;
+  }
+
+  .scrollbar__thumb {
+    background-color: var(--themeColor) !important;
+  }
+
+  blockquote {
+    margin: 1rem 0;
+    padding: 0.25rem rem 0 0.25rem;
+    color: #999;
+    font-size: 1.5rem;
+    border-left: 0.2rem solid var(--themeColor);
+    background: aliceblue;
+    font-family: "dindin";
+  }
+
+  /* 代码类型提示，右上角的 */
+  div[class*="v-md-pre-wrapper-"]:before {
+    position: absolute;
+    top: 0em;
+    right: 1em;
+    z-index: 3;
+    color: hsla(0, 0%, 100%, 0.4);
+    font-size: 1.75rem;
+  }
+
+  .line-number,
+  code,
+  kbd {
+    font-variation-settings: "wght" 430;
+  }
+
+  mark {
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: "dindin";
+
+    &.gray {
+      background-color: #555;
+      background-color: #555;
+      color: #fff;
+      box-shadow: 0 0 5px 1px #a7a7a7;
+    }
+
+    &.theme {
+      background-color: var(--themeColor);
+      color: #fff;
+      box-shadow: 0 0 5px 1px #a7a7a7;
+    }
+
+    &.black {
+      background-color: #000;
+      color: #fff;
+      display: inline-block;
+      box-shadow: 0 0 5px 1px #a7a7a7;
+      line-height: 19px;
+      padding: 3px 5px;
+    }
+
+    &.white {
+      background-color: #fff;
+      color: #000;
+      box-shadow: 0 0 2px 1px #000000;
+    }
+
+    &.pink {
+      background-color: #ffb3ac;
+      color: #fff;
+      box-shadow: 0 0 5px 1px #a7a7a7;
+    }
+  }
+}
+
+.dark {
+  .vuepress-markdown-body {
+    text-shadow: #21252b;
+    background: var(--darkBgcolor);
+    // box-shadow: 0px 0px 1px 4px #aaa inset;
+    border: none;
+
+    &>div {
+      background: var(--darkBgcolor) !important;
+    }
+
+    a {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      color: #fff;
+    }
+
+    .v-md-plugin-tip>p,
+    .v-md-plugin-tip summary {
+      color: #fff !important;
+    }
+
+    .v-md-plugin-tip.warning {
+      border-color: #7d7d7d;
+      background-color: #7d7d7d;
+    }
+
+    blockquote {
+      background: transparent;
+      border-color: #fff;
+      color: #fff;
+
+      .v-md-svg-outbound {
+        color: #fff;
+      }
+    }
+
+    .affix-list {
+      .active {
+        color: var(--textcolor);
+      }
+
+      li.active:before {
+        background-color: var(--textcolor);
+      }
+    }
+  }
+}
+
+.v-md-editor__toolbar-item--active,
+.v-md-editor__toolbar-item--active:hover,
+.v-md-editor__toolbar-item:hover {
+  background-color: var(--themeColor);
+  color: #fff;
+}
+
+.v-md-plugin-tip {
+  border-radius: 10px;
+  // display: flex;
+  font-family: "dindin";
+}
+
+.v-md-plugin-tip.tip {
+  background-color: var(--themeColor);
+  color: #fff;
+  border: 0.2rem solid black;
+}
+
+.v-md-plugin-tip.warning {
+  background-color: #fffbe6;
+  border-color: #fffbe6;
+}
+
+.v-md-plugin-tip.danger {
+  background-color: #fff1f0;
+  border-color: #fff1f0;
+}
+
+.v-md-plugin-tip.details {
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 1px rgb(0 0 0 / 10%);
+  transition: 1s;
+  overflow: hidden;
+
+
+  &>p,
+  summary {
+    color: #fff;
+  }
+}
+
+@import url("./code.scss");
