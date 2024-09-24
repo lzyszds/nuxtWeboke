@@ -145,5 +145,3 @@ const scrollTo = (x: number, y: number) => {
     </div>
   </nav>
 </template>
-
-<style lang="scss" scoped></style>

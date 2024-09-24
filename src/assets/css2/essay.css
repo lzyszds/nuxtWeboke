@@ -103,9 +103,6 @@ code {
     position: relative;
   }
 
-  &:not(.custom) a:hover {
-    // text-decoration: none;
-  }
 
   &:not(.custom) img {
     max-width: 99.3%;
@@ -283,7 +280,6 @@ code {
   .vuepress-markdown-body {
     text-shadow: #21252b;
     background: var(--darkBgcolor);
-    // box-shadow: 0px 0px 1px 4px #aaa inset;
     border: none;
 
     &>div {
@@ -344,7 +340,6 @@ code {
 
 .v-md-plugin-tip {
   border-radius: 10px;
-  // display: flex;
   font-family: "dindin";
 }
 
@@ -380,4 +375,4 @@ code {
   }
 }
 
-@import url("./code.scss");
+@import url("./code.css");

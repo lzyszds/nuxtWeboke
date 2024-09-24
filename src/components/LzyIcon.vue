@@ -22,7 +22,6 @@ const props = defineProps<Props>();
 <style scoped>
 .lzyIcon {
   cursor: pointer;
-  vertical-align: text-bottom;
 }
 
 .animate__pulse {

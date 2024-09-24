@@ -160,7 +160,7 @@ const mouseleave = _.debounce(
   </div> -->
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .tosiTion {
   opacity: 1 !important;
   transform: translate(0) !important;
@@ -215,7 +215,6 @@ const mouseleave = _.debounce(
     font-size: 14px;
     color: #888;
     height: 40px;
-    //超出两行显示省略号
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;

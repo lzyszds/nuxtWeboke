@@ -22,14 +22,12 @@ export default async function makeRequest<T = any>({
     baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:2024/api' : 'http://localhost:2024/api',
     timeout,
     headers: {
-      'access-control-allow-origin': '*',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin-Type': '*',
+      "x-real-ip": "180.139.210.222"
     },
   };
 
-  // 使用深拷贝合并默认配置
-  const config: AxiosConfig = JSON.parse(JSON.stringify(Object.assign({}, defaultConfig, { headers }))) as AxiosConfig;
+  const config: AxiosConfig = JSON.parse(JSON.stringify(Object.assign({}, defaultConfig, headers))) as AxiosConfig;
 
   // 创建 axios 实例
   const instance = axios.create(config);
@@ -58,7 +56,7 @@ export default async function makeRequest<T = any>({
 
   try {
     // 使用 async/await 简化异步代码
-      const response: AxiosResponse<T> = await instance({
+    const response: AxiosResponse<T> = await instance({
       method,
       url,
       params,

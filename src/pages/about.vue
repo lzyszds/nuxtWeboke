@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { data: posts, error } = await useFetch("/api/article/getArticleList", {
   lazy: true, // 立即获取数据，而不是等待组件挂载
   headers: {
@@ -19,4 +18,4 @@ const { data: posts, error } = await useFetch("/api/article/getArticleList", {
   <div>about</div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const isDark = computed(() => useColorMode().preference === "dark");
+const isDark = ref(useColorMode().preference === "dark");
 </script>
 
 <template>

@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     '~/assets/css/animate.min.css',
     '~/assets/css/animation.css',
     '~/assets/fonts/index.css',
-    '~/assets/styles/default.scss'
+    '~/assets/styles/default.css'
   ],
   modules: [
     "@vueuse/nuxt",
@@ -25,9 +25,9 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/tailwindcss",
-    "@nuxtjs/seo",
+    // "@nuxtjs/seo",
+    // '@nuxtjs/robots',
     'dayjs-nuxt',
-    '@nuxtjs/robots',
     '@nuxt/eslint',
     "nuxt-lodash",
     '@element-plus/nuxt'
@@ -47,16 +47,16 @@ export default defineNuxtConfig({
   },
 
   // Sitemap module configuration: https://nuxtseo.com/site-config/getting-started/how-it-works
-  site: {
-    url: process.env.NODE_ENV === 'production'
-      ? 'https://your-production-url.com'
-      : 'http://localhost:3000', // FIXME: Your website URL
-    name: 'My Awesome Site',
-    description: 'This is my great Nuxt.js website',
-    defaultLocale: 'zh', // 默认语言
-    trailingSlash: false, // URL 是否以斜杠结尾 
+  // site: {
+  //   url: process.env.NODE_ENV === 'production'
+  //     ? 'https://your-production-url.com'
+  //     : 'http://localhost:3000', // FIXME: Your website URL
+  //   name: 'My Awesome Site',
+  //   description: 'This is my great Nuxt.js website',
+  //   defaultLocale: 'zh', // 默认语言
+  //   trailingSlash: false, // URL 是否以斜杠结尾 
 
-  },
+  // },
 
   ssr: true,
   nitro: {

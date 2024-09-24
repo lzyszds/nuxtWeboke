@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import type { RequestResult } from "~/types/Result";
 import type { WeatherData } from "~/types/Weather";
 import handleWeatherUrl from "~/uitls/weather";
 
@@ -24,12 +25,15 @@ export const useWeatherStore = defineStore(
      * 通过调用API获取最新的天气数据，并更新内部状态
      */
     const getWeather = async () => {
-      const { data, error } = await useFetch<WeatherData>('/api/toolkit/getWeather')
+      const { data, error } = await useFetch<RequestResult<WeatherData>>('/api/toolkit/getWeather')
       if (error.value) {
         console.error(error)
         return
       }
-      setWeather(data.value ?? {} as WeatherData)
+      // 更新天气数据
+      setWeather(data.value!.data)
+      // 更新天气图片路径
+      // weather_image_path.value = await getWeatherImage()
     }
 
     /**
@@ -44,6 +48,7 @@ export const useWeatherStore = defineStore(
       const formatted: any = useDateFormat(weatherData.value.reporttime, 'HH');
       const isdark = formatted >= 19 || formatted <= 6;
       let result = handleWeatherUrl({ ...weatherData.value }, isdark)
+      weather_image_path.value = result
       return result;
     }
 

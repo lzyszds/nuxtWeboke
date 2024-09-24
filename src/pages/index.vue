@@ -6,7 +6,7 @@ import type { RequestResult } from "~/types/Result";
 type RequestResultData = RequestResult<ListData<ArticleListItem[]>>;
 
 const mytext = "编程是一场艺术，逻辑是它的画笔，创新是它的灵魂".split("");
-const isload = ref(false);
+const isload = ref(true);
 const limit = 7;
 const pageCount = ref(1);
 const total = ref(0);
@@ -15,9 +15,6 @@ const loadingStore = useLoadingStore();
 
 const getPosts = async () => {
   try {
-    // 开启全局加载动画
-    isload.value = false;
-
     // 获取文章列表
     const { data: posts, error } = await useFetch(
       `/api/article/getArticleList?pages=${pageCount.value}&limit=${limit}`
@@ -28,9 +25,6 @@ const getPosts = async () => {
       console.error("Failed to fetch posts:", error.value);
       return []; // 发生错误时返回空数组，防止渲染时出现问题
     }
-
-    // 重新渲染并关闭加载动画
-    isload.value = true;
 
     // 确保 posts 存在
     if (posts.value) {
@@ -43,13 +37,13 @@ const getPosts = async () => {
   } catch (err) {
     // 捕获任何异步错误
     console.error("Unexpected error:", err);
-    isload.value = true; // 请求失败后关闭加载动画
 
     return []; // 发生错误时返回空数组
   } finally {
     // 无论如何，确保加载动画关闭
-    isload.value = true;
     loadingStore.setLoading(true);
+    // 开启全局加载动画
+    isload.value = false;
   }
 };
 
@@ -100,7 +94,7 @@ const onCurrentChange = async (index: number) => {
             :id="'list' + item.aid"
             v-for="(item, index) in listData"
             :key="index"
-            v-if="isload"
+            v-if="loadingStore.loading"
             v-transition="'animate__fadeInUp'"
           >
             <NuxtLink :to="'/detail/' + item.aid">
@@ -119,8 +113,8 @@ const onCurrentChange = async (index: number) => {
         </div>
       </div>
       <div class="systemInfo">
-        <!-- <DeskInfo></DeskInfo>
-            <NewComment></NewComment> -->
+        <WeatherInfo />
+        <!-- <NewComment></NewComment> -->
       </div>
     </div>
     <!-- <Footer></Footer> -->

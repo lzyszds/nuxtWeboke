@@ -13,7 +13,7 @@ onMounted(() => {
 
   // 创建闪烁动画
   gsap.to(loadImage.value, {
-    boxShadow: "inset -20px -10px 20px 100px rgba(0,0,0,0.8)",
+    boxShadow: "inset -20px -10px 80px 100px rgba(0,0,0,1)",
     duration: 1.5,
     repeat: -1,
     yoyo: true,
