@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useDayjs } from "#dayjs";
-const dayjs = useDayjs();
+import { dayjs } from 'element-plus';
+ 
 const { weatherData, image_path } = useWeatherStore();
 const {
   province,

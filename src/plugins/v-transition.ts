@@ -2,7 +2,6 @@ import { awaitTime } from "~/uitls/common";
 
 const animation: any = {}
 let nowKey = ""
-let isAnimating = false
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('transition', domOrderedAnimateDirective);
@@ -13,6 +12,8 @@ export const domOrderedAnimateDirective = {
     const observer = new IntersectionObserver((entries: any) => {
       const { isIntersecting } = entries[0];
       if (isIntersecting) {
+        console.log("🚀 ~ observer ~ binding.value:", binding.value)
+
         const isString = typeof binding.value === 'string'
         const animateClass = isString ? binding.value : binding.value[0];
         if (isString) {
@@ -20,15 +21,17 @@ export const domOrderedAnimateDirective = {
           el.classList.add('animate__animated');
           el.classList.add(animateClass);
         } else {
-          const [animateClass, key, index] = binding.value;
+          const [animateClass, key, index, timer] = binding.value;
           nowKey = key
-          animation[nowKey] = {
-            list: [],
-            nowExecuteingIndex: 0
+          if (animation[nowKey] === undefined) {
+            animation[nowKey] = {
+              list: [],
+              nowExecuteingIndex: 0
+            }
           }
-          animation[nowKey].list.push({ el, animateClass, index });
+          animation[nowKey].list.push({ el, animateClass, index, timer });
           // 开始执行
-          // animate();
+          animate();
         }
 
         observer.unobserve(el);
@@ -39,21 +42,32 @@ export const domOrderedAnimateDirective = {
 };
 
 
-// function animate() {
-//   const nowKeyList = animation[nowKey]
-//   if (nowKeyList.length === 0) {
-//     isAnimating = false;
-//     return;
-//   }
-//   for (let index in nowKeyList.list) {
-//     const item = nowKeyList.list[index];
-//     if (item.index === nowKeyList.nowExecuteingIndex) {
-//       nowKeyList.nowExecuteingIndex++
-//       item.el.classList.add('animate__animated');
-//       item.el.classList.add(item.animateClass);
-//       nowKeyList.list.splice(parseInt(index), 1);
-//       animate();
-//       return;
-//     }
-//   }
-// }
+function animate() {
+  const nowKeyList = animation[nowKey]
+  const item = nowKeyList.list.filter((item: any) => {
+    return item.index === nowKeyList.nowExecuteingIndex
+  })
+  if (nowKeyList.list.length === 0) return
+  if (item.length === 0) return
+  console.log("🚀 ~ item ~ item:", item)
+
+  nowKeyList.nowExecuteingIndex++
+  item[0].el.classList.add('animate__animated');
+
+  item[0].el.classList.add(item[0].animateClass);
+  nowKeyList.list.splice(nowKeyList.list.indexOf(item[0]), 1);
+  awaitTime(animate, 200);
+
+
+  // for (let index in nowKeyList.list) {
+  //   const item = nowKeyList.list[index];
+  //   if (item.index === nowKeyList.nowExecuteingIndex) {
+  //     nowKeyList.nowExecuteingIndex++
+  //     item.el.classList.add('animate__animated');
+  //     item.el.classList.add(item.animateClass);
+  //     nowKeyList.list.splice(parseInt(index), 1);
+  //     awaitTime(animate, item.timer);
+  //     return;
+  //   }
+  // }
+}

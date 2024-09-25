@@ -97,7 +97,9 @@ const onCurrentChange = async (index: number) => {
         </div>
       </div>
       <div class="systemInfo">
-        <WeatherInfo />
+        <ClientOnly>
+          <WeatherInfo />
+        </ClientOnly>
         <NewComment></NewComment>
       </div>
     </div>

@@ -24,7 +24,7 @@ if (error.value) {
     </div>
     <div
       class="border-[3px] opacity-0 h-11 mb-1 border-black p-1 px-2 rounded-xl  bg-white dark:bg-black flex gap-2 items-center justify-between "
-      v-for="(item, index) in comment" :key="index" v-transition="['animate__backInRight', 'comment', index]">
+      v-for="(item, index) in comment" :key="index" v-transition="['animate__backInRight', 'comment', index, 200]">
       <img class="w-8 rounded-full" :src="'http://localhost:2024/static' + item.head_img" alt="" />
       <div class="flex-1">{{ item.content }}</div>
       <div>{{ timeAgo(item.create_date) }}</div>
