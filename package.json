@@ -23,15 +23,16 @@
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.4",
     "@vueuse/core": "^11.1.0",
+    "@vueuse/motion": "^2.2.5",
     "@vueuse/nuxt": "^11.1.0",
     "axios": "^1.7.7",
+    "element-plus": "^2.8.3",
     "gsap": "^3.12.5",
     "nuxt": "^3.13.2",
     "nuxt-og-image": "3.0.0-rc.64",
     "pinia": "^2.2.2",
     "unplugin-auto-import": "^0.18.2",
     "unplugin-vue-components": "^0.27.4",
-    "element-plus": "^2.8.3",
     "vue": "latest"
   },
   "devDependencies": {

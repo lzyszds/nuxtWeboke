@@ -13,8 +13,8 @@ export default defineNuxtConfig({
   srcDir: './src',
 
   css: [
-    '~/assets/css/animate.min.css',
-    '~/assets/css/animation.css',
+    '~/assets/styles/animate.min.css',
+    '~/assets/styles/animation.css',
     '~/assets/fonts/index.css',
     '~/assets/styles/default.css'
   ],
@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     // "@nuxtjs/seo",
     // '@nuxtjs/robots',
+    '@vueuse/motion/nuxt',
     'dayjs-nuxt',
     '@nuxt/eslint',
     "nuxt-lodash",

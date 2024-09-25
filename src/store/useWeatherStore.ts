@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type { RequestResult } from "~/types/Result";
 import type { WeatherData } from "~/types/Weather";
-import handleWeatherUrl from "~/uitls/weather";
+import handleWeatherUrl from "~/utils/weather";
 
 // 导出一个名为useWeatherStore的状态管理器，用于处理和存储与天气相关的信息
 export const useWeatherStore = defineStore(

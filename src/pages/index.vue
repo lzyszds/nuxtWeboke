@@ -62,45 +62,76 @@ const onCurrentChange = async (index: number) => {
     <DoubleCard aspect="square" class="mt-2">
       <template #first>
         <div class="pt-20 pl-8 relative md:pt-14 w-full">
-          <p class="text-5xl font-semibold leading-tight">
-            过去无法挽留<br />
-            <span>未来仍可改变</span>
-          </p>
-          <p class="small pt-4 pl-2 text-[12px]">
-            <span>编程</span>、 <span>逻辑</span>、 <span>创新</span>、
-            <span>灵魂</span>
-          </p>
+          <LzyEnterVisible animate-class="animate__zoomInLeft">
+            <p class="text-5xl font-semibold leading-tight">
+              过去无法挽留<br />
+              <span>未来仍可改变</span>
+            </p>
+            <p class="small pt-4 pl-2 text-[12px]">
+              <span>编程</span>、 <span>逻辑</span>、 <span>创新</span>、
+              <span>灵魂</span>
+            </p>
+          </LzyEnterVisible>
           <SkillSwiper></SkillSwiper>
         </div>
       </template>
       <template #second>
-        <img class="w-full h-full object-cover rounded-lg max-h-72" src="http://localhost:2024/static/img/homeItem.png"
-          alt="" />
+        <img
+          class="w-full h-full object-cover rounded-lg max-h-72"
+          src="http://localhost:2024/static/img/homeItem.png"
+          alt=""
+        />
       </template>
     </DoubleCard>
 
-    <div class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-[auto,305px] gap-5">
+    <div
+      class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-[auto,305px] gap-5"
+    >
       <!-- 文章内容 -->
       <div class="w-full">
         <div class="grid gap-2.5 mt-5 relative">
-          <div :id="'list' + item.aid" v-for="(item, index) in [...listData, ...listData, ...listData]" :key="index"
-            v-if="loadingStore.loading" v-transition="'animate__fadeInUp'">
-            <NuxtLink :to="'/detail/' + item.aid">
-              <MainItem :data="item" :index="index"></MainItem>
-            </NuxtLink>
+          <div
+            :id="'list' + item.aid"
+            v-for="(item, index) in [...listData, ...listData, ...listData]"
+            :key="index"
+            v-if="loadingStore.loading"
+          >
+            <LzyEnterVisible
+              :index="index"
+              animateClass="animate__fadeInUpBig"
+              delay="200"
+              maxDelay="100"
+              firstRenderNumber="4"
+            >
+              <NuxtLink :to="'/detail/' + item.aid">
+                <MainItem :data="item" :index="index"></MainItem>
+              </NuxtLink>
+            </LzyEnterVisible>
+
+            <!-- <MotionEnterVisible :delay="200" :firstRenderNumber="4">
+              <NuxtLink :to="'/detail/' + item.aid">
+                <MainItem :data="item" :index="index"></MainItem>
+              </NuxtLink>
+            </MotionEnterVisible> -->
           </div>
         </div>
         <!-- 文章分页 -->
         <div class="example-pagination-block lzy-center" id="example">
-          <ElPagination :page-size="limit" layout="prev, pager, next" :total="total"
-            @current-change="onCurrentChange" />
+          <ElPagination
+            :page-size="limit"
+            layout="prev, pager, next"
+            :total="total"
+            @current-change="onCurrentChange"
+          />
         </div>
       </div>
       <div class="systemInfo">
-        <ClientOnly>
-          <WeatherInfo />
-        </ClientOnly>
-        <NewComment></NewComment>
+        <LzyEnterVisible animateClass="animate__bounceInUp">
+          <ClientOnly>
+            <WeatherInfo />
+          </ClientOnly>
+          <NewComment />
+        </LzyEnterVisible>
       </div>
     </div>
     <!-- <Footer></Footer> -->

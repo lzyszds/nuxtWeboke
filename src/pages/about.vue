@@ -15,7 +15,9 @@ const { data: posts, error } = await useFetch("/api/article/getArticleList", {
 </script>
 
 <template>
-  <div>about</div>
+  <LzyEnterVisible animateClass="animate__backInUp" v-observer-load>
+    <div>about</div>
+  </LzyEnterVisible>
 </template>
 
 <style scoped></style>

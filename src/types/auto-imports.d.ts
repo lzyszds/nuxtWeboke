@@ -10,6 +10,10 @@ declare global {
   const EffectScope: (typeof import('vue'))['EffectScope']
   const NetworkStatus: (typeof import('@apollo/client/core'))['NetworkStatus']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
+  const allFunction: typeof import('../utils/common')['allFunction']
+  const awaitTime: typeof import('../utils/common')['awaitTime']
+  const base64toBlob: typeof import('../utils/common')['base64toBlob']
+  const compressPic: typeof import('../utils/common')['compressPic']
   const computed: (typeof import('vue'))['computed']
   const createApp: (typeof import('vue'))['createApp']
   const createPinia: typeof import('pinia')['createPinia']
@@ -19,9 +23,12 @@ declare global {
   const defineStore: typeof import('pinia')['defineStore']
   const effectScope: (typeof import('vue'))['effectScope']
   const getActivePinia: typeof import('pinia')['getActivePinia']
+  const getBase64: typeof import('../utils/common')['getBase64']
+  const getCookie: typeof import('../utils/common')['getCookie']
   const getCurrentInstance: (typeof import('vue'))['getCurrentInstance']
   const getCurrentScope: (typeof import('vue'))['getCurrentScope']
   const h: (typeof import('vue'))['h']
+  const handleWeatherUrl: typeof import('../utils/weather')['handleWeatherUrl']
   const inject: (typeof import('vue'))['inject']
   const isProxy: (typeof import('vue'))['isProxy']
   const isReactive: (typeof import('vue'))['isReactive']
@@ -33,7 +40,11 @@ declare global {
   const mapStores: typeof import('pinia')['mapStores']
   const mapWritableState: typeof import('pinia')['mapWritableState']
   const markRaw: (typeof import('vue'))['markRaw']
+  const motionLibrary: typeof import('../utils/motionLibrary')['default']
   const nextTick: (typeof import('vue'))['nextTick']
+  const numFormat: typeof import('../utils/common')['numFormat']
+  const numberJump: typeof import('../utils/common')['numberJump']
+  const observeClassChange: typeof import('../utils/common')['observeClassChange']
   const onActivated: (typeof import('vue'))['onActivated']
   const onAddToFavorites: (typeof import('@dcloudio/uni-app'))['onAddToFavorites']
   const onBackPress: (typeof import('@dcloudio/uni-app'))['onBackPress']
@@ -77,17 +88,22 @@ declare global {
   const readonly: (typeof import('vue'))['readonly']
   const ref: (typeof import('vue'))['ref']
   const resolveComponent: (typeof import('vue'))['resolveComponent']
+  const scrollTo: typeof import('../utils/common')['scrollTo']
   const setActivePinia: typeof import('pinia')['setActivePinia']
+  const setCookie: typeof import('../utils/common')['setCookie']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const shallowReactive: (typeof import('vue'))['shallowReactive']
   const shallowReadonly: (typeof import('vue'))['shallowReadonly']
   const shallowRef: (typeof import('vue'))['shallowRef']
+  const splitArray: typeof import('../utils/common')['splitArray']
   const storeToRefs: typeof import('pinia')['storeToRefs']
+  const timeAgo: typeof import('../utils/common')['timeAgo']
   const toRaw: (typeof import('vue'))['toRaw']
   const toRef: (typeof import('vue'))['toRef']
   const toRefs: (typeof import('vue'))['toRefs']
   const toValue: (typeof import('vue'))['toValue']
   const triggerRef: (typeof import('vue'))['triggerRef']
+  const unique: typeof import('../utils/common')['unique']
   const unref: (typeof import('vue'))['unref']
   const useApolloClient: (typeof import('@vue/apollo-composable'))['useApolloClient']
   const useAttrs: (typeof import('vue'))['useAttrs']
@@ -107,6 +123,7 @@ declare global {
   const watchEffect: (typeof import('vue'))['watchEffect']
   const watchPostEffect: (typeof import('vue'))['watchPostEffect']
   const watchSyncEffect: (typeof import('vue'))['watchSyncEffect']
+  const weather: typeof import('../utils/weather')['default']
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -114,20 +131,37 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
+    readonly allFunction: UnwrapRef<typeof import('../utils/common')['allFunction']>
+    readonly awaitTime: UnwrapRef<typeof import('../utils/common')['awaitTime']>
+    readonly base64toBlob: UnwrapRef<typeof import('../utils/common')['base64toBlob']>
+    readonly compressPic: UnwrapRef<typeof import('../utils/common')['compressPic']>
     readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
+    readonly getBase64: UnwrapRef<typeof import('../utils/common')['getBase64']>
+    readonly getCookie: UnwrapRef<typeof import('../utils/common')['getCookie']>
+    readonly handleWeatherUrl: UnwrapRef<typeof import('../utils/weather')['handleWeatherUrl']>
     readonly mapActions: UnwrapRef<typeof import('pinia')['mapActions']>
     readonly mapGetters: UnwrapRef<typeof import('pinia')['mapGetters']>
     readonly mapState: UnwrapRef<typeof import('pinia')['mapState']>
     readonly mapStores: UnwrapRef<typeof import('pinia')['mapStores']>
     readonly mapWritableState: UnwrapRef<typeof import('pinia')['mapWritableState']>
+    readonly motionLibrary: UnwrapRef<typeof import('../utils/motionLibrary')['default']>
+    readonly numFormat: UnwrapRef<typeof import('../utils/common')['numFormat']>
+    readonly numberJump: UnwrapRef<typeof import('../utils/common')['numberJump']>
+    readonly observeClassChange: UnwrapRef<typeof import('../utils/common')['observeClassChange']>
+    readonly scrollTo: UnwrapRef<typeof import('../utils/common')['scrollTo']>
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
+    readonly setCookie: UnwrapRef<typeof import('../utils/common')['setCookie']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
+    readonly splitArray: UnwrapRef<typeof import('../utils/common')['splitArray']>
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
+    readonly timeAgo: UnwrapRef<typeof import('../utils/common')['timeAgo']>
+    readonly unique: UnwrapRef<typeof import('../utils/common')['unique']>
     readonly useLoadingStore: UnwrapRef<typeof import('../store/useLoading')['useLoadingStore']>
     readonly useThreadTasks: UnwrapRef<typeof import('../store/useThreadTasks')['useThreadTasks']>
     readonly useUserStore: UnwrapRef<typeof import('../store/useUserStore')['useUserStore']>
     readonly useWeatherStore: UnwrapRef<typeof import('../store/useWeatherStore')['useWeatherStore']>
+    readonly weather: UnwrapRef<typeof import('../utils/weather')['default']>
   }
 }

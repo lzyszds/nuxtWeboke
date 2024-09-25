@@ -64,6 +64,7 @@ const mouseenter = _.debounce(
       .to(mask, {
         opacity: 1,
         scale: 1.1,
+        zIndex: 1,
         rotation: 0,
         duration: 0.4,
         ease: "back.out(1.7)",
