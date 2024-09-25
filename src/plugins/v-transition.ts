@@ -1,11 +1,8 @@
-const ANIMATION_DURATION = 100; // 动画持续时间，根据您的实际动画调整
+import { awaitTime } from "~/uitls/common";
 
-const animationState = {
-  isAnimating: false,
-  pendingElements: new Map(),
-  animatingElement: null
-};
-
+const animation: any = {}
+let nowKey = ""
+let isAnimating = false
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('transition', domOrderedAnimateDirective);
@@ -16,53 +13,47 @@ export const domOrderedAnimateDirective = {
     const observer = new IntersectionObserver((entries: any) => {
       const { isIntersecting } = entries[0];
       if (isIntersecting) {
-        // 将元素添加到待处理Map中
-        animationState.pendingElements.set(el, binding.value);
-        observer.unobserve(el);
-
-        // 如果当前没有动画在执行，开始执行
-        if (!animationState.isAnimating) {
-          executeNextAnimation();
+        const isString = typeof binding.value === 'string'
+        const animateClass = isString ? binding.value : binding.value[0];
+        if (isString) {
+          // 将元素添加到待处理Map中
+          el.classList.add('animate__animated');
+          el.classList.add(animateClass);
+        } else {
+          const [animateClass, key, index] = binding.value;
+          nowKey = key
+          animation[nowKey] = {
+            list: [],
+            nowExecuteingIndex: 0
+          }
+          animation[nowKey].list.push({ el, animateClass, index });
+          // 开始执行
+          // animate();
         }
+
+        observer.unobserve(el);
       }
     });
     observer.observe(el);
   }
 };
 
-function executeNextAnimation() {
-  if (animationState.pendingElements.size > 0) {
-    animationState.isAnimating = true;
 
-    // 获取DOM中顺序最靠前的元素
-    const nextElement: any = findNextElementInDOM(animationState.pendingElements);
-
-    if (nextElement) {
-      const animation = animationState.pendingElements.get(nextElement);
-      animationState.pendingElements.delete(nextElement);
-
-      nextElement.classList.add('animate__animated');
-      nextElement.classList.add(animation);
-
-      animationState.animatingElement = nextElement;
-
-      setTimeout(() => {
-        animationState.isAnimating = false;
-        animationState.animatingElement = null;
-        executeNextAnimation(); // 执行下一个动画
-      }, ANIMATION_DURATION)
-
-    }
-  } else {
-    animationState.isAnimating = false;
-  }
-}
-
-function findNextElementInDOM(elementsMap: Map<any, any>) {
-  // 将Map转换为数组并根据DOM顺序排序
-  const sortedElements = Array.from(elementsMap.keys()).sort((a: any, b) => {
-    return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
-  });
-
-  return sortedElements[0]; // 返回DOM中顺序最靠前的元素
-}
+// function animate() {
+//   const nowKeyList = animation[nowKey]
+//   if (nowKeyList.length === 0) {
+//     isAnimating = false;
+//     return;
+//   }
+//   for (let index in nowKeyList.list) {
+//     const item = nowKeyList.list[index];
+//     if (item.index === nowKeyList.nowExecuteingIndex) {
+//       nowKeyList.nowExecuteingIndex++
+//       item.el.classList.add('animate__animated');
+//       item.el.classList.add(item.animateClass);
+//       nowKeyList.list.splice(parseInt(index), 1);
+//       animate();
+//       return;
+//     }
+//   }
+// }

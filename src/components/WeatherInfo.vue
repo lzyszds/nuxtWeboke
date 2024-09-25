@@ -2,8 +2,6 @@
 import { useDayjs } from "#dayjs";
 const dayjs = useDayjs();
 const { weatherData, image_path } = useWeatherStore();
-console.log(`lzy  image_path:`, image_path);
-console.log(`lzy  weatherData:`, weatherData);
 const {
   province,
   city,
@@ -23,7 +21,7 @@ const formatTime = (time: string) => {
 
 <template>
   <section
-    class="border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
+    class="sticky top-16 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
   >
     <div
       class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-black flex items-center justify-between"

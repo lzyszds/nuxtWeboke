@@ -7,10 +7,10 @@ type RequestResultData = RequestResult<ListData<ArticleListItem[]>>;
 
 const mytext = "编程是一场艺术，逻辑是它的画笔，创新是它的灵魂".split("");
 const isload = ref(true);
-const limit = 7;
+const limit = 10;
 const pageCount = ref(1);
 const total = ref(0);
-const listData = ref<ArticleListItem[]>(); // 文章列表数据
+const listData = ref<ArticleListItem[]>([]); // 文章列表数据
 const loadingStore = useLoadingStore();
 
 const getPosts = async () => {
@@ -40,8 +40,6 @@ const getPosts = async () => {
 
     return []; // 发生错误时返回空数组
   } finally {
-    // 无论如何，确保加载动画关闭
-    loadingStore.setLoading(true);
     // 开启全局加载动画
     isload.value = false;
   }
@@ -56,7 +54,7 @@ const onCurrentChange = async (index: number) => {
 </script>
 
 <template>
-  <div class="z-10 w-full">
+  <div class="z-10 w-full" v-observer-load>
     <MyCard>
       <span class="text-sm" v-for="item in mytext">{{ item }}</span>
     </MyCard>
@@ -76,27 +74,17 @@ const onCurrentChange = async (index: number) => {
         </div>
       </template>
       <template #second>
-        <img
-          class="w-full h-full object-cover rounded-lg max-h-72"
-          src="http://localhost:2024/static/img/homeItem.png"
-          alt=""
-        />
+        <img class="w-full h-full object-cover rounded-lg max-h-72" src="http://localhost:2024/static/img/homeItem.png"
+          alt="" />
       </template>
     </DoubleCard>
 
-    <div
-      class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-[auto,305px] gap-5"
-    >
+    <div class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-[auto,305px] gap-5">
       <!-- 文章内容 -->
       <div class="w-full">
         <div class="grid gap-2.5 mt-5 relative">
-          <div
-            :id="'list' + item.aid"
-            v-for="(item, index) in listData"
-            :key="index"
-            v-if="loadingStore.loading"
-            v-transition="'animate__fadeInUp'"
-          >
+          <div :id="'list' + item.aid" v-for="(item, index) in [...listData, ...listData, ...listData]" :key="index"
+            v-if="loadingStore.loading" v-transition="'animate__fadeInUp'">
             <NuxtLink :to="'/detail/' + item.aid">
               <MainItem :data="item" :index="index"></MainItem>
             </NuxtLink>
@@ -104,17 +92,13 @@ const onCurrentChange = async (index: number) => {
         </div>
         <!-- 文章分页 -->
         <div class="example-pagination-block lzy-center" id="example">
-          <ElPagination
-            :page-size="limit"
-            layout="prev, pager, next"
-            :total="total"
-            @current-change="onCurrentChange"
-          />
+          <ElPagination :page-size="limit" layout="prev, pager, next" :total="total"
+            @current-change="onCurrentChange" />
         </div>
       </div>
       <div class="systemInfo">
         <WeatherInfo />
-        <!-- <NewComment></NewComment> -->
+        <NewComment></NewComment>
       </div>
     </div>
     <!-- <Footer></Footer> -->
