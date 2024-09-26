@@ -20,6 +20,10 @@ export const theme = {
     dropShadow: {
       'text': '0 0 1px #000000',
     },
+    animation: {
+      'spin-slow': 'spin 3s linear infinite',
+      'jackInTheBox': "jackInTheBox .5s both"
+    },
     // spacing: {
     //   'banner-height': '494px',
     //   ...Rem,

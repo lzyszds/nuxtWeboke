@@ -127,123 +127,42 @@ const mouseleave = _.debounce(
 </script>
 
 <template>
-  <div class="conent_div" @mouseenter="mouseenter" @mouseleave="mouseleave">
-    <div class="maskContent"></div>
-    <div class="title">{{ data.title }}</div>
-    <div class="synopsis" v-text="data.partial_content"></div>
-    <div class="time">
-      <span v-for="(item, index) in list" :key="index">
-        <span v-if="index == 1">#{{ selectHandle(index) }}</span>
-        <span v-else>
-          <LzyIcon :name="item.name"></LzyIcon>{{ selectHandle(index) }}
+  <div class="pb-1 rounded-lg transition-all duration-500 relative pointer-events-auto overflow-hidden"
+    @mouseenter="mouseenter" @mouseleave="mouseleave">
+    <div class="maskContent w-full h-32"> </div>
+    <div class="w-full h-32 p-2.5 grid grid-rows-[40px_1fr_15px] gap-1.5 z-0 pointer-events-none">
+      <div class="text-2xl text-gray-500   font-['dindin'] overflow-hidden">{{ data.title }}</div>
+      <div class="text-sm text-gray-500 h-10 overflow-hidden line-clamp-2">{{ data.partial_content }}</div>
+      <div class="text-xs text-gray-500 flex place-items-center">
+        <span v-for="(item, index) in list" :key="index" class="inline-block mr-2.5 h-5 leading-6">
+          <span v-if="index == 1">#{{ selectHandle(index) }}</span>
+          <span v-else class="inline-flex items-center">
+            <LzyIcon :name="item.name" class="w-4 h-4 align-text-top mr-1.5"></LzyIcon>
+            {{ selectHandle(index) }}
+          </span>
         </span>
-      </span>
+      </div>
     </div>
   </div>
-
-  <!-- <div v-transition="'tosiTion'" class="conent_div">
-    <div class="conent_div_img">
-      <img v-lazy="props.index" :src="'/firstHonoApi/static' + data.cover_img" alt="" />
-    </div>
-    <div class="conent_div_text">
-      <div class="title">{{ data.title }}</div>
-      <div class="synopsis" v-text="data.partial_content"></div>
-      <div class="tags">
-        <span class="mr-1 taglzy" v-for="item of tags">{{ item }} </span>
-      </div>
-      <div class="time">
-        <span v-for="(item, index) in list" :key="index">
-          <LzyIcon :name="item.name"></LzyIcon>
-          {{ selectHandle(index) }}
-        </span>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <style scoped>
-.tosiTion {
-  opacity: 1 !important;
-  transform: translate(0) !important;
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
 
-.conent_div {
-  padding: 10px 20px;
+.maskContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  background-color: rgba(var(--themeColorRgb), 0.3);
   border-radius: 10px;
-  transition: 0.5s;
-  position: relative;
   /* 禁止该元素接收鼠标事件 */
-  pointer-events: auto;
-  overflow: hidden;
-
-  .maskContent {
-    width: 100%;
-    height: 110px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0;
-    background-color: rgba(var(--themeColorRgb), 0.3);
-    border-radius: 10px;
-    /* 禁止该元素接收鼠标事件 */
-    pointer-events: none;
-  }
-
-  .conent_div_text {
-    width: 96%;
-    height: 20rem;
-    padding: 10px;
-    display: grid;
-    grid-template-rows: 60px 1fr 30px 35px;
-    z-index: 0;
-    gap: 5px;
-    /* 禁止该元素接收鼠标事件 */
-    pointer-events: none;
-  }
-
-  .title {
-    font-size: 22px;
-    color: #000;
-    font-family: "dindin";
-    overflow: hidden;
-    /* 禁止该元素接收鼠标事件 */
-    pointer-events: none;
-  }
-
-  /* 超出数量显示省略号 */
-  .synopsis {
-    font-size: 14px;
-    color: #888;
-    height: 40px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    line-height: 1.5;
-    /* 禁止该元素接收鼠标事件 */
-    pointer-events: none;
-  }
-
-  .time {
-    font-size: 12px;
-    color: #888;
-    /* 禁止该元素接收鼠标事件 */
-    pointer-events: none;
-
-    & > span {
-      height: 20px;
-      line-height: 25px;
-      margin-right: 10px;
-
-      svg {
-        width: 16px !important;
-        height: 16px;
-        vertical-align: text-top;
-        margin-right: 5px;
-      }
-    }
-  }
+  pointer-events: none;
 }
 </style>

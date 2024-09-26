@@ -14,7 +14,7 @@ if (error.value) {
 
 <template>
   <section
-    class="sticky top-[310px] overflow-hidden mt-3 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
+    class="overflow-hidden mt-3 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
   >
     <div
       class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-black flex items-center justify-between"

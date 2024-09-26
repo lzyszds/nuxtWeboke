@@ -254,20 +254,7 @@ body::-webkit-scrollbar-track {
     /* 默认使用文本选择光标 */
   }
 }
-
-
-.maskBg {
-  width: 25px;
-  height: 25px;
-  position: fixed;
-  right: 345px;
-  top: 18px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #00000030;
-  animation: slide-out-fwd-bl_lzy 2s 1;
-}
-
+ 
 html body.compensate-for-scrollbar {
   overflow: auto !important;
 }
@@ -294,94 +281,18 @@ html.dark {
   background: rgb(255, 0, 119) !important;
 }
 
-.themeCard {
-  background-color: var(--themeColor);
-  border-radius: 20px;
-  border: 4px solid #000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-
-  &.stickyTop {
-    position: sticky;
-    top: 75px;
-    margin-bottom: 10px;
-    -webkit-user-drag: none;
-    font-size: 1.6rem;
-  }
-
-  .cardinter {
-    border-radius: 10px;
-    background-color: #fff;
-    padding: 10px;
-    border: 3px solid #000;
-    position: relative;
-    margin-bottom: 5px;
-
-    &.stickers {
-
-      &:before,
-      &:after {
-        content: '';
-        position: absolute;
-        top: 10px;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        border: 3px solid #000;
-        background-color: #7588ff;
-      }
-
-      &:before {
-        left: 10px;
-      }
-
-      &:after {
-        right: 10px;
-      }
-    }
-  }
+.mask {
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
-.mr-1 {
-  margin-right: 10px;
-}
-
-.tags {
-  height: 20px;
-
-  .taglzy {
-    background-color: var(--themeColor);
-    color: #fff;
-    border: 1px solid #000;
-    font-size: 12px;
-    padding: 2px 5px;
-    border-radius: 5px;
-  }
-}
-
-.navbar-logo {
-  height: 60px;
-
-  a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    height: 100%;
-    line-height: 10px;
-  }
-
-  img {
-    filter: drop-shadow(1px 2px 1px #000);
-  }
-
-  span {
-    font-family: 'Red Hat Display';
-    font-size: 30px;
-    line-height: 35px;
-    display: block;
-    color: #fff;
-    text-shadow: 1px 2px 1px #000, 0 0 1px #000000
-  }
+.mask-squircle {
+  -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMTAwIDBDMjAgMCAwIDIwIDAgMTAwczIwIDEwMCAxMDAgMTAwIDEwMC0yMCAxMDAtMTAwUzE4MCAwIDEwMCAwWicvPjwvc3ZnPg==);
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMTAwIDBDMjAgMCAwIDIwIDAgMTAwczIwIDEwMCAxMDAgMTAwIDEwMC0yMCAxMDAtMTAwUzE4MCAwIDEwMCAwWicvPjwvc3ZnPg==);
 }
 
 

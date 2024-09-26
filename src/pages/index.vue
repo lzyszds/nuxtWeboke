@@ -125,8 +125,8 @@ const onCurrentChange = async (index: number) => {
           />
         </div>
       </div>
-      <div class="systemInfo">
-        <LzyEnterVisible animateClass="animate__bounceInUp">
+      <div class="systemInfo relative ">
+        <LzyEnterVisible animateClass="animate__bounceInUp" class="sticky top-16 ">
           <ClientOnly>
             <WeatherInfo />
           </ClientOnly>

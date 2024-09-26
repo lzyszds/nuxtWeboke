@@ -39,7 +39,6 @@ export const domOrderedAnimateDirective = {
 
             if (index < firstRenderNumber) {
               realDelay = delay * index;
-              console.log(`lzy index < firstRenderNumber:`, realDelay);
             }
 
             el.classList.remove('opacity-0');

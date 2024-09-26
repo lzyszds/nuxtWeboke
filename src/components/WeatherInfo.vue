@@ -21,10 +21,10 @@ const formatTime = (time: string) => {
 
 <template>
   <section
-    class="sticky top-16 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
+    class="border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
   >
     <div
-      class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-black flex items-center justify-between"
+      class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-[#333] flex items-center justify-between"
     >
       <div class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"></div>
       <span class="text-sm">
@@ -45,7 +45,7 @@ const formatTime = (time: string) => {
           :src="image_path"
         />
 
-        <p class="text-themeColor text-3xl font-semibold text-center pr-8">
+        <p class="text-themeColor dark:text-white text-3xl font-semibold text-center pr-8">
           {{ temperature }} °C
         </p>
       </div>

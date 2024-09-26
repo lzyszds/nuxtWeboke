@@ -29,3 +29,8 @@
   font-family: 'almama';
   src: url('./AlimamaShuHeiTi-Bold.woff2');
 }
+
+@font-face {
+  font-family: "logo";
+  src: url('./logo.ttf');
+}
