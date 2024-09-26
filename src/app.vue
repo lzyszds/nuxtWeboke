@@ -9,15 +9,11 @@
 
 <script setup lang="ts">
 const colorMode = useColorMode();
-const { y } = useWindowScroll()
 onMounted(() => {
-  watchEffect(() => {
-    console.log(y.value);
-  })
+  /* 请求拿到所有数据 */
 })
 onBeforeMount(() => {
   watchEffect(() => {
-    console.log(y.value);
     if (colorMode.preference === "dark") {
       document.documentElement.setAttribute("theme-mode", "dark");
     } else {

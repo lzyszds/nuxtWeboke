@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { ArticleListItem } from "~/types/Articles";
+import type { Article } from "~/types/Articles";
 import type { ListData } from "~/types/ListData";
 import type { RequestResult } from "~/types/Result";
 
-type RequestResultData = RequestResult<ListData<ArticleListItem[]>>;
+type RequestResultData = RequestResult<ListData<Article[]>>;
 
 const mytext = "编程是一场艺术，逻辑是它的画笔，创新是它的灵魂".split("");
 const isload = ref(true);
 const limit = 10;
 const pageCount = ref(1);
 const total = ref(0);
-const listData = ref<ArticleListItem[]>([]); // 文章列表数据
+const listData = ref<Article[]>([]); // 文章列表数据
 const loadingStore = useLoadingStore();
 
 const getPosts = async () => {
@@ -30,6 +30,7 @@ const getPosts = async () => {
     if (posts.value) {
       // 获取文章总数
       total.value = posts.value.data.total;
+      console.log("🚀 ~ getPosts ~ posts.value.data.data:", posts.value.data.data)
       return posts.value.data.data;
     } else {
       return [];
@@ -84,9 +85,8 @@ const onCurrentChange = async (index: number) => {
     <div class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-1 lg:grid-cols-[auto,305px] gap-5">
       <!-- 文章内容 -->
       <div class="w-full">
-        <div class="grid gap-2.5 mt-5 relative">
-          <div :id="'list' + item.aid" v-for="(item, index) in [...listData, ...listData, ...listData]" :key="index"
-            v-if="loadingStore.loading">
+        <div class="grid gap-2.5 mt-5 relative overflow-hidden">
+          <div :id="'list' + item.aid" v-for="(item, index) in listData" :key="index" v-if="loadingStore.loading">
             <LzyEnterVisible :index="index" animateClass="animate__fadeInUpBig" delay="200" maxDelay="100"
               firstRenderNumber="4">
               <NuxtLink :to="'/detail/' + item.aid">

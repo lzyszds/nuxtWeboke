@@ -11,7 +11,12 @@ export const theme = {
     colors: {
       'light-background': '#FFFFFF',
       'dark-background': '#121212',
-      'themeColor': '#5161ce'
+      'themeColor': '#5161ce',
+    },
+    backgroundImage: {
+      // 'lattice': 'linear-gradient(#e0e0e0 2px, transparent 0), linear-gradient(90deg, #e0e0e0 1px, transparent 0)'
+    },
+    text: {
     },
     fontFamily: {
       sans: ['Red Hat Display'],

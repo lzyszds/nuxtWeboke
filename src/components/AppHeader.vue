@@ -67,10 +67,9 @@ defineExpose({ navbar, navContainer })
         id="nav-content" ref="navContainer">
         <ul class="list-reset h-10 lg:flex justify-center flex-1 items-center">
           <li class="mr-3" v-for="(item, index) in data.items" :key="index">
-            <NuxtLink :class="item.path != '/' + data.activeIndex
-              ? 'inline-block text-white no-underline hover:text-underline font-dindin py-2 px-4 drop-shadow-[1px_2px_1px_#000]'
-              : 'inline-block py-2 px-4 font-bold no-underline font-dindin drop-shadow-[1px_2px_1px_#000]'
-              " :to="item.path">
+            <NuxtLink
+              class="inline-block text-white no-underline hover:text-underline font-dindin py-2 px-4 drop-shadow-[1px_2px_1px_#000]"
+              :to="item.path">
               {{ item.name }}
             </NuxtLink>
           </li>
