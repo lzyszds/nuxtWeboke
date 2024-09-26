@@ -76,33 +76,19 @@ const onCurrentChange = async (index: number) => {
         </div>
       </template>
       <template #second>
-        <img
-          class="w-full h-full object-cover rounded-lg max-h-72"
-          src="http://localhost:2024/static/img/homeItem.png"
-          alt=""
-        />
+        <img class="w-full h-full object-cover rounded-lg max-h-72" src="http://localhost:2024/static/img/homeItem.png"
+          alt="" />
       </template>
     </DoubleCard>
 
-    <div
-      class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-[auto,305px] gap-5"
-    >
+    <div class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-1 lg:grid-cols-[auto,305px] gap-5">
       <!-- 文章内容 -->
       <div class="w-full">
         <div class="grid gap-2.5 mt-5 relative">
-          <div
-            :id="'list' + item.aid"
-            v-for="(item, index) in [...listData, ...listData, ...listData]"
-            :key="index"
-            v-if="loadingStore.loading"
-          >
-            <LzyEnterVisible
-              :index="index"
-              animateClass="animate__fadeInUpBig"
-              delay="200"
-              maxDelay="100"
-              firstRenderNumber="4"
-            >
+          <div :id="'list' + item.aid" v-for="(item, index) in [...listData, ...listData, ...listData]" :key="index"
+            v-if="loadingStore.loading">
+            <LzyEnterVisible :index="index" animateClass="animate__fadeInUpBig" delay="200" maxDelay="100"
+              firstRenderNumber="4">
               <NuxtLink :to="'/detail/' + item.aid">
                 <MainItem :data="item" :index="index"></MainItem>
               </NuxtLink>
@@ -117,15 +103,11 @@ const onCurrentChange = async (index: number) => {
         </div>
         <!-- 文章分页 -->
         <div class="example-pagination-block lzy-center" id="example">
-          <ElPagination
-            :page-size="limit"
-            layout="prev, pager, next"
-            :total="total"
-            @current-change="onCurrentChange"
-          />
+          <ElPagination :page-size="limit" layout="prev, pager, next" :total="total"
+            @current-change="onCurrentChange" />
         </div>
       </div>
-      <div class="systemInfo relative ">
+      <div class="systemInfo relative mt-5 hidden lg:block">
         <LzyEnterVisible animateClass="animate__bounceInUp" class="sticky top-16 ">
           <ClientOnly>
             <WeatherInfo />

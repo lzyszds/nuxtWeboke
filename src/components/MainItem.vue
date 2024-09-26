@@ -127,11 +127,12 @@ const mouseleave = _.debounce(
 </script>
 
 <template>
-  <div class="pb-1 rounded-lg transition-all duration-500 relative pointer-events-auto overflow-hidden"
+  <div
+    class="pb-1 rounded-lg transition-all duration-500 relative pointer-events-auto overflow-hidden dark:hover:bg-[#ffffff20]"
     @mouseenter="mouseenter" @mouseleave="mouseleave">
-    <div class="maskContent w-full h-32"> </div>
+    <div class="maskContent w-full h-32 dark:w-0 "> </div>
     <div class="w-full h-32 p-2.5 grid grid-rows-[40px_1fr_15px] gap-1.5 z-0 pointer-events-none">
-      <div class="text-2xl text-gray-500   font-['dindin'] overflow-hidden">{{ data.title }}</div>
+      <div class="text-2xl text-black dark:text-white font-['dindin'] overflow-hidden">{{ data.title }}</div>
       <div class="text-sm text-gray-500 h-10 overflow-hidden line-clamp-2">{{ data.partial_content }}</div>
       <div class="text-xs text-gray-500 flex place-items-center">
         <span v-for="(item, index) in list" :key="index" class="inline-block mr-2.5 h-5 leading-6">
