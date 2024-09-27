@@ -2,7 +2,12 @@
 import { gsap } from 'gsap';
 const el = ref(null)
 const appHeader = ref<any>(null)
-const { x, y, isScrolling, arrivedState, directions } = useScroll(el)
+const { x, y, isScrolling, arrivedState, directions } = useScroll(el,{ behavior: 'smooth' })
+const route = useRoute()
+
+const returnToTop = () => {
+  y.value = 0
+}
 
 
 onMounted(() => {
@@ -33,8 +38,9 @@ onMounted(() => {
 
 <template>
   <div ref="el"
-    class="bgLattice w-screen h-screen bg-white overflow-x-hidden dark:bg-black dark:text-white transition-all font-sans">
-    <AppHeader ref="appHeader" />
+    class=" w-screen h-screen bg-white overflow-x-hidden dark:bg-black dark:text-white transition-all font-sans"
+    :class="{ 'bgLattice': route.name == 'detail-id' }">
+    <AppHeader :returnToTop="returnToTop" ref="appHeader" />
     <main class="container w-full md:max-w-7xl mx-auto pt-20">
       <slot />
     </main>

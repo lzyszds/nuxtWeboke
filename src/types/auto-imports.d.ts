@@ -39,6 +39,7 @@ declare global {
   const mapState: typeof import('pinia')['mapState']
   const mapStores: typeof import('pinia')['mapStores']
   const mapWritableState: typeof import('pinia')['mapWritableState']
+  const markDownCreate: typeof import('../utils/markDownCreate')['default']
   const markRaw: (typeof import('vue'))['markRaw']
   const motionLibrary: typeof import('../utils/motionLibrary')['default']
   const nextTick: (typeof import('vue'))['nextTick']
@@ -146,6 +147,7 @@ declare module 'vue' {
     readonly mapState: UnwrapRef<typeof import('pinia')['mapState']>
     readonly mapStores: UnwrapRef<typeof import('pinia')['mapStores']>
     readonly mapWritableState: UnwrapRef<typeof import('pinia')['mapWritableState']>
+    readonly markDownCreate: UnwrapRef<typeof import('../utils/markDownCreate')['default']>
     readonly motionLibrary: UnwrapRef<typeof import('../utils/motionLibrary')['default']>
     readonly numFormat: UnwrapRef<typeof import('../utils/common')['numFormat']>
     readonly numberJump: UnwrapRef<typeof import('../utils/common')['numberJump']>

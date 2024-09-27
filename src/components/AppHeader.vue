@@ -1,8 +1,13 @@
 <script setup lang="ts">
+const { returnToTop } = defineProps<{
+  returnToTop: () => void
+}>()
+
 const navbar = ref(null)
 const navContainer = ref(null)
 const route = useRoute();
 const isMouseover = ref(false)
+
 const data = ref({
   activeIndex: route.name == "index" ? "" : (route.name as string),
   items: [
@@ -28,7 +33,11 @@ onMounted(() => {
     isMouseover.value = isOutside.value
   })
 })
+const { x, y } = useWindowScroll()
 
+const scrollToTop = () => {
+  returnToTop()
+}
 
 defineExpose({ navbar, navContainer })
 
@@ -77,7 +86,8 @@ defineExpose({ navbar, navContainer })
         <div>
           <div
             :class="isMouseover ? 'h-12 mt-4 font-dindin text-white font-semibold' :
-              'h-7 mt-3.5 px-6 leading-[1.75rem] cursor-pointer select-none font-dindin bg-white text-black rounded-2xl font-semibold animate-jackInTheBox'">
+              'h-7 mt-3.5 px-6 leading-[1.75rem] cursor-pointer select-none font-dindin bg-white text-black rounded-2xl font-semibold animate-jackInTheBox'"
+            @click="scrollToTop">
             {{ isMouseover ? data.webHeadTitle : "返回顶部" }}
           </div>
         </div>

@@ -1,14 +1,14 @@
 export interface Comment {
-  article_id: number;
+  articleId: number;
   browserSystem: string;
-  comment_id: number;
+  commentId: number;
   content: string;
   deviceSystem: string;
   email: string;
-  ground_id: number;
-  head_img: string;
-  reply_id: number;
-  create_date: number;
-  user_ip: string;
-  user_name: string;
+  groundId: number;
+  headImg: string;
+  replyId: number;
+  createDate: number;
+  userIp: string;
+  userName: string;
 }

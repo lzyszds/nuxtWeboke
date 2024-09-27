@@ -12,6 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@fancyapps/ui": "^4.0.31",
+    "@kangc/v-md-editor": "^2.3.18",
     "@nuxt/devtools": "1.4.2",
     "@nuxt/eslint": "^0.5.5",
     "@nuxt/icon": "^1.5.1",
@@ -28,33 +30,35 @@
     "axios": "^1.7.7",
     "element-plus": "^2.8.3",
     "gsap": "^3.12.5",
+    "highlight.js": "^11.10.0",
     "nuxt": "^3.13.2",
-    "nuxt-og-image": "3.0.0-rc.64",
     "pinia": "^2.2.2",
+    "prismjs": "^1.29.0",
     "unplugin-auto-import": "^0.18.2",
     "unplugin-vue-components": "^0.27.4",
     "vue": "latest"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
+    "@element-plus/nuxt": "^1.0.10",
     "@eslint/js": "^9.8.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
+    "@types/node": "^22.5.3",
+    "@types/prismjs": "^1.26.4",
     "autoprefixer": "^10.4.19",
-    "dayjs-nuxt": "^2.1.9",
+    "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.27.0",
     "globals": "^15.8.0",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.7",
+    "nuxt-lodash": "^2.5.3",
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.7",
     "typescript-eslint": "^8.0.0",
-    "vue-tsc": "^2.1.6",
-    "@element-plus/nuxt": "^1.0.10",
-    "@types/node": "^22.5.3",
-    "eslint": "^9.9.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "nuxt-lodash": "^2.5.3"
+    "vite-plugin-prismjs": "^0.0.11",
+    "vue-tsc": "^2.1.6"
   }
 }

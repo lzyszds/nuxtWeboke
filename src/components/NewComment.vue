@@ -34,11 +34,11 @@ if (error.value) {
     >
       <img
         class="w-8 rounded-full"
-        :src="'http://localhost:2024/static' + item.head_img"
+        :src="'http://localhost:2024/static' + item.headImg"
         alt=""
       />
       <div class="flex-1">{{ item.content }}</div>
-      <div>{{ timeAgo(item.create_date) }}</div>
+      <div>{{ timeAgo(item.createDate) }}</div>
     </LzyEnterVisible>
   </section>
   <!-- 最新评论 -->

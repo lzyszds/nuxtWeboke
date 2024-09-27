@@ -1,6 +1,7 @@
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { TDesignResolver } from 'unplugin-vue-components/resolvers'
+import prismjs from 'vite-plugin-prismjs';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -16,8 +17,11 @@ export default defineNuxtConfig({
     '~/assets/styles/animate.min.css',
     '~/assets/styles/animation.css',
     '~/assets/fonts/index.css',
-    '~/assets/styles/default.css'
+    '~/assets/styles/default.css',
+    'highlight.js/styles/atom-one-dark.css',
+    '@fancyapps/ui/dist/fancybox.css'
   ],
+
   modules: [
     "@vueuse/nuxt",
     "@pinia/nuxt",
@@ -31,11 +35,12 @@ export default defineNuxtConfig({
     'dayjs-nuxt',
     '@nuxt/eslint',
     "nuxt-lodash",
-    '@element-plus/nuxt'
+    '@element-plus/nuxt',
+    '@nuxt/image',
   ],
 
   plugins: [
-    '~/plugins/v-transition.ts'
+    '~/plugins/v-transition.ts',
   ],
 
   tailwindcss: {
@@ -91,6 +96,12 @@ export default defineNuxtConfig({
             library: 'vue-next',
           }),
         ],
+      }),
+      prismjs({
+        languages: ['json', 'js', 'ts', 'css', 'less', 'html', 'markdown', 'sql', 'typescript', 'vim', "git", "bash"],
+        plugins: ['line-numbers', 'show-language', 'copy-to-clipboard', 'inline-color'],
+        theme: 'okaidia',// 主题
+        css: true,
       }),
     ],
   },
