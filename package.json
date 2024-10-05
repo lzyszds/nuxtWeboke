@@ -23,6 +23,7 @@
     "@nuxtjs/seo": "2.0.0-rc.16",
     "@nuxtjs/sitemap": "6.0.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@nuxt/image":"1.8.0",
     "@pinia/nuxt": "^0.5.4",
     "@vueuse/core": "^11.1.0",
     "@vueuse/motion": "^2.2.5",

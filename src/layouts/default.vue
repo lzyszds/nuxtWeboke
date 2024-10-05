@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { gsap } from 'gsap';
-const el = ref(null)
+const el = templateRef('el')
 const appHeader = ref<any>(null)
-const { x, y, isScrolling, arrivedState, directions } = useScroll(el,{ behavior: 'smooth' })
+const { x, y, isScrolling, arrivedState, directions } = useScroll(el, { behavior: 'smooth' })
 const route = useRoute()
+const useDirectory = useDirectoryStore()
 
-const returnToTop = () => {
-  y.value = 0
-}
-
-
-onMounted(() => {
+onMounted(async () => {
   let tl = gsap.timeline({ paused: true });
   tl.to(appHeader.value!.navbar, {
     backgroundColor: '#5161ce',
@@ -32,7 +28,15 @@ onMounted(() => {
       tl.reverse()
     }
   })
+
+  await nextTick()
+  if (el.value) {
+    useDirectory.scrollEl = el.value
+  }
 })
+
+
+provide("windowY", y)
 </script>
 
 
@@ -40,7 +44,7 @@ onMounted(() => {
   <div ref="el"
     class=" w-screen h-screen bg-white overflow-x-hidden dark:bg-black dark:text-white transition-all font-sans"
     :class="{ 'bgLattice': route.name == 'detail-id' }">
-    <AppHeader :returnToTop="returnToTop" ref="appHeader" />
+    <AppHeader ref="appHeader" />
     <main class="container w-full md:max-w-7xl mx-auto pt-20">
       <slot />
     </main>

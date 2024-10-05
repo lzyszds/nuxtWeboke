@@ -111,6 +111,7 @@ declare global {
   const useCount: typeof import('../store/weather')['useCount']
   const useCssModule: (typeof import('vue'))['useCssModule']
   const useCssVars: (typeof import('vue'))['useCssVars']
+  const useDirectoryStore: typeof import('../store/useDirectoy')['useDirectoryStore']
   const useLazyQuery: (typeof import('@vue/apollo-composable'))['useLazyQuery']
   const useLoadingStore: typeof import('../store/useLoading')['useLoadingStore']
   const useMutation: (typeof import('@vue/apollo-composable'))['useMutation']
@@ -160,6 +161,7 @@ declare module 'vue' {
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
     readonly timeAgo: UnwrapRef<typeof import('../utils/common')['timeAgo']>
     readonly unique: UnwrapRef<typeof import('../utils/common')['unique']>
+    readonly useDirectoryStore: UnwrapRef<typeof import('../store/useDirectoy')['useDirectoryStore']>
     readonly useLoadingStore: UnwrapRef<typeof import('../store/useLoading')['useLoadingStore']>
     readonly useThreadTasks: UnwrapRef<typeof import('../store/useThreadTasks')['useThreadTasks']>
     readonly useUserStore: UnwrapRef<typeof import('../store/useUserStore')['useUserStore']>

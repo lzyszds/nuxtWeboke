@@ -1,12 +1,10 @@
 <script setup lang="ts">
-const { returnToTop } = defineProps<{
-  returnToTop: () => void
-}>()
 
 const navbar = ref(null)
 const navContainer = ref(null)
 const route = useRoute();
 const isMouseover = ref(false)
+const windowY = inject<Ref<number>>('windowY')
 
 const data = ref({
   activeIndex: route.name == "index" ? "" : (route.name as string),
@@ -33,10 +31,8 @@ onMounted(() => {
     isMouseover.value = isOutside.value
   })
 })
-const { x, y } = useWindowScroll()
-
 const scrollToTop = () => {
-  returnToTop()
+  windowY!.value = 0
 }
 
 defineExpose({ navbar, navContainer })

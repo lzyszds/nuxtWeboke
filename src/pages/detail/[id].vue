@@ -2,24 +2,43 @@
 import { timeAgo, numFormat } from '~/utils/common.js';
 import type { ArticleDetail } from '~/types/Articles';
 import type { RequestResult } from '~/types/Result';
+import type { Directory } from '~/types/Directory';
 
 const route = useRoute()
-console.log(route.params.id);
+const mainContent = ref();
+const windowY: any = inject('windowY')
 const { data, error } = await useFetch<RequestResult<ArticleDetail>>("/api/article/getArticleDetails?id=" + route.params.id)
 const details = ref<ArticleDetail>(data.value!.data)
+const useDirectory = useDirectoryStore()
 
 const countInfoArr = [
   { title: "发表时间", value: timeAgo(details.value.createDate), icon: "ic:baseline-access-time" },
   { title: "浏览量", value: numFormat(details.value.accessCount), icon: "ic:baseline-remove-red-eye" },
   { title: "评论数", value: numFormat(details.value.commentsCount), icon: "iconoir:chat-lines" },
 ]
-onMounted(() => {
-})
 
+
+// 滚动到指定标题
+const scrollToElement = (item: Directory) => {
+  const article = mainContent.value?.articleMain
+  const articleChild = article.querySelectorAll('h2,h3,h4')
+
+  useDirectory.scrollEl?.scrollTo({ top: item.top + 200, behavior: 'smooth' })
+
+  articleChild.forEach(async (element: HTMLElement) => {
+    if (element.id === item.id) {
+      element.classList.add('animate__shakeX')
+      await awaitTime(() => {
+        element.classList.remove('animate__shakeX')
+      }, 1000)
+    }
+  })
+}
+onMounted(() => { })
 </script>
 
 <template>
-  <main v-observer-load>
+  <main v-observer-load ref="main">
     <header>
       <h1 class="text-white font-dindin text-center mb-5 drop-shadow-[1px_5px_1px_#000]"
         style="font-size: clamp(0.7rem, 4vw, 3.5rem);">
@@ -38,9 +57,21 @@ onMounted(() => {
     </header>
 
     <section class="mt-5 grid gap-2 detailsSection">
-      <ClientOnly>
-        <Maincontent :main="details.main" :aid="details.aid" />
-      </ClientOnly>
+      <div class="detailLeft">
+        <ClientOnly>
+          <Maincontent ref="mainContent" :main="details.main" :aid="details.aid" />
+        </ClientOnly>
+        <footer v-transition="'animate__bounceIn'"
+          class="mt-2 p-1 rounded-xl text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline">
+          <div class="text-center">
+            <LzyIcon name="mdi:creative-commons" class="text-white align-text-top mr-1 pt-[18px]" />
+            <a class=" text-white" target="_blank"
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享署名-非商业性使用-相同方式共享 4.0
+              国际许可协议</a>
+          </div>
+        </footer>
+      </div>
+      <Directory :windowY="windowY" @scrollToElement="scrollToElement" />
     </section>
   </main>
 </template>
@@ -54,6 +85,6 @@ onMounted(() => {
 }
 
 .detailsSection {
-  grid-template-columns: calc(100% - 275px) 275px;
+  grid-template-columns: calc(100% - 255px) 255px;
 }
 </style>

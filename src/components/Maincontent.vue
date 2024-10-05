@@ -7,6 +7,7 @@ import { useEventListener } from '@vueuse/core';
 //@ts-ignore
 import VueMarkdownEditor, { xss } from '@kangc/v-md-editor'
 
+const useDirectory = useDirectoryStore()
 const { proxy } = getCurrentInstance() as any
 const props = defineProps({
   main: String,
@@ -14,6 +15,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update'])
+const articleMain = templateRef('articleMain')
 const aiContent = ref('AI摘要还在生成中，请稍等...')
 const aiContentHtml = computed(() => {
   return xss.process(
@@ -23,7 +25,7 @@ const aiContentHtml = computed(() => {
 const doneFlag = ref(false)
 
 onMounted(() => {
-  setTimeout(async () => {
+  nextTick(async () => {
     const elimg = document.querySelector('#articleMain') as HTMLDivElement
     if (elimg) {
       //给当前页面所有图片添加data-fancybox属性，让其可以点击放大
@@ -70,12 +72,16 @@ onMounted(() => {
         });
       })
     })
-    emit('update', 1)
 
-    getAbstract('/firstHonoApi/api/openAI/getAifox?aid=' + props.aid)
+    // 初始化目录
+    useDirectory.initDirectory(articleMain.value)
 
-  }, 500)
+    // getAbstract('/firstHonoApi/api/openAI/getAifox?aid=' + props.aid)
+
+  })
 })
+
+
 
 
 //获取AI摘要
@@ -113,6 +119,8 @@ function getAbstract(url: string) {
     }
   })
 }
+
+defineExpose({ articleMain })
 </script>
 
 <template>
@@ -129,10 +137,8 @@ function getAbstract(url: string) {
       <p class="affirm text-xs font-dindin indent-1.5 mt-2 font-medium">此内容根据文章生成，未经过人工审核，仅用于文章内容的解释与总结，不承担任何法律责任！</p>
     </div>
     <div class="mainHtml bg-white rounded-3xl mt-3 px-8 py-5 border-4 border-black">
-      <content id="articleMain" class="vuepress-markdown-body" v-html="props.main">
-
-      </content>
-
+      <section ref="articleMain" id="articleMain" class="vuepress-markdown-body" v-html="props.main">
+      </section>
     </div>
   </article>
 </template>

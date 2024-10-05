@@ -32,11 +32,9 @@ export default defineNuxtConfig({
     // "@nuxtjs/seo",
     // '@nuxtjs/robots',
     '@vueuse/motion/nuxt',
-    'dayjs-nuxt',
     '@nuxt/eslint',
     "nuxt-lodash",
     '@element-plus/nuxt',
-    '@nuxt/image',
   ],
 
   plugins: [
