@@ -31,10 +31,9 @@ function calculateSunBrightness() {
 
 <template>
   <div v-show="!loadStore.getLoading"
-    class="loaderbody after:bg-light-background after:dark:bg-dark-background overflow-hidden z-[99999] fixed top-0 left-0 w-screen h-screen">
-    <div class="mask mask-squircle z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
-      <img class="h-96 bg-white text-white scale-105" :style="{ filter: `sepia(${calculateSunBrightness()})  ` }"
-        :data-hour="calculateSunBrightness()" :src="image_path" alt="" />
+    class="loaderbody bg-themeColor overflow-hidden z-[99999] fixed top-0 left-0 w-screen h-screen">
+    <div class="z-10 bg-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <img class="h-96  scale-105" :data-hour="calculateSunBrightness()" :src="image_path" alt="" />
     </div>
   </div>
 </template>
@@ -49,14 +48,5 @@ function calculateSunBrightness() {
   position: fixed;
   transition: transform 0.5s cubic-bezier(0, 0, 0.5, 1.25);
   transform: translate(-50%, -50%) scale(1);
-}
-
-.loaderbody img {
-  box-shadow: inset -20px 20px 207px 40px #000;
-  transition: opacity 0.3s, transform 0.5s cubic-bezier(0.5, 0, 0.5, 1.5), visibility 0.3s;
-}
-
-.dark .loaderbody img {
-  box-shadow: inset -20px 20px 167px 100px #999;
 }
 </style>

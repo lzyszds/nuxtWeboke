@@ -2,7 +2,7 @@
 import type { Directory } from '~/types/Directory';
 
 const headingRefs: any = ref([])
-const activeHeading = ref('')
+const activeHeading = ref('#abstract')
 const isMutaScroll = ref(false)
 
 
@@ -11,8 +11,6 @@ const emit = defineEmits<{
 }>()
 
 const useDirectory = useDirectoryStore()
-const ul = templateRef("ul")
-
 const scrollToElement = (item: Directory) => {
   if (isMutaScroll.value) return
   isMutaScroll.value = true
@@ -64,7 +62,7 @@ onUnmounted(() => {
           <img class="w-8 inline-block" src="/icon/icon-ship.svg" />
           <span class="align-text-top">目录</span>
         </h2>
-        <ul class="px-2 relative" ref="ul">
+        <ul class="px-2 relative">
           <li v-for="item in useDirectory.directory" @click.prevent="scrollToElement(item)"
             class="text-[13px] transition-all  font-dindin hover:text-themeColor"
             :class="[item.nodeName, activeHeading == item.id ? 'active' : '']">

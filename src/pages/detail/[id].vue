@@ -39,6 +39,7 @@ onMounted(() => { })
 
 <template>
   <main v-observer-load ref="main">
+    <!-- 文章头部 -->
     <header>
       <h1 class="text-white font-dindin text-center mb-5 drop-shadow-[1px_5px_1px_#000]"
         style="font-size: clamp(0.7rem, 4vw, 3.5rem);">
@@ -55,7 +56,7 @@ onMounted(() => { })
         </span>
       </div>
     </header>
-
+    <!-- 文章主体 -->
     <section class="mt-5 grid gap-2 detailsSection">
       <div class="detailLeft">
         <ClientOnly>
