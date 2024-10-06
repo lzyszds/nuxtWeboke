@@ -65,7 +65,10 @@ export default defineNuxtConfig({
   ssr: true,
   nitro: {
     compressPublicAssets: { brotli: true, gzip: true },
-    preset: 'static'
+    preset: 'static',
+    routeRules: {
+      '/api/openai/getAiFox': { cors: true },  // 允许跨域
+    },
   },
   vite: {
 

@@ -22,6 +22,7 @@ declare global {
   const defineComponent: (typeof import('vue'))['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
   const effectScope: (typeof import('vue'))['effectScope']
+  const getAbstract: typeof import('../hooks/useOpenai')['getAbstract']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getBase64: typeof import('../utils/common')['getBase64']
   const getCookie: typeof import('../utils/common')['getCookie']
@@ -115,6 +116,7 @@ declare global {
   const useLazyQuery: (typeof import('@vue/apollo-composable'))['useLazyQuery']
   const useLoadingStore: typeof import('../store/useLoading')['useLoadingStore']
   const useMutation: (typeof import('@vue/apollo-composable'))['useMutation']
+  const useOpenaiStore: typeof import('../store/useOpenAi')['useOpenaiStore']
   const useQuery: (typeof import('@vue/apollo-composable'))['useQuery']
   const useSlots: (typeof import('vue'))['useSlots']
   const useThemeStore: typeof import('../hooks/useTheme')['useThemeStore']
@@ -163,6 +165,7 @@ declare module 'vue' {
     readonly unique: UnwrapRef<typeof import('../utils/common')['unique']>
     readonly useDirectoryStore: UnwrapRef<typeof import('../store/useDirectoy')['useDirectoryStore']>
     readonly useLoadingStore: UnwrapRef<typeof import('../store/useLoading')['useLoadingStore']>
+    readonly useOpenaiStore: UnwrapRef<typeof import('../store/useOpenAi')['useOpenaiStore']>
     readonly useThreadTasks: UnwrapRef<typeof import('../store/useThreadTasks')['useThreadTasks']>
     readonly useUserStore: UnwrapRef<typeof import('../store/useUserStore')['useUserStore']>
     readonly useWeatherStore: UnwrapRef<typeof import('../store/useWeatherStore')['useWeatherStore']>
