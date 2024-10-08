@@ -73,6 +73,8 @@ pre {
 
 code {
   color: #fff;
+  font-size: 0.75rem;
+  padding: 0;
 }
 
 .v-md-prism-language {
@@ -344,11 +346,6 @@ code {
   }
 
 
-  code {
-    font-size: 1rem;
-    padding: 0;
-  }
-
   .token.property,
   .token.tag,
   .token.constant,
@@ -402,14 +399,22 @@ code {
   }
 
   div[class*=v-md-pre-wrapper-] {
-    padding-left: 3.5rem;
+    --padding-left: 35px;
+    padding-left: var(--padding-left);
 
+    &::after {
+      width: var(--padding-left);
+      padding: 10px;
+    }
 
     &.line-numbers-mode .line-numbers-wrapper {
+      width: var(--padding-left);
       left: 0;
+      padding: 10px;
     }
 
     &.line-numbers-mode pre {
+      padding: 11px 1.5rem 10px;
       padding-left: 10px;
     }
   }

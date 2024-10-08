@@ -40,4 +40,8 @@ export const useOpenaiStore = defineStore('openai', () => {
     })
   }
   return { content, getAbstract }
+}, {
+  persist: {
+    storage: persistedState.localStorage
+  }
 })
