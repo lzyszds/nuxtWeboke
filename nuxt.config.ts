@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     '@vueuse/motion/nuxt',
     '@nuxt/eslint',
     "nuxt-lodash",
-    '@element-plus/nuxt',
+    // '@element-plus/nuxt',
   ],
 
   plugins: [
