@@ -118,6 +118,8 @@ declare global {
   const useMutation: (typeof import('@vue/apollo-composable'))['useMutation']
   const useOpenaiStore: typeof import('../store/useOpenAi')['useOpenaiStore']
   const useQuery: (typeof import('@vue/apollo-composable'))['useQuery']
+  const useRequestDataStore: typeof import('../store/useRequestData')['useRequestDataStore']
+  const useRequestDatazyStore: typeof import('../store/useRequestData')['useRequestDatazyStore']
   const useSlots: (typeof import('vue'))['useSlots']
   const useThemeStore: typeof import('../hooks/useTheme')['useThemeStore']
   const useThreadTasks: typeof import('../store/useThreadTasks')['useThreadTasks']
@@ -166,6 +168,7 @@ declare module 'vue' {
     readonly useDirectoryStore: UnwrapRef<typeof import('../store/useDirectoy')['useDirectoryStore']>
     readonly useLoadingStore: UnwrapRef<typeof import('../store/useLoading')['useLoadingStore']>
     readonly useOpenaiStore: UnwrapRef<typeof import('../store/useOpenAi')['useOpenaiStore']>
+    readonly useRequestDataStore: UnwrapRef<typeof import('../store/useRequestData')['useRequestDataStore']>
     readonly useThreadTasks: UnwrapRef<typeof import('../store/useThreadTasks')['useThreadTasks']>
     readonly useUserStore: UnwrapRef<typeof import('../store/useUserStore')['useUserStore']>
     readonly useWeatherStore: UnwrapRef<typeof import('../store/useWeatherStore')['useWeatherStore']>

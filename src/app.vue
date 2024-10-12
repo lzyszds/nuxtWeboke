@@ -8,10 +8,11 @@
 </template>
 
 <script setup lang="ts">
+const { initData } = useRequestDataStore();
+
+initData(); // 初始化数据
 const colorMode = useColorMode();
-onMounted(() => {
-  /* 请求拿到所有数据 */
-})
+
 onBeforeMount(() => {
   watchEffect(() => {
     if (colorMode.preference === "dark") {

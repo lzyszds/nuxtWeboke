@@ -12,6 +12,7 @@ export const theme = {
       'light-background': '#FFFFFF',
       'dark-background': '#121212',
       'themeColor': '#5161ce',
+      'themeColor-hover': '#5161ce40',
       'borderColor': '#ffe14d'
     },
     backgroundImage: {

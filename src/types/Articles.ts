@@ -1,13 +1,13 @@
 
 export interface Article {
     aid: number,
-    commentsCount: number,
-    createDate: number,
-    modifiedDate: number,
+    comments_count: number,
+    create_date: number,
+    modified_date: number,
     title: string,
-    accessCount: number,
-    coverImg: string,
-    partialContent: string
+    access_count: number,
+    head_img: string,
+    partial_content: string
     tags: string[],
     uname: string
 

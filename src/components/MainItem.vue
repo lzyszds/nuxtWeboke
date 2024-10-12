@@ -23,15 +23,15 @@ const tags = props.data.tags;
 const data = ref<Article>(props.data);
 const selectHandle = (index: number) => {
   let result = "" as string | number;
-  const { createDate, commentsCount, accessCount } = data.value;
+  const { create_date, comments_count, access_count } = data.value;
   if (index == 0) {
-    result = dayjs(createDate).format("YYYY-MM-DD HH:mm:ss");
+    result = dayjs(create_date).format("YYYY-MM-DD HH:mm:ss");
   } else if (index == 1) {
     if (tags) result = tags.join(", ");
   } else if (index == 2) {
-    result = accessCount;
+    result = access_count;
   } else if (index == 3) {
-    result = commentsCount || 0;
+    result = comments_count || 0;
   }
   return result;
 };
@@ -129,13 +129,25 @@ const mouseleave = _.debounce(
 <template>
   <div
     class="pb-1 rounded-lg transition-all duration-500 relative pointer-events-auto overflow-hidden dark:hover:bg-[#ffffff20]"
-    @mouseenter="mouseenter" @mouseleave="mouseleave">
-    <div class="maskContent w-full h-32 dark:w-0 "> </div>
-    <div class="w-full h-32 p-2.5 grid grid-rows-[40px_1fr_15px] gap-1.5 z-0 pointer-events-none">
-      <div class="text-2xl text-black dark:text-white font-['dindin'] overflow-hidden">{{ data.title }}</div>
-      <div class="text-sm text-gray-500 h-10 overflow-hidden line-clamp-2">{{ data.partialContent }}</div>
+    @mouseenter="mouseenter"
+    @mouseleave="mouseleave"
+  >
+    <div class="maskContent w-full h-32 dark:w-0"></div>
+    <div
+      class="w-full h-32 p-2.5 grid grid-rows-[40px_1fr_15px] gap-1.5 z-0 pointer-events-none"
+    >
+      <div class="text-2xl text-black dark:text-white font-['dindin'] overflow-hidden">
+        {{ data.title }}
+      </div>
+      <div class="text-sm text-gray-500 h-10 overflow-hidden line-clamp-2">
+        {{ data.partial_content }}
+      </div>
       <div class="text-xs text-gray-500 flex place-items-center">
-        <span v-for="(item, index) in list" :key="index" class="inline-block mr-2.5 h-5 leading-6">
+        <span
+          v-for="(item, index) in list"
+          :key="index"
+          class="inline-block mr-2.5 h-5 leading-6"
+        >
           <span v-if="index == 1">#{{ selectHandle(index) }}</span>
           <span v-else class="inline-flex items-center">
             <LzyIcon :name="item.name" class="w-4 h-4 align-text-top mr-1.5"></LzyIcon>
