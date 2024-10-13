@@ -101,7 +101,7 @@ const onCurrentChange = async (index: number) => {
               maxDelay="100"
               firstRenderNumber="4"
             >
-              <NuxtLink :to="'/detail/' + item.aid">
+              <NuxtLink :to="'/detail/' + item.aid" @click="">
                 <MainItem :data="item" :index="index"></MainItem>
               </NuxtLink>
             </LzyEnterVisible>

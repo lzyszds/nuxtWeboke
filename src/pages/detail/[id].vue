@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { timeAgo, numFormat } from "~/utils/common.js";
 import type { ArticleDetail } from "~/types/Articles";
-import type { RequestResult } from "~/types/Result";
 import type { Directory } from "~/types/Directory";
 
-const route = useRoute();
 const mainContent = ref();
 const windowY: any = inject("windowY");
-const { data, error } = await useFetch<RequestResult<ArticleDetail>>(
-  "/api/article/getArticleDetails?id=" + route.params.id
-);
-const details = ref<ArticleDetail>(data.value!.data);
+const { requestData } = useRequestDataStore();
+const details = computed(() => requestData.detailData);
+
 const useDirectory = useDirectoryStore();
 
 const countInfoArr = [
@@ -47,7 +44,6 @@ const scrollToElement = (item: Directory) => {
     }
   });
 };
-onMounted(() => {});
 </script>
 
 <template>

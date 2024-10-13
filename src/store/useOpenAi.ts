@@ -9,7 +9,7 @@ export const useOpenaiStore = defineStore('openai', () => {
     return new Promise<any>(async (resolve, reject) => {
 
       try {
-        const response: any = await fetch(`/api/openai/getAiFox?aid=${aid}`)
+        const response: any = await fetch(`/api/openai/getAiFoxProxy?aid=${aid}`)
         if (response.status != 200) {
           content.value = '摘要生成失败，请重试！'
           return reject("出错了看看怎么解决吧！")

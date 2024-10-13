@@ -15,7 +15,7 @@ export interface Article {
 
 export interface ArticleDetail extends Article {
     content: string,
-    headImg: string,
+    head_img: string,
     main: string,
     signature: string,
 }
