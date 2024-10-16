@@ -34,7 +34,7 @@ if (error.value) {
     >
       <img
         class="w-8 rounded-full"
-        :src="'http://localhost:2024/static' + item.head_img"
+        :src="'http://localhost:2024/static' + item.headImg"
         alt=""
       />
       <div class="flex-1">{{ item.content }}</div>

@@ -6,7 +6,7 @@ export interface Comment {
   deviceSystem: string;
   email: string;
   groundId: number;
-  head_img: string;
+  headImg: string;
   replyId: number;
   createDate: number;
   userIp: string;
