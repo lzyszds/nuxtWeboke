@@ -72,13 +72,13 @@ const scrollToElement = (item: Directory) => {
     </header>
     <!-- 文章主体 -->
     <section class="mt-5 grid gap-2 detailsSection">
-      <div class="detailLeft">
+      <div class="flex flex-col gap-3">
         <ClientOnly>
           <Maincontent ref="mainContent" :main="details.main" :aid="details.aid" />
         </ClientOnly>
         <footer
           v-transition="'animate__bounceIn'"
-          class="mt-2 p-1 rounded-xl text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline"
+          class="p-1 rounded-xl text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline"
         >
           <div class="text-center">
             <LzyIcon
@@ -93,6 +93,7 @@ const scrollToElement = (item: Directory) => {
             >
           </div>
         </footer>
+        <PostComment />
       </div>
       <Directory :windowY="windowY" @scrollToElement="scrollToElement" />
     </section>

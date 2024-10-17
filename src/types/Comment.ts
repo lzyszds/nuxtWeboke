@@ -12,3 +12,30 @@ export interface Comment {
   userIp: string;
   userName: string;
 }
+
+export interface CommentsType {
+  content: string,
+  aid: number,
+  replyId: number,
+  groundId: number,
+  email: string,
+  name: string,
+  userIp: string,
+  webSite?: string,
+  imgIndex: number,
+}
+
+export interface Replydata {
+  commentId: number,
+  headImg: string,
+  userName: string,
+  createDate: string,
+  content: string,
+  replyPeople: string,
+  replyId: number,
+  groundId: number,
+  children: Replydata[],
+  browserSystem: string,
+  deviceSystem: string,
+  userIp: string
+}
