@@ -1,10 +1,14 @@
-export default defineEventHandler(async (event) => {
-  //请求后台接口
-  return await request({
-    url: '/comment/getNewComment',
-    method: 'get',
+
+import type { H3Event } from 'h3';
+
+export default defineEventHandler(async (event: H3Event): Promise<any> => {
+  const headers = getRequestHeaders(event);
+
+  return useApiFetch('/comment/getNewComment', {
+    method: 'GET',
+    headers,
     params: {
       limit: 5
     }
-  })
-})
+  });
+});

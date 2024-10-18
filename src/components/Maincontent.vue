@@ -35,10 +35,7 @@ onMounted(() => {
             zoom: false,
           },
         });
-        element.src = element.src.replace(
-          "http://localhost:1027/firstHonoApi",
-          "http://localhost:2024"
-        );
+        element.src = element.src.replace("http://localhost:1027/firstHonoApi", "/hono");
         const wrapper = document.createElement("div");
         wrapper.className = "img-wrapper";
         element.parentNode.insertBefore(wrapper, element);
@@ -86,7 +83,6 @@ onMounted(() => {
 });
 
 defineExpose({ articleMain });
- 
 </script>
 
 <template>

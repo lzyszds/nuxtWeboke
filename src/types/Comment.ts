@@ -23,6 +23,7 @@ export interface CommentsType {
   userIp: string,
   webSite?: string,
   imgIndex: number,
+  replyPeople: string
 }
 
 export interface Replydata {

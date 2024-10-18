@@ -1,11 +1,15 @@
-export default defineEventHandler(async (event) => {
+import type { H3Event } from 'h3';
+
+export default defineEventHandler(async (event: H3Event): Promise<any> => {
   const data = getQuery(event)
-  //请求后台接口
-  return await request({
-    url: '/comment/getArticleComment',
-    method: 'get',
+  const headers = getRequestHeaders(event);
+
+  return useApiFetch('/comment/getArticleComment', {
+    method: 'GET',
+    headers,
     params: {
       id: data.aid
     }
-  })
-})
+  });
+});
+

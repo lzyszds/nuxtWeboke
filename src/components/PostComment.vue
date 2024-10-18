@@ -37,25 +37,23 @@ const getRemarkList = async () => {
       return data.data;
     },
   });
-  console.log(data.value);
   oldRemarkList.value = data.value;
   remarkList.value = [];
   //初始化回复评论的id
   data.value.forEach((remark: any) => {
     remark.children = [];
-    replyId.set(remark.comment_id, {
+    replyId.set(remark.commentId, {
       isReply: false,
-      ground_id: remark.comment_id,
+      groundId: remark.commentId,
     });
   });
   // 遍历评论列表，为每个评论添加回复列表
   for (let item of data.value) {
-    if (item.reply_id == 0) {
+    if (item.replyId == 0) {
       remarkList.value.push(item);
-      console.log(remarkList.value);
     } else {
       for (let remark of data.value) {
-        if (remark.comment_id == item.ground_id) {
+        if (remark.commentId == item.groundId) {
           remark.children.push(item);
         }
       }
@@ -111,7 +109,7 @@ const comSubmit = async () => {
   //处理一级评论的id
   const groundVal = () => {
     for (let [_key, item] of replyId) {
-      if (item.isReply) return item.ground_id;
+      if (item.isReply) return item.groundId;
     }
     return 0;
   };
@@ -126,26 +124,24 @@ const comSubmit = async () => {
     content: information.comContent, //评论内容
     imgIndex: information.rangeIndex, //评论人头像
     userIp: "", //用户ip
+    replyPeople: replyArr.replyName,
   };
   //发送请求,提交评论
-  const { data, pending, error, refresh } = await useFetch(
-    "/api/comment/postRemarkList",
-    {
-      query: { data: remarkData },
-    }
-  );
-
-  // .then(async (res: any) => {
-  //   if (res == '评论成功') {
-  //     console.log(`评论成功,感谢你的评论！`)
-  //     await getRemarkList()
-  //     //清空评论内容
-  //     information.comContent = ''
-  //     remReplyComment()
-  //   } else {
-  //     console.log(`评论失败,请稍后再试！`)
-  //   }
-  // })
+  await useFetch("/api/comment/postRemarkList", {
+    method: "POST",
+    body: remarkData,
+    headers: {
+      "user-agent": navigator.userAgent,
+    },
+    transform: (data: any) => {
+      return data.data;
+    },
+  });
+  console.log(`评论成功,感谢你的评论！`);
+  await getRemarkList();
+  //清空评论内容
+  information.comContent = "";
+  remReplyComment();
 };
 
 //回复一级评论
@@ -154,11 +150,11 @@ const replyComment = (item: any, index: any) => {
   //每次选择回复都要将其他的回复id置为0
   handleReplyData();
   //将当前回复的id置为当前评论的id
-  replyId.set(item.comment_id, {
+  replyId.set(item.commentId, {
     isReply: true,
-    ground_id: index,
+    groundId: index,
   });
-  replyArr.replyName = "@" + item.user_name;
+  replyArr.replyName = "@" + item.userName;
   //给textarea获取焦点
   const textarea = document.querySelector("#textarea") as any;
   textarea?.focus();
@@ -175,7 +171,7 @@ function handleReplyData() {
   for (let [key, item] of replyId) {
     replyId.set(key, {
       isReply: false,
-      ground_id: item.ground_id,
+      groundId: item.groundId,
     });
   }
 }
@@ -232,7 +228,7 @@ const onWheelfn = (e: any) => {
     >
       <div
         :class="cardClass"
-        class="py-[6px] rounded-full relative text-black mb-2 font-dindin"
+        class="py-[4px] rounded-full relative text-black mb-2 font-dindin"
       >
         <span class="px-7"> {{ replyArr.replyName }} </span>
         <div
@@ -242,13 +238,15 @@ const onWheelfn = (e: any) => {
           class="w-5 h-5 select-none rounded-full border-black absolute top-2.5 right-2 border-2 bg-themeColor"
         ></div>
       </div>
-      <div :class="cardClass" class="relative font-dindin">
+      <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
-          class="h-[170px] text-lg resize-none outline-none"
+          class="w-full h-full text-lg resize-none outline-none"
           id="textarea"
           v-model="information.comContent"
         ></textarea>
-        <div class="w-[90%] text-base select-none absolute bottom-2 text-center">
+        <div
+          class="w-[90%] pointer-events-none text-base select-none absolute bottom-2 text-center"
+        >
           “恶语伤人六月寒, 良言一句暖三冬”
         </div>
       </div>
@@ -308,8 +306,9 @@ const onWheelfn = (e: any) => {
         </p>
         <p
           class="bg-borderColor mt-5 font-semibold py-1 w-8/12 text-sm rounded-full text-center mx-auto border-2 border-black"
+          @click="comSubmit"
         >
-          <button @click="comSubmit">发布评论</button>
+          <button>发布评论</button>
         </p>
         <!-- <p class="btn del"><button> 取消评论 </button></p> -->
       </div>
@@ -331,7 +330,10 @@ const onWheelfn = (e: any) => {
       ></div>
 
       <div class="comContent">
-        <h3 class="text-black text-center font-semibold py-4" v-if="remarkList.length == 0">
+        <h3
+          class="text-black text-center font-semibold py-4"
+          v-if="remarkList.length == 0"
+        >
           <p>
             <LzyIcon
               size="150px"
@@ -343,7 +345,7 @@ const onWheelfn = (e: any) => {
         </h3>
         <Reply
           v-show="remarkList.length != 0"
-          :oldReplicate="remarkList"
+          :oldReplicate="oldRemarkList"
           :replydata="remarkList"
           :replyId="replyArr.replyId"
           @replying="replyComment"
@@ -390,6 +392,7 @@ input {
   border-radius: 10px;
   padding: 5px;
   font-family: "dindin";
+  font-weight: 100;
   color: var(--color);
   transition: 0.3s;
   &:focus {
