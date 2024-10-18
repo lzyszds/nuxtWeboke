@@ -4,8 +4,6 @@
 import { onMounted, getCurrentInstance } from "vue";
 import { ElNotification } from "element-plus";
 import { useEventListener } from "@vueuse/core";
-//@ts-ignore
-import VueMarkdownEditor, { xss } from "@kangc/v-md-editor";
 
 const useDirectory = useDirectoryStore();
 const useOpenai = useOpenaiStore();
@@ -17,11 +15,11 @@ const props = defineProps({
 
 const emit = defineEmits(["update"]);
 const articleMain = templateRef("articleMain");
-const aiContentHtml = computed(() => {
-  return xss.process(
-    VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(useOpenai.content)
-  );
-});
+// const aiContentHtml = computed(() => {
+//   return xss.process(
+//     VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(useOpenai.content)
+//   );
+// });
 const doneFlag = ref(false);
 
 onMounted(() => {
@@ -88,10 +86,7 @@ onMounted(() => {
 });
 
 defineExpose({ articleMain });
-
-onBeforeMount(() => {
-  useOpenai.content = "AI摘要还在生成中，请稍等...";
-});
+ 
 </script>
 
 <template>
@@ -113,7 +108,7 @@ onBeforeMount(() => {
         class="min-h-10 mt-4 flex justify-center items-center font-semibold tracking-wider border border-[#ddd] shadow-[0_0_4px_#eee] rounded-xl text-sm py-2 px-4 break-all"
       >
         <p class="indent-8 aiText">
-          <span class="vuepress-markdown-body" v-html="aiContentHtml"></span>
+          <span class="vuepress-markdown-body" v-html="useOpenai.content"></span>
           <LzyIcon
             class="align-text-top"
             v-if="!doneFlag"

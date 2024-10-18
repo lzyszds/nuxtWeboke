@@ -1,47 +1,109 @@
-//获取AI摘要
-
-import { defineStore } from 'pinia'
-
+/**
+ * 定义并导出名为 `useOpenaiStore` 的 Pinia store。
+ */
 export const useOpenaiStore = defineStore('openai', () => {
-  const content = ref<string>('AI摘要还在生成中，请稍等...')
+  /**
+   * 默认消息常量，用于在生成AI摘要时显示提示信息。
+   */
+  const DEFAULT_MESSAGE = 'AI摘要生成中，请稍等...'
 
-  const getAbstract = (aid: number) => {
-    return new Promise<any>(async (resolve, reject) => {
+  /**
+   * 错误消息常量，用于在生成AI摘要失败时显示错误信息。
+   */
+  const ERROR_MESSAGE = '摘要生成失败，请重试！'
 
-      try {
-        const response: any = await fetch(`/api/openai/getAiFoxProxy?aid=${aid}`)
-        if (response.status != 200) {
-          content.value = '摘要生成失败，请重试！'
-          return reject("出错了看看怎么解决吧！")
+  /**
+   * 可变的 Map 对象，用于存储内容，键为文章ID，值为内容。
+   */
+  const contentMap = ref<Map<number, string>>(new Map())
+
+  /**
+   * 获取当前路由信息。
+   */
+  const route = useRoute()
+
+  /**
+   * 计算属性，根据路由ID获取对应的内容。
+   * 如果没有找到对应的内容，则返回默认消息。
+   */
+  const content = computed(() => {
+    return contentMap.value.get(Number(route.params.id)) ?? DEFAULT_MESSAGE
+  })
+
+  /**
+   * 监听路由变化，当路径包含 `/detail` 时，清空内容。
+   */
+  watchEffect(() => {
+    if (route.path.includes('/detail/')) {
+      contentMap.value.clear()
+      console.log(contentMap.value);
+
+    }
+  })
+
+  /**
+   * 处理流式响应。
+   * @param reader - 可读流的读取器。
+   * @param aid - 文章ID。
+   * @returns 处理后的内容字符串。
+   */
+  const processStream = async (reader: ReadableStreamDefaultReader<Uint8Array>, aid: number) => {
+    const decoder = new TextDecoder()
+    let content = ''
+
+    try {
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        const text = decoder.decode(value)
+        const lines = text.split('\n')
+
+        for (const line of lines) {
+          if (!line) continue
+          await new Promise(resolve => requestAnimationFrame(resolve))
+          content += line.replace('data: ', '')
+          contentMap.value.set(aid, content)
         }
-        const textDecoder = new TextDecoder()
-        const reader = response.body?.getReader()!
-        content.value = ''
-        while (true) {
-          const { done, value } = await reader.read()
-          if (done) {
-            resolve(content.value)
-            break
-          }
-          const text = textDecoder.decode(value)
-          const lines = text.split('\n'); // 将部分数据与新数据合并后再按行分割
-
-          for (let line of lines) { // 逐行处理数据
-            // 添加延迟，单位为毫秒（例如延迟 100 毫秒） 一帧等于 16.67 毫秒
-            // await new Promise(resolve => setTimeout(resolve, 30));
-            if (line) {
-              content.value += line.replace("data: ", ""); // 将逐字生成的数据拼接到 aiContent 中
-            }
-          }
-        }
-      } catch (e) {
-        reject(e)
       }
-    })
+      return content
+    } catch (error) {
+      throw new Error('处理流数据失败')
+    }
   }
-  return { content, getAbstract }
-}, {
-  persist: {
-    storage: persistedState.localStorage
+
+  /**
+   * 获取AI摘要。
+   * @param aid - 文章ID。
+   * @returns 生成的摘要内容。
+   */
+  const getAbstract = async (aid: number) => {
+    if (!contentMap.value.has(aid)) {
+      contentMap.value.set(aid, DEFAULT_MESSAGE)
+    } else {
+      return
+    }
+
+    try {
+      const response = await fetch(`/api/openai/getAiFoxProxy?aid=${aid}`)
+      if (!response.ok) {
+        throw new Error('API请求失败')
+      }
+
+      const reader = response.body?.getReader()
+      if (!reader) {
+        throw new Error('无法获取响应流')
+      }
+
+      return await processStream(reader, aid)
+    } catch (error) {
+      contentMap.value.set(aid, ERROR_MESSAGE)
+      throw error
+    }
+  }
+
+  return {
+    content,
+    getAbstract
   }
 })
