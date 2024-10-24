@@ -48,8 +48,8 @@ defineExpose({ navbar, navContainer })
     <div class="w-full md:max-w-7xl mx-auto flex flex-wrap items-center justify-between mt-1 ">
       <!-- logo -->
       <a class="no-underline cursor-pointer select-none text-white hover:no-underline flex place-items-center" href="/">
-        <span class="font-extrabold block drop-shadow-[1px_2px_1px_#000 w-full text-3xl font-[logo]"
-          style="text-shadow: 1px 2px 1px #000, 0 0 1px #000000">
+        <span class="font-extrabold block drop-shadow-[1px_2px_1px_#000 text-themeColor w-full text-3xl font-[logo]"
+          style="text-shadow: 1px 2px 2px #000, 0 0 2px #000000">
           Jz
         </span>
       </a>

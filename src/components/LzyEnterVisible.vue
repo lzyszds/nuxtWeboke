@@ -19,18 +19,22 @@ const props = defineProps({
   // 动画的最大延迟时间，确保动画在指定时间内开始
   maxDelay: {
     type: String,
-    default: "1000", // 默认最大延迟为1000毫秒
+    default: "10", // 默认最大延迟为10毫秒
   },
   // 首次渲染时显示的dom数量
   firstRenderNumber: {
     type: String,
     default: "3", // 默认首次渲染显示3个
   },
+  target: {
+    type: String,
+    default: "div",
+  },
 });
 </script>
 
 <template>
-  <div class="opacity-0" v-transition="props">
+  <component :is="props.target" class="opacity-0" v-transition="props">
     <slot></slot>
-  </div>
+  </component>
 </template>

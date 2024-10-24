@@ -91,7 +91,7 @@ defineExpose({ articleMain });
     class="mt-10 bg-themeColor p-2.5 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
   >
     <div
-      class="bg-white p-2.5 px-6 text-lg rounded-2xl border-4 border-black text-[15px]"
+      class="bg-white dark:bg-dark-background p-2.5 px-6 text-lg rounded-2xl border-4 border-black text-[15px]"
     >
       <p
         class="bg-borderColor text-black rounded-lg mt-0 px-4 font-dindin flex items-center"
@@ -103,21 +103,23 @@ defineExpose({ articleMain });
       <div
         class="min-h-10 mt-4 flex justify-center items-center font-semibold tracking-wider border border-[#ddd] shadow-[0_0_4px_#eee] rounded-xl text-sm py-2 px-4 break-all"
       >
-        <p class="indent-8 aiText">
-          <span class="vuepress-markdown-body" v-html="useOpenai.content"></span>
+        <p class="indent-8 aiText ">
+          <span class="vuepress-markdown-body dark:text-[#eee] " v-html="useOpenai.content"></span>
           <LzyIcon
-            class="align-text-top"
+            class="align-text-top dark:text-[#eee]"
             v-if="!doneFlag"
             name="ph:fan-duotone"
             size="20"
           ></LzyIcon>
         </p>
       </div>
-      <p class="affirm text-xs font-dindin indent-1.5 mt-2 font-medium">
+      <p class="affirm text-xs font-dindin indent-1.5 mt-2 font-medium dark:text-[#eee] ">
         此内容根据文章生成，未经过人工审核，仅用于文章内容的解释与总结，不承担任何法律责任！
       </p>
     </div>
-    <div class="mainHtml bg-white rounded-3xl mt-3 px-8 py-5 border-4 border-black">
+    <div
+      class="mainHtml bg-white dark:bg-dark-background rounded-3xl mt-3 px-8 py-5 border-4 border-black"
+    >
       <section
         ref="articleMain"
         id="articleMain"

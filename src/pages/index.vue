@@ -96,7 +96,7 @@ const onCurrentChange = async (index: number) => {
           >
             <LzyEnterVisible
               :index="index"
-              animateClass="animate__fadeInUpBig"
+              animateClass="animate__fadeInUp"
               delay="200"
               maxDelay="100"
               firstRenderNumber="4"

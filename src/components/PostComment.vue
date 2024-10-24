@@ -13,7 +13,7 @@ const getDefaultValue = () => {
 
 //主题card class
 const cardClass =
-  "bg-white p-2 px-6 text-lg rounded-2xl border-[3px] border-black text-[15px]";
+  "bg-white dark:bg-dark-background p-2 px-6 text-lg rounded-2xl border-[3px] border-black text-[15px]";
 
 const { data: comImg } = await useFetch("/api/comment/getCommentAvatar");
 
@@ -124,7 +124,7 @@ const comSubmit = async () => {
     content: information.comContent, //评论内容
     imgIndex: information.rangeIndex, //评论人头像
     userIp: "", //用户ip
-    replyPeople: replyArr.replyName,
+    replyPeople: replyArr.replyName.replace("@", ""),
   };
   //发送请求,提交评论
   await useFetch("/api/comment/postRemarkList", {
@@ -228,19 +228,19 @@ const onWheelfn = (e: any) => {
     >
       <div
         :class="cardClass"
-        class="py-[4px] rounded-full relative text-black mb-2 font-dindin"
+        class="py-[4px] rounded-full relative text-black dark:border-white mb-2 font-dindin"
       >
-        <span class="px-7"> {{ replyArr.replyName }} </span>
+        <span class="px-7 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
         <div
-          class="w-5 h-5 select-none rounded-full border-black absolute top-2.5 left-2 border-2 bg-themeColor"
+          class="w-5 h-5 select-none rounded-full border-black dark:border-white absolute top-2.5 left-2 border-2 bg-themeColor"
         ></div>
         <div
-          class="w-5 h-5 select-none rounded-full border-black absolute top-2.5 right-2 border-2 bg-themeColor"
+          class="w-5 h-5 select-none rounded-full border-black dark:border-white absolute top-2.5 right-2 border-2 bg-themeColor"
         ></div>
       </div>
       <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
-          class="w-full h-full text-lg resize-none outline-none"
+          class="w-full h-full text-lg resize-none outline-none dark:bg-dark-background"
           id="textarea"
           v-model="information.comContent"
         ></textarea>
@@ -272,7 +272,7 @@ const onWheelfn = (e: any) => {
                 class="w-12 h-12 cursor-pointer rounded-full"
                 v-for="(item, index) in comImg"
                 :key="index"
-                :src="item"
+                :src="'/hono' + item"
                 @click="setRange(index)"
                 :class="{ animate__headShake: information.rangeIndex == index }"
               />
@@ -282,7 +282,7 @@ const onWheelfn = (e: any) => {
             <lzy-icon name="gg:chevron-right" animation="animate__heartBeat"></lzy-icon>
           </button>
         </div>
-        <p class="my-2 text-sm text-center font-dindin font-semibold">
+        <p class="my-2 text-sm text-center font-dindin font-semibold dark:text-white">
           昵称：
           <input
             type="text"
@@ -291,7 +291,7 @@ const onWheelfn = (e: any) => {
             placeholder="昵称或者QQ号"
           />
         </p>
-        <p class="mb-2 text-sm text-center font-dindin font-semibold">
+        <p class="mb-2 text-sm text-center font-dindin font-semibold dark:text-white">
           邮箱：
           <input
             type="text"
@@ -300,12 +300,12 @@ const onWheelfn = (e: any) => {
             placeholder="xxx@xxx.xxx"
           />
         </p>
-        <p class="mb-2 text-sm text-center font-dindin font-semibold">
+        <p class="mb-2 text-sm text-center font-dindin font-semibold dark:text-white">
           网站：
           <input type="text" v-model="information.webSite" placeholder="你的网站(选填)" />
         </p>
         <p
-          class="bg-borderColor mt-5 font-semibold py-1 w-8/12 text-sm rounded-full text-center mx-auto border-2 border-black"
+          class="bg-borderColor mt-5 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto border-2 border-black"
           @click="comSubmit"
         >
           <button>发布评论</button>
@@ -384,6 +384,7 @@ const onWheelfn = (e: any) => {
   box-shadow: inset 0 0 10px 1px var(--themeColor);
   transition: 0.14s;
 }
+
 input {
   width: 80%;
   height: 30px;
@@ -399,5 +400,9 @@ input {
     outline: none;
     border-color: var(--themeColor);
   }
+}
+
+.dark input {
+  background-color: #eee;
 }
 </style>

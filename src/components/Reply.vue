@@ -19,12 +19,17 @@ const props = defineProps<Props>();
 //评论数据
 const replydata = computed(() => props.replydata);
 //评论数据复制
-const oldReplicate = [...props.oldReplicate];
+const oldReplicate = computed(() => props.oldReplicate);
 //评论的id
 const replyId = props.replyId;
 const emit = defineEmits(["replying", "remReply"]);
-
 const nowReplyId = ref(0);
+
+//显示评论的数量，分别显示一级和二级评论
+const showNumber = ref({
+  level1: 5,
+  level2: 3,
+});
 
 //回复评论方法
 const replyComment = (item: Replydata) => {
@@ -34,6 +39,14 @@ const replyComment = (item: Replydata) => {
   } else {
     emit("replying", item, item.groundId);
   }
+  /* 让滚动条滚动到textarea底部 */
+  const textarea = document.querySelector("#textarea");
+  setTimeout(() => {
+    textarea?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, 100);
 };
 //取消回复评论方法
 const remReplyComment = (item: any, index: any) => {
@@ -43,85 +56,102 @@ const remReplyComment = (item: any, index: any) => {
 
 //根据评论回复id查询评论
 const findComment = (id: number) => {
-  return oldReplicate.find((item) => item.commentId == id);
+  return oldReplicate.value.find((item) => item.commentId == id);
 };
 </script>
 
 <template>
   <div class="reply">
-    <div class="item" v-for="(item, index) in replydata" :key="index">
-      <div class="item-left">
-        <img :src="'/hono/static' + item.headImg" alt="" />
-      </div>
-      <div class="item-right">
-        <div class="item-right-top">
-          <span class="item-right-top-name dark:text-white text-black">{{
-            item.userName
-          }}</span>
-          <span class="item-right-top-time">{{ timeAgo(item.createDate) }}</span>
-          <button
-            v-if="!replyId.get(item.commentId)!.isReply"
-            class="item-right-top-reply"
-            @click="replyComment(item)"
+    <section v-for="(item, index) in replydata" :key="index">
+      <div
+        :class="item.replyId == 0 ? 'mainReply item' : 'secondaryReply item'"
+        v-if="index < (item.replyId == 0 ? showNumber.level1 : showNumber.level2)"
+      >
+        <section class="item-left">
+          <img :src="'/hono/static' + item.headImg" alt="" />
+        </section>
+        <section class="item-right">
+          <div class="item-right-top">
+            <span class="item-right-top-name dark:text-white text-black">{{
+              item.userName
+            }}</span>
+            <span class="item-right-top-time">{{ timeAgo(item.createDate) }}</span>
+            <button
+              v-if="!replyId.get(item.commentId)!.isReply"
+              class="item-right-top-reply"
+              @click="replyComment(item)"
+            >
+              回复
+            </button>
+            <button
+              v-else
+              class="item-right-top-reply"
+              @click="remReplyComment(item, index)"
+            >
+              取消回复
+            </button>
+            <span class="item-right-info">
+              <span>
+                <LzyIcon
+                  name="iconoir:map-pin"
+                  style="vertical-align: middle; margin-right: 2px"
+                  size="15px"
+                />{{ item.userIp }}
+              </span>
+              <span>
+                <LzyIcon
+                  name="iconoir:brain-warning"
+                  style="vertical-align: middle; margin-right: 2px"
+                  size="15px"
+                />{{ item.deviceSystem }}
+              </span>
+              <span>
+                <LzyIcon
+                  name="iconoir:window-check"
+                  style="vertical-align: middle; margin-right: 2px"
+                  size="15px"
+                />{{ item.browserSystem }}
+              </span>
+            </span>
+          </div>
+          <div
+            class="item-right-bottom"
+            @click="nowReplyId = item.commentId"
+            @mouseleave="nowReplyId = 0"
           >
-            回复
-          </button>
-          <button
-            v-else
-            class="item-right-top-reply"
-            @click="remReplyComment(item, index)"
-          >
-            取消回复
-          </button>
-          <span class="item-right-info">
             <span>
-              <LzyIcon
-                name="iconoir:map-pin"
-                style="vertical-align: middle; margin-right: 2px"
-                size="15px"
-              />{{ item.userIp }}
+              {{ item.replyPeople ? "@" + item.replyPeople : "" }}
             </span>
-            <span>
-              <LzyIcon
-                name="iconoir:brain-warning"
-                style="vertical-align: middle; margin-right: 2px"
-                size="15px"
-              />{{ item.deviceSystem }}
-            </span>
-            <span>
-              <LzyIcon
-                name="iconoir:window-check"
-                style="vertical-align: middle; margin-right: 2px"
-                size="15px"
-              />{{ item.browserSystem }}
-            </span>
-          </span>
-        </div>
-        <div
-          class="item-right-bottom"
-          @click="nowReplyId = item.commentId"
-          @mouseleave="nowReplyId = 0"
-        >
-          <span>
-            {{ item.replyPeople ? "@" + item.replyPeople : "" }}
-            <section v-if="item.children.length == 0 && nowReplyId == item.commentId">
+            <LzyEnterVisible
+              animate-class="zyAnimate__fadeInUp"
+              target="section"
+              delay="0"
+              v-if="item.children.length == 0 && nowReplyId == item.commentId"
+            >
               <img :src="'/hono/static' + findComment(item.replyId)?.headImg" alt="" />
-              <span>{{ findComment(item.replyId)!.userName }}:</span>
-              <span>{{ findComment(item.replyId)!.content }}</span>
-            </section>
-          </span>
-          {{ item.content }}
-        </div>
-        <Reply
-          v-if="item.children"
-          :oldReplicate="oldReplicate"
-          :replydata="item.children"
-          :replyId="replyId"
-          @replying="replyComment"
-          @remReply="remReplyComment"
-        />
+              <b>{{ findComment(item.replyId)!.userName }}:</b>
+              <b>{{ findComment(item.replyId)!.content }}</b>
+            </LzyEnterVisible>
+            {{ item.content }}
+          </div>
+          <Reply
+            v-if="item.children"
+            :oldReplicate="oldReplicate"
+            :replydata="item.children"
+            :replyId="replyId"
+            @replying="replyComment"
+            @remReply="remReplyComment"
+          />
+        </section>
       </div>
-    </div>
+      <button
+        class="text-center w-full rounded-xl mb-4 text-sm font-dindin bg-borderColor block border-[3px] border-black"
+        v-if="index == (item.replyId == 0 ? showNumber.level1 : showNumber.level2)"
+        @click="() => (showNumber[item.replyId == 0 ? 'level1' : 'level2'] += 3)"
+      >
+        显示更多评论...
+      </button>
+    </section>
   </div>
 </template>
 
@@ -132,7 +162,9 @@ const findComment = (id: number) => {
     display: grid;
     grid-template-columns: 60px 2fr;
     grid-template-rows: auto auto;
-
+    &.mainReply {
+      border-bottom: 1px solid #eee;
+    }
     img {
       width: 50px;
       height: 50px;
@@ -162,7 +194,7 @@ const findComment = (id: number) => {
       }
 
       .item-right-bottom {
-        padding: 2px 5px;
+        padding: 2px 0;
         font-size: 14px;
         position: relative;
 
@@ -176,28 +208,34 @@ const findComment = (id: number) => {
           &:hover {
             color: #004cff80;
           }
-
-          section {
-            position: absolute;
-            top: 30px;
-            left: 0;
-            width: 100%;
-            background-color: #fff;
-            border: 3px solid #000;
-            border-radius: 10px;
-            z-index: 10;
-            transition: 0.14s;
-            padding: 5px;
-            display: flex;
-            gap: 10px;
-            img {
-              margin-right: 0;
-            }
-            span {
-              color: #333;
-              max-width: calc(100% - 100px);
-              overflow-x: scroll;
-            }
+        }
+        section {
+          position: absolute;
+          top: 30px;
+          left: 0;
+          width: 100%;
+          max-height: 130px;
+          background-color: #fff;
+          border: 3px solid var(--themeColor);
+          border-radius: 10px;
+          z-index: 10;
+          transition: 0.14s;
+          padding: 5px;
+          display: flex;
+          gap: 10px;
+          box-shadow: 14px 19px 25px rgba(0, 0, 0, 0.1), inset 0 1px 4px rgb(0, 0, 0),
+            inset 1px 1px 4px rgb(0, 0, 0), inset 1px 0px 4px rgb(0, 0, 0),
+            inset -1px 0px 4px rgb(0, 0, 0), inset 0 -1px 4px rgb(0, 0, 0);
+          img {
+            margin-right: 0;
+          }
+          b {
+            color: #333;
+            max-width: calc(100% - 100px);
+            font-weight: 500;
+          }
+          b:nth-child(3) {
+            overflow-y: auto;
           }
         }
       }
@@ -257,9 +295,8 @@ const findComment = (id: number) => {
   }
 
   .item-right-bottom {
-    background: #717b8820;
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 5px 0;
     font-size: 15px;
   }
 
@@ -281,5 +318,33 @@ const findComment = (id: number) => {
       }
     }
   }
+}
+
+.dark .reply {
+  .mainReply {
+    border-bottom: 1px solid #888;
+  }
+  .item-right-info {
+    span {
+      color: #fff;
+    }
+  }
+  .item-right-bottom {
+    span {
+      color: #afccff !important;
+    }
+    color: #fff;
+  }
+
+  .reply {
+    .item-right-info {
+      span {
+        color: #fff;
+      }
+    }
+  }
+}
+.zyAnimate__fadeInUp {
+  animation: zyAnimate__fadeInUp 0.3s;
 }
 </style>

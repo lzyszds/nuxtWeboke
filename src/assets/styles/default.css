@@ -32,6 +32,11 @@
 
 body.dark {
   --color: #fff !important;
+
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--darkBgcolor);
 }
 
 /* @tailwind base;
@@ -170,30 +175,6 @@ body::-webkit-scrollbar-track {
   position: relative;
   overflow-x: hidden;
 
-  /* 文本相关元素使用text光标，悬停时使用自定义光标 */
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  li,
-  dt,
-  dd,
-  span,
-  em,
-  strong,
-  small,
-  code,
-  pre,
-  th,
-  td,
-  blockquote,
-  label {
-    cursor: auto;
-    /* 默认使用文本选择光标 */
-  }
 }
 
 html body.compensate-for-scrollbar {
