@@ -221,7 +221,7 @@ const onWheelfn = (e: any) => {
 
 <template>
   <!-- 发送评论组件 -->
-  <div v-transition="'animate__bounceIn'" class="flex w-full gap-2">
+  <div v-transition="'animate__fadeInUp'" class="flex w-full gap-2">
     <!-- 发布评论 -->
     <section
       class="bg-themeColor flex-1 p-3 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
@@ -317,7 +317,7 @@ const onWheelfn = (e: any) => {
 
   <!-- 评论列表 -->
   <div
-    v-transition="'animate__bounceIn'"
+    v-transition="'animate__fadeInUp'"
     class="bg-themeColor overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
   >
     <header class="before">{{ textbefore }}</header>
@@ -343,7 +343,7 @@ const onWheelfn = (e: any) => {
           </p>
           暂无评论，快来试试评论吧！
         </h3>
-        <Reply
+        <DetailReply
           v-show="remarkList.length != 0"
           :oldReplicate="oldRemarkList"
           :replydata="remarkList"

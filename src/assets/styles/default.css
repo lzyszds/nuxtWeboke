@@ -248,3 +248,7 @@ html.dark {
     stroke-width: 50;
   }
 }
+
+.zyAnimate__fadeInUp {
+  animation: zyAnimate__fadeInUp 0.3s;
+}

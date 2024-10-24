@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const colorMode = useColorMode();
 const isDark = ref(useColorMode().preference === "dark");
 </script>
 
@@ -7,7 +8,7 @@ const isDark = ref(useColorMode().preference === "dark");
     <div class="toggleWrapper">
       <input
         @click="
-          $colorMode.preference = $colorMode.preference === 'light' ? 'dark' : 'light'
+          colorMode.preference = colorMode.preference === 'light' ? 'dark' : 'light'
         "
         type="checkbox"
         id="navbarContent"

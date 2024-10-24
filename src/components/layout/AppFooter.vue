@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LzyIcon from "./LzyIcon.vue";
 const { data } = await useFetch("/api/system/getFooterInfo");
 const footData = data.value.data.filter((item: any) => item != null);
 

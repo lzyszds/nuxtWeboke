@@ -134,7 +134,7 @@ const findComment = (id: number) => {
             </LzyEnterVisible>
             {{ item.content }}
           </div>
-          <Reply
+          <DetailReply
             v-if="item.children"
             :oldReplicate="oldReplicate"
             :replydata="item.children"
@@ -344,7 +344,5 @@ const findComment = (id: number) => {
     }
   }
 }
-.zyAnimate__fadeInUp {
-  animation: zyAnimate__fadeInUp 0.3s;
-}
+
 </style>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Article } from "~/types/Articles";
 
 const mytext = "编程是一场艺术，逻辑是它的画笔，创新是它的灵魂".split("");
 const pageCount = ref(1);
@@ -49,11 +48,11 @@ const onCurrentChange = async (index: number) => {
 
 <template>
   <div class="z-10 w-full" v-observer-load>
-    <MyCard>
+    <HomeMyCard>
       <span class="text-sm" v-for="item in mytext">{{ item }}</span>
-    </MyCard>
+    </HomeMyCard>
 
-    <DoubleCard aspect="square" class="mt-2">
+    <HomeDoubleCard aspect="square" class="mt-2">
       <template #first>
         <div class="pt-20 pl-8 relative md:pt-14 w-full">
           <LzyEnterVisible animate-class="animate__zoomInLeft">
@@ -66,7 +65,7 @@ const onCurrentChange = async (index: number) => {
               <span>灵魂</span>
             </p>
           </LzyEnterVisible>
-          <SkillSwiper></SkillSwiper>
+          <HomeSkillSwiper></HomeSkillSwiper>
         </div>
       </template>
       <template #second>
@@ -76,7 +75,7 @@ const onCurrentChange = async (index: number) => {
           alt=""
         />
       </template>
-    </DoubleCard>
+    </HomeDoubleCard>
 
     <div
       class="mx-auto mt-1 max-w-[calc(var(--maxWidth)+20px)] grid grid-cols-1 lg:grid-cols-[auto,305px] gap-5"
@@ -102,7 +101,7 @@ const onCurrentChange = async (index: number) => {
               firstRenderNumber="4"
             >
               <NuxtLink :to="'/detail/' + item.aid" @click="">
-                <MainItem :data="item" :index="index"></MainItem>
+                <HomeMainItem :data="item" :index="index"></HomeMainItem>
               </NuxtLink>
             </LzyEnterVisible>
           </div>
@@ -117,9 +116,9 @@ const onCurrentChange = async (index: number) => {
       <div class="systemInfo relative mt-5 hidden lg:block">
         <LzyEnterVisible animateClass="animate__bounceInUp" class="sticky top-16">
           <ClientOnly>
-            <WeatherInfo />
+            <HomeWeatherInfo />
           </ClientOnly>
-          <NewComment />
+          <HomeNewComment />
         </LzyEnterVisible>
       </div>
     </div>
