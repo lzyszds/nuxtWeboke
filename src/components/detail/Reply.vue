@@ -58,6 +58,8 @@ const remReplyComment = (item: any, index: any) => {
 const findComment = (id: number) => {
   return oldReplicate.value.find((item) => item.commentId == id);
 };
+
+const baseUrl = useRuntimeConfig().public.VITE_BASE_URL;
 </script>
 
 <template>
@@ -68,13 +70,13 @@ const findComment = (id: number) => {
         v-if="index < (item.replyId == 0 ? showNumber.level1 : showNumber.level2)"
       >
         <section class="item-left">
-          <img :src="'/hono/static' + item.headImg" alt="" />
+          <img :src="baseUrl + item.headImg" alt="" />
         </section>
         <section class="item-right">
           <div class="item-right-top">
-            <span class="item-right-top-name dark:text-white text-black">{{
-              item.userName
-            }}</span>
+            <span class="item-right-top-name dark:text-white text-black">
+              {{ item.userName }}
+            </span>
             <span class="item-right-top-time">{{ timeAgo(item.createDate) }}</span>
             <button
               v-if="!replyId.get(item.commentId)!.isReply"
@@ -128,7 +130,7 @@ const findComment = (id: number) => {
               delay="0"
               v-if="item.children.length == 0 && nowReplyId == item.commentId"
             >
-              <img :src="'/hono/static' + findComment(item.replyId)?.headImg" alt="" />
+              <img :src="baseUrl + findComment(item.replyId)?.headImg" alt="" />
               <b>{{ findComment(item.replyId)!.userName }}:</b>
               <b>{{ findComment(item.replyId)!.content }}</b>
             </LzyEnterVisible>
@@ -344,5 +346,4 @@ const findComment = (id: number) => {
     }
   }
 }
-
 </style>
