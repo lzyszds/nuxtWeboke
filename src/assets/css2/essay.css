@@ -1,9 +1,57 @@
-pre {
+#markdownMain pre[class^="v-md-prism-"]  {
   position: relative;
   font-family: 'Red Hat Display';
   font-variant-numeric: tabular-nums;
+  color: #fff;
+  position: relative;
+  background: #21252b;
+  border-radius: 5px;
+  line-height: 23px;
+  margin-bottom: 3.6em;
+  max-width: 100%;
+  overflow: auto;
+  text-shadow: none;
+  color: #000;
+  padding-top: 30px;
+  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
+  font-size: 17px;
+
+  &:before {
+    content: " ";
+    position: absolute;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: var(--themeColor);
+    width: 12px;
+    height: 12px;
+    left: 12px;
+    margin-top: -18px;
+    -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    z-index: 2;
+  }
+
+  &::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    height: 10px !important;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    width: 0 !important;
+  }
+
   /* 使用等宽特性 */
+  &::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent
+  }
 }
+
+
 
 .pre-numbering {
   position: absolute;
@@ -55,42 +103,17 @@ pre {
 
 code {
   color: #fff;
+  font-size: 0.75rem;
+  padding: 0;
 }
 
-.v-md-prism-language {
-  color: #fff;
+
+
+
+#markdownMain .vuepress-markdown-body {
   position: relative;
-  background: #21252b;
-  border-radius: 5px;
-  line-height: 1.6;
-  margin-bottom: 3.6em;
-  max-width: 100%;
-  overflow: auto;
-  text-shadow: none;
-  color: #000;
-  padding-top: 30px;
-  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
-  font-size: 17px;
-}
-
-.v-md-prism-language:before {
-  content: " ";
-  position: absolute;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background: var(--themeColor);
-  width: 12px;
-  height: 12px;
-  left: 12px;
-  margin-top: -18px;
-  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  z-index: 2;
-}
-
-
-.vuepress-markdown-body {
-  position: relative;
+  margin: 0;
+  padding: 0;
 
   ul {
     li {
@@ -99,14 +122,16 @@ code {
     }
   }
 
+  ol {
+    li {
+      list-style: inherit
+    }
+  }
+
   &>div {
     position: relative;
   }
 
-
-  &:not(.custom) img {
-    max-width: 99.3%;
-  }
 
   h1,
   h2,
@@ -226,38 +251,40 @@ code {
     right: 1em;
     z-index: 3;
     color: hsla(0, 0%, 100%, 0.4);
-    font-size: 1.75rem;
+    font-size: 1rem;
   }
 
   .line-number,
   code,
   kbd {
     font-variation-settings: "wght" 430;
+    line-height: 25px;
   }
 
   mark {
     border-radius: 5px;
     font-size: 16px;
     font-family: "dindin";
+    padding: 0 8px;
+    user-select: contain;
+    height: 100%;
+    display: inline-block;
 
     &.gray {
       background-color: #555;
       background-color: #555;
       color: #fff;
-      box-shadow: 0 0 5px 1px #a7a7a7;
     }
 
     &.theme {
       background-color: var(--themeColor);
       color: #fff;
-      box-shadow: 0 0 5px 1px #a7a7a7;
     }
 
     &.black {
       background-color: #000;
       color: #fff;
       display: inline-block;
-      box-shadow: 0 0 5px 1px #a7a7a7;
       line-height: 19px;
       padding: 3px 5px;
     }
@@ -265,15 +292,136 @@ code {
     &.white {
       background-color: #fff;
       color: #000;
-      box-shadow: 0 0 2px 1px #000000;
     }
 
     &.pink {
       background-color: #ffb3ac;
       color: #fff;
-      box-shadow: 0 0 5px 1px #a7a7a7;
     }
   }
+
+  .img-wrapper {
+    position: relative;
+    --height: 20px;
+    background-color: #f0f2f5;
+    padding: 5px 1px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+    cursor: zoom-in;
+    border: 1px solid #aaa;
+
+    &:hover {
+      .img-pseudo::before {
+        content: "🔎点击放大图片";
+      }
+
+      img {
+        filter: brightness(0.7);
+      }
+    }
+
+    img {
+      margin: var(--height) 5px 0;
+      border-radius: 10px;
+      transition: .5s;
+      width: calc(100% - 10px);
+    }
+
+    .img-pseudo {
+      background-color: var(--themeColor);
+      height: var(--height);
+      width: calc(100%);
+      border-radius: 10px 10px 0 0;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #fff;
+      font-size: 12px;
+
+      &::before {
+        content: attr(data-clipboard-text);
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+
+  .token.property,
+  .token.tag,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: #FC9867;
+  }
+
+  .token.boolean,
+  .token.number {
+    color: #ae81ff;
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    color: #FFE14D;
+  }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.function,
+  .token.class-name {
+    color: #68f0ff;
+  }
+
+  .token.keyword {
+    color: #fb537d;
+  }
+
+  .token.regex,
+  .token.important {
+    color: #fd971f;
+  }
+
+  .token.important,
+  .token.bold {
+    font-weight: bold;
+  }
+
+  .token.italic {
+    font-style: italic;
+  }
+
+  .token.entity {
+    cursor: help;
+  }
+
+  div[class*=v-md-pre-wrapper-] {
+    --padding-left: 35px;
+    padding-left: var(--padding-left);
+
+    &::after {
+      width: var(--padding-left);
+    }
+
+    &.line-numbers-mode .line-numbers-wrapper {
+      width: var(--padding-left);
+      left: 0;
+      padding-top: 30px;
+      br{
+        line-height: 1.4;
+      }
+    }
+
+    &.line-numbers-mode pre {
+      padding: 30px 1.5rem 10px;
+      padding-left: 10px;
+    }
+  }
+
 }
 
 .dark {
@@ -374,5 +522,3 @@ code {
     color: #fff;
   }
 }
-
-@import url("./code.css");

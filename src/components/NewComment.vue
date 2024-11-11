@@ -10,6 +10,9 @@ if (data.value) {
 if (error.value) {
   console.log(error.value);
 }
+console.log();
+
+const baseUrl = useRuntimeConfig().public.VITE_BASE_URL
 </script>
 
 <template>
@@ -32,11 +35,7 @@ if (error.value) {
       maxDelay="100"
       firstRenderNumber="5"
     >
-      <img
-        class="w-8 rounded-full"
-        :src="'http://localhost:2024/static' + item.head_img"
-        alt=""
-      />
+      <img class="w-8 rounded-full" :src="baseUrl + item.headImg" alt="" />
       <div class="flex-1">{{ item.content }}</div>
       <div>{{ timeAgo(item.createDate) }}</div>
     </LzyEnterVisible>

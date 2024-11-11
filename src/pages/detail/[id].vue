@@ -13,17 +13,17 @@ const useDirectory = useDirectoryStore();
 const countInfoArr = [
   {
     title: "发表时间",
-    value: timeAgo(details.value.create_date),
+    value: timeAgo(details.value.createDate),
     icon: "ic:baseline-access-time",
   },
   {
     title: "浏览量",
-    value: numFormat(details.value.access_count),
+    value: numFormat(details.value.accessCount),
     icon: "ic:baseline-remove-red-eye",
   },
   {
     title: "评论数",
-    value: numFormat(details.value.comments_count),
+    value: numFormat(details.value.commentsCount),
     icon: "iconoir:chat-lines",
   },
 ];
@@ -63,7 +63,7 @@ const scrollToElement = (item: Directory) => {
         </span>
         <span
           class="ml-1 bg-themeColor text-white border-1 border-black text-xs py-0.5 px-1 rounded-md"
-          v-for="(item, index) in details.tags"
+          v-for="(item, index) in details.tags.split(',')"
           :key="index"
         >
           #{{ item }}

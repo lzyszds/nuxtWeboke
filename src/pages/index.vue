@@ -45,6 +45,8 @@ const onCurrentChange = async (index: number) => {
   await nextTick();
   isLoading.value = false;
 };
+
+const baseUrl = useRuntimeConfig().public.VITE_BASE_URL
 </script>
 
 <template>
@@ -72,7 +74,7 @@ const onCurrentChange = async (index: number) => {
       <template #second>
         <img
           class="w-full h-full object-cover rounded-lg max-h-72"
-          src="http://localhost:2024/static/img/homeItem.png"
+          :src="baseUrl + '/static/img/homeItem.png'"
           alt=""
         />
       </template>

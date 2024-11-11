@@ -5,9 +5,9 @@ export interface UserRole {
     uname: string;
     username: string;
     power?: number | null; // '?' denotes optional field
-    create_date: string; // Assuming string for simplicity, you might want to use Date type
+    createDate: string; // Assuming string for simplicity, you might want to use Date type
     last_login_date?: string | null; // Assuming string for simplicity, you might want to use Date type
-    head_img: string;
+    headImg: string;
     whether_use?: number | null; // '?' denotes optional field
     signature?: string | null; // '?' denotes optional field
     activation_key: string;
@@ -24,9 +24,9 @@ export interface UserAny {
     username?: string;
     password?: string;
     power?: number; // '?' denotes optional field
-    create_date?: string; // Assuming string for simplicity, you might want to use Date type
+    createDate?: string; // Assuming string for simplicity, you might want to use Date type
     last_login_date?: string; // Assuming string for simplicity, you might want to use Date type
-    head_img?: string;
+    headImg?: string;
     whether_use?: number; // '?' denotes optional field
     signature?: string; // '?' denotes optional field
     activation_key?: string;
@@ -43,9 +43,9 @@ export interface User {
     username: string;
     password: string;
     power?: number | null; // '?' denotes optional field
-    create_date: string; // Assuming string for simplicity, you might want to use Date type
+    createDate: string; // Assuming string for simplicity, you might want to use Date type
     last_login_date?: string | null; // Assuming string for simplicity, you might want to use Date type
-    head_img: string;
+    headImg: string;
     whether_use?: number | null; // '?' denotes optional field
     signature?: string | null; // '?' denotes optional field
     activation_key: string;

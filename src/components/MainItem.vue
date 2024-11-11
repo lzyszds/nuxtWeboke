@@ -23,15 +23,15 @@ const tags = props.data.tags;
 const data = ref<Article>(props.data);
 const selectHandle = (index: number) => {
   let result = "" as string | number;
-  const { create_date, comments_count, access_count } = data.value;
+  const { createDate, commentsCount, accessCount } = data.value;
   if (index == 0) {
-    result = dayjs(create_date).format("YYYY-MM-DD HH:mm:ss");
+    result = dayjs(createDate).format("YYYY-MM-DD HH:mm:ss");
   } else if (index == 1) {
-    if (tags) result = tags.join(", ");
+    if (tags) result = tags;
   } else if (index == 2) {
-    result = access_count;
+    result = accessCount;
   } else if (index == 3) {
-    result = comments_count || 0;
+    result = commentsCount || 0;
   }
   return result;
 };
@@ -140,7 +140,7 @@ const mouseleave = _.debounce(
         {{ data.title }}
       </div>
       <div class="text-sm text-gray-500 h-10 overflow-hidden line-clamp-2">
-        {{ data.partial_content }}
+        {{ data.partialContent }}
       </div>
       <div class="text-xs text-gray-500 flex place-items-center">
         <span

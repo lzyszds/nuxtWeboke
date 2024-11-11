@@ -123,6 +123,14 @@ export default defineNuxtConfig({
     }
   },
 
+  runtimeConfig: {
+    public: {
+      VITE_BASE_URL: process.env.VITE_BASE_URL,
+      VITE_APP_API_BASE_NAME: process.env.VITE_APP_API_BASE_NAME,
+      VITE_ROUTER_MODE: process.env.VITE_ROUTER_MODE,
+    }
+  },
+
   future: {
     // 启用 Nuxt 4 功能前瞻
     compatibilityVersion: 4,

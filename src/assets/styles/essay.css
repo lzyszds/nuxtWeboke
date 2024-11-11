@@ -1,7 +1,35 @@
-pre {
+#markdownMain pre[class^="v-md-prism-"]  {
   position: relative;
   font-family: 'Red Hat Display';
   font-variant-numeric: tabular-nums;
+  color: #fff;
+  position: relative;
+  background: #21252b;
+  border-radius: 5px;
+  line-height: 23px;
+  margin-bottom: 3.6em;
+  max-width: 100%;
+  overflow: auto;
+  text-shadow: none;
+  color: #000;
+  padding-top: 30px;
+  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
+  font-size: 17px;
+
+  &:before {
+    content: " ";
+    position: absolute;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: var(--themeColor);
+    width: 12px;
+    height: 12px;
+    left: 12px;
+    margin-top: -18px;
+    -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    z-index: 2;
+  }
 
   &::-webkit-scrollbar {
     /*滚动条整体样式*/
@@ -22,6 +50,8 @@ pre {
     background: transparent
   }
 }
+
+
 
 .pre-numbering {
   position: absolute;
@@ -77,36 +107,7 @@ code {
   padding: 0;
 }
 
-.v-md-prism-language {
-  color: #fff;
-  position: relative;
-  background: #21252b;
-  border-radius: 5px;
-  line-height: 1.6;
-  margin-bottom: 3.6em;
-  max-width: 100%;
-  overflow: auto;
-  text-shadow: none;
-  color: #000;
-  padding-top: 30px;
-  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
-  font-size: 17px;
-}
 
-.v-md-prism-language:before {
-  content: " ";
-  position: absolute;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background: var(--themeColor);
-  width: 12px;
-  height: 12px;
-  left: 12px;
-  margin-top: -18px;
-  -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-  z-index: 2;
-}
 
 
 #markdownMain .vuepress-markdown-body {
@@ -257,6 +258,7 @@ code {
   code,
   kbd {
     font-variation-settings: "wght" 430;
+    line-height: 25px;
   }
 
   mark {
@@ -368,7 +370,6 @@ code {
     color: #FFE14D;
   }
 
-
   .token.atrule,
   .token.attr-value,
   .token.function,
@@ -404,17 +405,19 @@ code {
 
     &::after {
       width: var(--padding-left);
-      padding: 10px;
     }
 
     &.line-numbers-mode .line-numbers-wrapper {
       width: var(--padding-left);
       left: 0;
-      padding: 10px;
+      padding-top: 30px;
+      br{
+        line-height: 1.4;
+      }
     }
 
     &.line-numbers-mode pre {
-      padding: 11px 1.5rem 10px;
+      padding: 30px 1.5rem 10px;
       padding-left: 10px;
     }
   }

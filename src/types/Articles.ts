@@ -1,21 +1,21 @@
 
 export interface Article {
     aid: number,
-    comments_count: number,
-    create_date: number,
-    modified_date: number,
+    commentsCount: number,
+    createDate: number,
+    modifiedDate: number,
     title: string,
-    access_count: number,
-    head_img: string,
-    partial_content: string
-    tags: string[],
+    accessCount: number,
+    headImg: string,
+    partialContent: string
+    tags: string,
     uname: string
 
 }
 
 export interface ArticleDetail extends Article {
     content: string,
-    head_img: string,
+    headImg: string,
     main: string,
     signature: string,
 }
