@@ -2,14 +2,23 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { TDesignResolver } from 'unplugin-vue-components/resolvers'
 import prismjs from 'vite-plugin-prismjs';
+import path from 'path';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   devServer: {
     port: 1027,
+  },
 
+  runtimeConfig: {
+    // 仅服务器端可用的配置
+    apiSecret: 'my-secret',
+    // 公开的配置，客户端和服务端均可访问
+    public: {
+      baseURL: process.env.BASE_URL || 'http://39.108.89.65:2024/',
+    },
   },
   srcDir: './src',
 
@@ -50,6 +59,8 @@ export default defineNuxtConfig({
     classSuffix: '',
   },
 
+
+
   // Sitemap module configuration: https://nuxtseo.com/site-config/getting-started/how-it-works
   // site: {
   //   url: process.env.NODE_ENV === 'production'
@@ -67,10 +78,20 @@ export default defineNuxtConfig({
     compressPublicAssets: { brotli: true, gzip: true },
     preset: 'static',
     routeRules: {
-      '/api/openai/getAiFox': { cors: true },  // 允许跨域
+      // '/api/openai/getAiFox': { cors: true },  // 允许跨域
     },
   },
   vite: {
+    // envDir: path.resolve(__dirname, './env'),
+    server: {
+      proxy: {
+        '/hono': {
+          target: 'http://localhost:2024',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/hono/, '')
+        },
+      },
+    },
 
     vue: {
       script: {

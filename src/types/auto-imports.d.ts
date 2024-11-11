@@ -113,6 +113,7 @@ declare global {
   const useCssModule: (typeof import('vue'))['useCssModule']
   const useCssVars: (typeof import('vue'))['useCssVars']
   const useDirectoryStore: typeof import('../store/useDirectoy')['useDirectoryStore']
+  const useInformationStore: typeof import('../store/useInformation')['useInformationStore']
   const useLazyQuery: (typeof import('@vue/apollo-composable'))['useLazyQuery']
   const useLoadingStore: typeof import('../store/useLoading')['useLoadingStore']
   const useMutation: (typeof import('@vue/apollo-composable'))['useMutation']
@@ -166,6 +167,7 @@ declare module 'vue' {
     readonly timeAgo: UnwrapRef<typeof import('../utils/common')['timeAgo']>
     readonly unique: UnwrapRef<typeof import('../utils/common')['unique']>
     readonly useDirectoryStore: UnwrapRef<typeof import('../store/useDirectoy')['useDirectoryStore']>
+    readonly useInformationStore: UnwrapRef<typeof import('../store/useInformation')['useInformationStore']>
     readonly useLoadingStore: UnwrapRef<typeof import('../store/useLoading')['useLoadingStore']>
     readonly useOpenaiStore: UnwrapRef<typeof import('../store/useOpenAi')['useOpenaiStore']>
     readonly useRequestDataStore: UnwrapRef<typeof import('../store/useRequestData')['useRequestDataStore']>

@@ -21,7 +21,7 @@ const formatTime = (time: string) => {
 
 <template>
   <section
-    class="border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
+    class="border-4 border-black bg-themeColor dark:border-white dark:bg-dark-background rounded-2xl p-[5px]"
   >
     <div
       class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-[#333] flex items-center justify-between"
@@ -36,7 +36,7 @@ const formatTime = (time: string) => {
       <div class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"></div>
     </div>
     <div
-      class="border-[3px] border-black p-2 select-none rounded-xl bg-white dark:bg-black grid grid-cols-2"
+      class="border-[3px] border-black p-2 select-none rounded-xl bg-white dark:bg-dark-background grid grid-cols-2"
     >
       <div>
         <img

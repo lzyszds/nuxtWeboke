@@ -4,8 +4,6 @@
 import { onMounted, getCurrentInstance } from "vue";
 import { ElNotification } from "element-plus";
 import { useEventListener } from "@vueuse/core";
-//@ts-ignore
-import VueMarkdownEditor, { xss } from "@kangc/v-md-editor";
 
 const useDirectory = useDirectoryStore();
 const useOpenai = useOpenaiStore();
@@ -17,11 +15,11 @@ const props = defineProps({
 
 const emit = defineEmits(["update"]);
 const articleMain = templateRef("articleMain");
-const aiContentHtml = computed(() => {
-  return xss.process(
-    VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(useOpenai.content)
-  );
-});
+// const aiContentHtml = computed(() => {
+//   return xss.process(
+//     VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(useOpenai.content)
+//   );
+// });
 const doneFlag = ref(false);
 
 onMounted(() => {
@@ -37,10 +35,7 @@ onMounted(() => {
             zoom: false,
           },
         });
-        element.src = element.src.replace(
-          "http://localhost:1027/firstHonoApi",
-          "http://localhost:2024"
-        );
+        element.src = element.src.replace("http://localhost:1027/firstHonoApi", "/hono");
         const wrapper = document.createElement("div");
         wrapper.className = "img-wrapper";
         element.parentNode.insertBefore(wrapper, element);
@@ -88,10 +83,6 @@ onMounted(() => {
 });
 
 defineExpose({ articleMain });
-
-onBeforeMount(() => {
-  useOpenai.content = "AI摘要还在生成中，请稍等...";
-});
 </script>
 
 <template>
@@ -100,7 +91,7 @@ onBeforeMount(() => {
     class="mt-10 bg-themeColor p-2.5 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
   >
     <div
-      class="bg-white p-2.5 px-6 text-lg rounded-2xl border-4 border-black text-[15px]"
+      class="bg-white dark:bg-dark-background p-2.5 px-6 text-lg rounded-2xl border-4 border-black text-[15px]"
     >
       <p
         class="bg-borderColor text-black rounded-lg mt-0 px-4 font-dindin flex items-center"
@@ -112,21 +103,23 @@ onBeforeMount(() => {
       <div
         class="min-h-10 mt-4 flex justify-center items-center font-semibold tracking-wider border border-[#ddd] shadow-[0_0_4px_#eee] rounded-xl text-sm py-2 px-4 break-all"
       >
-        <p class="indent-8 aiText">
-          <span class="vuepress-markdown-body" v-html="aiContentHtml"></span>
+        <p class="indent-8 aiText ">
+          <span class="vuepress-markdown-body dark:text-[#eee] " v-html="useOpenai.content"></span>
           <LzyIcon
-            class="align-text-top"
+            class="align-text-top dark:text-[#eee]"
             v-if="!doneFlag"
             name="ph:fan-duotone"
             size="20"
           ></LzyIcon>
         </p>
       </div>
-      <p class="affirm text-xs font-dindin indent-1.5 mt-2 font-medium">
+      <p class="affirm text-xs font-dindin indent-1.5 mt-2 font-medium dark:text-[#eee] ">
         此内容根据文章生成，未经过人工审核，仅用于文章内容的解释与总结，不承担任何法律责任！
       </p>
     </div>
-    <div class="mainHtml bg-white rounded-3xl mt-3 px-8 py-5 border-4 border-black">
+    <div
+      class="mainHtml bg-white dark:bg-dark-background rounded-3xl mt-3 px-8 py-5 border-4 border-black"
+    >
       <section
         ref="articleMain"
         id="articleMain"

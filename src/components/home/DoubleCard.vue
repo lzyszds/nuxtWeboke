@@ -14,16 +14,16 @@ const aspectRatio = computed(() => {
 
 <template>
   <section
-    class="flex flex-col lg:flex-row gap-4 max-h-80 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-2"
+    class="flex flex-col lg:flex-row gap-4 max-h-80 border-4 border-black bg-themeColor dark:border-white dark:bg-dark-background rounded-2xl p-2"
   >
     <div
-      class="border-[3px] hidden lg:flex border-black rounded-xl bg-white dark:bg-black overflow-hidden"
+      class="border-[3px] hidden lg:flex border-black rounded-xl bg-white dark:bg-dark-background overflow-hidden"
       :class="aspectRatio[0]"
     >
       <slot name="first"></slot>
     </div>
     <div
-      class="border-[3px] border-black rounded-xl bg-white dark:bg-black overflow-hidden"
+      class="border-[3px] border-black rounded-xl bg-white dark:bg-dark-background overflow-hidden"
       :class="aspectRatio[1]"
     >
       <slot name="second"></slot>

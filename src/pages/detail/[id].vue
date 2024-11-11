@@ -14,12 +14,12 @@ const countInfoArr = [
   {
     title: "发表时间",
     value: timeAgo(details.value.createDate),
-    icon: "ic:baseline-access-time",
+    icon: "iconoir:alarm",
   },
   {
     title: "浏览量",
     value: numFormat(details.value.accessCount),
-    icon: "ic:baseline-remove-red-eye",
+    icon: "iconoir:fire-flame",
   },
   {
     title: "评论数",
@@ -51,15 +51,22 @@ const scrollToElement = (item: Directory) => {
     <!-- 文章头部 -->
     <header>
       <h1
-        class="text-white font-dindin text-center mb-5 drop-shadow-[1px_5px_1px_#000]"
+        class="text-themeColor font-semibold font-dindin text-center mb-5 drop-shadow-[1px_5px_1px_#000]"
         style="font-size: clamp(0.7rem, 4vw, 3.5rem)"
       >
         {{ details.title }}
       </h1>
       <!-- 文章类型 -->
-      <div class="border-2 border-themeColor px-2 bg-white rounded-md mx-auto w-fit mt-1">
-        <span v-for="(item, index) in countInfoArr" :key="index">
-          <LzyIcon :name="item.icon"></LzyIcon> {{ item.title }} {{ item.value }}
+      <div
+        class="flex gap-2 font-dindin p-1 px-2 bg-white dark:bg-dark-background rounded-md mx-auto w-fit mt-1"
+      >
+        <span
+          class="flex text-sm place-content-center place-items-center"
+          v-for="(item, index) in countInfoArr"
+          :key="index"
+        >
+          <LzyIcon :title="item.title" size="16" :name="item.icon"></LzyIcon>
+          {{ item.value }}
         </span>
         <span
           class="ml-1 bg-themeColor text-white border-1 border-black text-xs py-0.5 px-1 rounded-md"
@@ -71,14 +78,14 @@ const scrollToElement = (item: Directory) => {
       </div>
     </header>
     <!-- 文章主体 -->
-    <section class="mt-5 grid gap-2 detailsSection">
-      <div class="detailLeft">
+    <section class="mt-5 grid gap-2 grid-cols-1 lg:grid-cols-[calc(100%-255px)_255px]">
+      <div class="flex flex-col gap-3">
         <ClientOnly>
-          <Maincontent ref="mainContent" :main="details.main" :aid="details.aid" />
+          <DetailMaincontent ref="mainContent" :main="details.main" :aid="details.aid" />
         </ClientOnly>
         <footer
-          v-transition="'animate__bounceIn'"
-          class="mt-2 p-1 rounded-xl text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline"
+          v-transition="'animate__fadeInUp'"
+          class="p-1 rounded-xl text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline"
         >
           <div class="text-center">
             <LzyIcon
@@ -93,8 +100,9 @@ const scrollToElement = (item: Directory) => {
             >
           </div>
         </footer>
+        <DetailPostComment />
       </div>
-      <Directory :windowY="windowY" @scrollToElement="scrollToElement" />
+      <DetailDirectory :windowY="windowY" @scrollToElement="scrollToElement" />
     </section>
   </main>
 </template>
@@ -103,9 +111,14 @@ const scrollToElement = (item: Directory) => {
 .bgLattice {
   background: rgb(255, 255, 255);
   background-image: linear-gradient(#e0e0e0 1px, transparent 0),
-    linear-gradient(90deg, #e0e0e0 1px, transparent 0);
+    linear-gradient(87deg, #e0e0e0 1px, transparent 0),
+    linear-gradient(96deg, #8077ff 1px, transparent 0);
   background-size: 28px 28px;
   background-repeat: repeat;
+}
+
+.dark .bgLattice {
+  background: var(--darkBgcolor);
 }
 
 .detailsSection {

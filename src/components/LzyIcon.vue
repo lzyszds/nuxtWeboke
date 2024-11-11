@@ -4,6 +4,7 @@ interface Props {
   size?: string;
   style?: string | Object;
   animation?: string;
+  title?: string;
 }
 
 const props = defineProps<Props>();
@@ -16,6 +17,7 @@ const props = defineProps<Props>();
     :name="name"
     :size="props.size"
     :style="props.style"
+    :title="props.title"
   ></Icon>
 </template>
 

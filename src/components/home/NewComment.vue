@@ -17,17 +17,17 @@ const baseUrl = useRuntimeConfig().public.VITE_BASE_URL
 
 <template>
   <section
-    class="overflow-hidden mt-3 border-4 border-black bg-themeColor dark:border-white dark:bg-black rounded-2xl p-[5px]"
+    class="overflow-hidden mt-3 border-4 border-black bg-themeColor dark:border-white dark:bg-dark-background rounded-2xl p-[5px]"
   >
     <div
-      class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-black flex items-center justify-between"
+      class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-dark-background flex items-center justify-between"
     >
       <div class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"></div>
       <div class="comment-title">最新评论</div>
       <div class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"></div>
     </div>
     <LzyEnterVisible
-      class="border-[3px] opacity-0 h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-black flex gap-2 items-center justify-between"
+      class="border-[3px] opacity-0 h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-dark-background flex gap-2 items-center justify-between"
       v-for="(item, index) in comment"
       :index="index"
       animateClass="animate__bounceInRight"

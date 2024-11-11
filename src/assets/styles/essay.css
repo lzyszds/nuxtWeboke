@@ -79,7 +79,7 @@
 }
 
 .v-md-prism-::-webkit-scrollbar-track {
-  background-color: #282c34;
+  background-color: #282c34 !important;
   cursor: pointer;
 }
 
@@ -434,7 +434,8 @@ code {
       background: var(--darkBgcolor) !important;
     }
 
-    a {
+    a,
+    li {
       color: #fff;
       border-color: #fff;
     }
@@ -444,7 +445,7 @@ code {
     h3,
     h4,
     p {
-      color: #fff;
+      color: #fff !important;
     }
 
     .v-md-plugin-tip>p,
@@ -458,8 +459,7 @@ code {
     }
 
     blockquote {
-      background: transparent;
-      border-color: #fff;
+      background: transparent !important;
       color: #fff;
 
       .v-md-svg-outbound {
@@ -476,6 +476,10 @@ code {
         background-color: var(--textcolor);
       }
     }
+  }
+
+  pre::-webkit-scrollbar-track {
+    background: initial !important
   }
 }
 

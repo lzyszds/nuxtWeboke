@@ -10,7 +10,7 @@ export const theme = {
   extend: {
     colors: {
       'light-background': '#FFFFFF',
-      'dark-background': '#121212',
+      'dark-background': 'rgb(24, 23, 29)',
       'themeColor': '#5161ce',
       'themeColor-hover': '#5161ce40',
       'borderColor': '#ffe14d'

@@ -1,7 +1,6 @@
 <!-- 文章列表中的长方形组件 -->
 <script setup lang="ts">
 import dayjs from "dayjs";
-import LzyIcon from "./LzyIcon.vue";
 import _ from "lodash";
 import { gsap } from "gsap";
 
@@ -162,8 +161,8 @@ const mouseleave = _.debounce(
 <style scoped>
 .line-clamp-2 {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  box-orient: vertical;
   text-overflow: ellipsis;
 }
 
