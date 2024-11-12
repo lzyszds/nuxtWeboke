@@ -59,7 +59,7 @@ const findComment = (id: number) => {
   return oldReplicate.value.find((item) => item.commentId == id);
 };
 
-const baseUrl = useRuntimeConfig().public.VITE_BASE_URL;
+const baseUrl = useRuntimeConfig().public.BASE_URL;
 </script>
 
 <template>

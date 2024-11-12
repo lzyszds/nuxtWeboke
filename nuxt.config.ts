@@ -15,10 +15,8 @@ export default defineNuxtConfig({
     apiSecret: 'my-secret',
     // 公开的配置，客户端和服务端均可访问
     public: {
-      baseURL: process.env.BASE_URL || 'http://39.108.89.65:2024/',
-      VITE_BASE_URL: process.env.VITE_BASE_URL,
-      VITE_APP_API_BASE_NAME: process.env.VITE_APP_API_BASE_NAME,
-      VITE_ROUTER_MODE: process.env.VITE_ROUTER_MODE,
+      BASE_URL: "http://101.201.171.168:2024",
+      VITE_ROUTER_MODE: "history",
     },
   },
   srcDir: './src',
@@ -28,8 +26,7 @@ export default defineNuxtConfig({
     '~/assets/styles/animation.css',
     '~/assets/fonts/index.css',
     '~/assets/styles/default.css',
-    'highlight.js/styles/atom-one-dark.css',
-    '@fancyapps/ui/dist/fancybox.css'
+    '@fancyapps/ui/dist/fancybox/fancybox.css'
   ],
 
   modules: [
@@ -77,7 +74,7 @@ export default defineNuxtConfig({
   ssr: true,
   nitro: {
     compressPublicAssets: { brotli: true, gzip: true },
-    preset: 'static',
+    // preset: 'static', // 作用：开启静态部署
     routeRules: {
       // '/api/openai/getAiFox': { cors: true },  // 允许跨域
     },

@@ -18,8 +18,10 @@ export default async function makeRequest<T = any>({
   headers,
   timeout = 10000,
 }: AxiosRequestConfig): Promise<T> {
+  console.log(process.env);
+
   const defaultConfig: AxiosConfig = {
-    baseURL: process.env.VITE_BASE_URL + '/api',//process.env.NODE_ENV === 'development' ? 'http://localhost:2024/api' : 'http://localhost:2024/api',
+    baseURL: 'http://101.201.171.168:2024/api',//process.env.NODE_ENV === 'development' ? 'http://localhost:2024/api' : 'http://localhost:2024/api',
     timeout,
     headers: {
       'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ if (error.value) {
 }
 console.log();
 
-const baseUrl = useRuntimeConfig().public.VITE_BASE_URL
+const baseUrl = useRuntimeConfig().public.BASE_URL
 </script>
 
 <template>

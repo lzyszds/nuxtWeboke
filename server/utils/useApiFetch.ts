@@ -9,7 +9,7 @@ export default function useApiFetch<T>(url: string, options: any = {}) {
   };
 
   return $fetch<T>(url, {
-    baseURL: useRuntimeConfig().public.VITE_BASE_URL + '/api', // 全局 baseURL
+    baseURL: useRuntimeConfig().public.BASE_URL + '/api', // 全局 baseURL
     ...options, // 合并传入的配置
     headers, // 覆盖或添加 headers
     onRequest({ options }) {
