@@ -30,6 +30,7 @@ declare global {
   const getCurrentScope: (typeof import('vue'))['getCurrentScope']
   const h: (typeof import('vue'))['h']
   const handleWeatherUrl: typeof import('../utils/weather')['handleWeatherUrl']
+  const initData: typeof import('../hooks/useInitData')['initData']
   const inject: (typeof import('vue'))['inject']
   const isProxy: (typeof import('vue'))['isProxy']
   const isReactive: (typeof import('vue'))['isReactive']

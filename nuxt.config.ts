@@ -18,6 +18,9 @@ export default defineNuxtConfig({
     // 公开的配置，客户端和服务端均可访问
     public: {
       baseURL: process.env.BASE_URL || 'http://39.108.89.65:2024/',
+      VITE_BASE_URL: process.env.VITE_BASE_URL,
+      VITE_APP_API_BASE_NAME: process.env.VITE_APP_API_BASE_NAME,
+      VITE_ROUTER_MODE: process.env.VITE_ROUTER_MODE,
     },
   },
   srcDir: './src',
@@ -83,15 +86,6 @@ export default defineNuxtConfig({
   },
   vite: {
     // envDir: path.resolve(__dirname, './env'),
-    server: {
-      proxy: {
-        '/hono': {
-          target: 'http://localhost:2024',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/hono/, '')
-        },
-      },
-    },
 
     vue: {
       script: {
@@ -144,13 +138,6 @@ export default defineNuxtConfig({
     }
   },
 
-  runtimeConfig: {
-    public: {
-      VITE_BASE_URL: process.env.VITE_BASE_URL,
-      VITE_APP_API_BASE_NAME: process.env.VITE_APP_API_BASE_NAME,
-      VITE_ROUTER_MODE: process.env.VITE_ROUTER_MODE,
-    }
-  },
 
   future: {
     // 启用 Nuxt 4 功能前瞻

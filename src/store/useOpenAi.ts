@@ -49,7 +49,7 @@ export const useOpenaiStore = defineStore('openai', () => {
    */
   const processStream = async (reader: ReadableStreamDefaultReader<Uint8Array>, aid: number) => {
     const decoder = new TextDecoder()
-    let content = ''
+    let temporaryContent = ''
 
     try {
       while (true) {
@@ -62,11 +62,11 @@ export const useOpenaiStore = defineStore('openai', () => {
         for (const line of lines) {
           if (!line) continue
           await new Promise(resolve => requestAnimationFrame(resolve))
-          content += line.replace('data: ', '')
-          contentMap.value.set(aid, content)
+          temporaryContent += line.replace('data: ', '')
+          contentMap.value.set(aid, temporaryContent)
         }
       }
-      return content
+      return temporaryContent
     } catch (error) {
       throw new Error('处理流数据失败')
     }

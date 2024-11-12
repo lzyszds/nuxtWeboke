@@ -52,7 +52,7 @@ const scrollToElement = (item: Directory) => {
     <header>
       <h1
         class="text-themeColor font-semibold font-dindin text-center mb-5 drop-shadow-[1px_5px_1px_#000]"
-        style="font-size: clamp(0.7rem, 4vw, 3.5rem)"
+        style="font-size: clamp(0.7rem, 4vw, 3rem)"
       >
         {{ details.title }}
       </h1>
@@ -70,7 +70,7 @@ const scrollToElement = (item: Directory) => {
         </span>
         <span
           class="ml-1 bg-themeColor text-white border-1 border-black text-xs py-0.5 px-1 rounded-md"
-          v-for="(item, index) in details.tags.split(',')"
+          v-for="(item, index) in details.tags ? details.tags.split(',') : ''"
           :key="index"
         >
           #{{ item }}

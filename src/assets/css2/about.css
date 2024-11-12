@@ -169,7 +169,6 @@
 .rectangle {
   transition: all .3s;
   animation: fadeInUpBig var(--delay) ease-in-out 1;
-  // animation-delay: 1s;
   cursor: pointer;
 }
 

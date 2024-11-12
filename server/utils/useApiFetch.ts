@@ -21,7 +21,7 @@ export default function useApiFetch<T>(url: string, options: any = {}) {
     },
     onResponse({ response }) {
       // 可以在此进行响应后的全局处理
-      console.log('Response received:', response);
+      // console.log('Response received:', response);
     },
     onResponseError({ response }) {
       // 全局错误处理

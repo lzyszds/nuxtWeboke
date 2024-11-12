@@ -272,7 +272,7 @@ const onWheelfn = (e: any) => {
                 class="w-12 h-12 cursor-pointer rounded-full"
                 v-for="(item, index) in comImg"
                 :key="index"
-                :src="'/hono' + item"
+                :src="item"
                 @click="setRange(index)"
                 :class="{ animate__headShake: information.rangeIndex == index }"
               />
