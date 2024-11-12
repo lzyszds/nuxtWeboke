@@ -386,12 +386,12 @@ const onWheelfn = (e: any) => {
 }
 
 input {
-  width: 80%;
-  height: 30px;
+  width: 75%;
+  height: auto;
   font-size: 13px;
   border: 2px solid black;
   border-radius: 10px;
-  padding: 5px;
+  padding: 4px 10px;
   font-family: "dindin";
   font-weight: 100;
   color: var(--color);

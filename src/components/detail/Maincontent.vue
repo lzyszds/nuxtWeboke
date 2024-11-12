@@ -24,32 +24,6 @@ const doneFlag = ref(false);
 
 onMounted(() => {
   setTimeout(async () => {
-    const elimg = document.querySelector("#articleMain") as HTMLDivElement;
-    if (elimg) {
-      //给当前页面所有图片添加data-fancybox属性，让其可以点击放大
-      elimg.querySelectorAll("img").forEach((element: any) => {
-        element.setAttribute("data-fancybox", "true");
-        proxy.$fancyapps.Fancybox.bind("data-fancybox", {
-          dragToClose: false,
-          Image: {
-            zoom: false,
-          },
-        });
-        // element.src = element.src.replace(, "/hono");
-        const wrapper = document.createElement("div");
-        wrapper.className = "img-wrapper";
-        element.parentNode.insertBefore(wrapper, element);
-        wrapper.appendChild(element);
-        useEventListener(wrapper, "click", () => {
-          element.click();
-        });
-
-        const pseudo = document.createElement("div");
-        pseudo.className = "img-pseudo";
-        pseudo.setAttribute("data-clipboard-text", element.src.split("/").pop());
-        wrapper.appendChild(pseudo);
-      });
-    }
     //给当前页面所有代码块复制按钮添加复制声明
     const copys = document.querySelectorAll("button.v-md-copy-code-btn") as any;
     copys.forEach((element: any) => {
@@ -126,7 +100,7 @@ defineExpose({ articleMain });
       <section
         ref="articleMain"
         id="articleMain"
-        class="vuepress-markdown-body"
+        class="preview-pane"
         v-html="props.main"
       ></section>
     </div>
@@ -134,6 +108,7 @@ defineExpose({ articleMain });
 </template>
 
 <style>
+@import "@/assets/styles/markPreview.css";
 .aiText p {
   display: inline;
   text-indent: 2em;

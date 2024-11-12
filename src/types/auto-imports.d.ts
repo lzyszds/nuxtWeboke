@@ -154,7 +154,6 @@ declare module 'vue' {
     readonly mapState: UnwrapRef<typeof import('pinia')['mapState']>
     readonly mapStores: UnwrapRef<typeof import('pinia')['mapStores']>
     readonly mapWritableState: UnwrapRef<typeof import('pinia')['mapWritableState']>
-    readonly markDownCreate: UnwrapRef<typeof import('../utils/markDownCreate')['default']>
     readonly motionLibrary: UnwrapRef<typeof import('../utils/motionLibrary')['default']>
     readonly numFormat: UnwrapRef<typeof import('../utils/common')['numFormat']>
     readonly numberJump: UnwrapRef<typeof import('../utils/common')['numberJump']>

@@ -1,8 +1,6 @@
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { TDesignResolver } from 'unplugin-vue-components/resolvers'
-import prismjs from 'vite-plugin-prismjs';
-import path from 'path';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -113,12 +111,7 @@ export default defineNuxtConfig({
           }),
         ],
       }),
-      prismjs({
-        languages: ['json', 'js', 'ts', 'css', 'less', 'html', 'markdown', 'sql', 'typescript', 'vim', "git", "bash"],
-        plugins: ['line-numbers', 'show-language', 'copy-to-clipboard', 'inline-color'],
-        theme: 'okaidia',// 主题
-        css: true,
-      }),
+
     ],
   },
 
