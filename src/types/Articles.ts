@@ -1,7 +1,7 @@
 
 export interface Article {
     aid: number,
-    commentsCount: number,
+    commentCount: number,
     createDate: number,
     modifiedDate: number,
     title: string,

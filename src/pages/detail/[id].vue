@@ -23,7 +23,7 @@ const countInfoArr = [
   },
   {
     title: "评论数",
-    value: numFormat(details.value.commentsCount),
+    value: numFormat(details.value.commentCount),
     icon: "iconoir:chat-lines",
   },
 ];

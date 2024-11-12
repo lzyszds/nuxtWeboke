@@ -22,7 +22,7 @@ const tags = props.data.tags;
 const data = ref<Article>(props.data);
 const selectHandle = (index: number) => {
   let result = "" as string | number;
-  const { createDate, commentsCount, accessCount } = data.value;
+  const { createDate, commentCount, accessCount } = data.value;
   if (index == 0) {
     result = dayjs(createDate).format("YYYY-MM-DD HH:mm:ss");
   } else if (index == 1) {
@@ -30,7 +30,7 @@ const selectHandle = (index: number) => {
   } else if (index == 2) {
     result = accessCount;
   } else if (index == 3) {
-    result = commentsCount || 0;
+    result = commentCount || 0;
   }
   return result;
 };
