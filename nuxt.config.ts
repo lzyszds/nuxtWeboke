@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   css: [
     '~/assets/styles/animate.min.css',
     '~/assets/styles/animation.css',
-    '~/assets/fonts/index.css',
+    '~/assets/styles/font.css',
     '~/assets/styles/default.css',
     '@fancyapps/ui/dist/fancybox/fancybox.css'
   ],

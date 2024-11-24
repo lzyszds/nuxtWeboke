@@ -50,16 +50,16 @@ const formatTime = (time: string) => {
         </p>
       </div>
       <div class="grid grid-rows-5">
-        <span class="flex place-items-center">
+        <span class="flex place-items-center text-sm">
           <LzyIcon name="typcn:lightbulb" />&nbsp; ：{{ weather }}
         </span>
-        <span class="flex place-items-center">
+        <span class="flex place-items-center text-sm">
           <LzyIcon name="wi:small-craft-advisory" size="1.4rem" />：{{ winddirection }}
         </span>
-        <span class="flex place-items-center">
+        <span class="flex place-items-center text-sm">
           <LzyIcon name="wi:storm-warning" size="1.4rem" />：{{ windpower }}级
         </span>
-        <span class="flex place-items-center">
+        <span class="flex place-items-center text-sm">
           <LzyIcon name="wi:humidity" size="1.4rem" />：{{ humidity }}%
         </span>
         <span class="uptime">更新时间：{{ formatTime(reporttime) }}</span>
