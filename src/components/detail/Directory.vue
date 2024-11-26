@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Directory } from "~/types/Directory";
+import type { Directory } from '~/types/Directory';
 
 const headingRefs: any = ref([]);
-const activeHeading = ref("#abstract");
+const activeHeading = ref('abstract');
 const isMutaScroll = ref(false);
 
 const emit = defineEmits<{
-  (e: "scrollToElement", item: Directory): void;
+  (e: 'scrollToElement', item: Directory): void;
 }>();
 
 const useDirectory = useDirectoryStore();
@@ -14,36 +14,41 @@ const scrollToElement = (item: Directory) => {
   if (isMutaScroll.value) return;
   isMutaScroll.value = true;
   activeHeading.value = item.id;
-  emit("scrollToElement", item);
+  emit('scrollToElement', item);
   setTimeout(() => {
     isMutaScroll.value = false;
   }, 1000);
 };
-
+let eventListener: any;
 //当前内容的滚动距离，用于判断目录的高亮
-onMounted(async () => {
-  useDirectory.getDirectory().then((directory) => {
-    useEventListener(
+watchEffect(() => {
+  const directory = useDirectory.getDirectory;
+  if (directory && directory.length) {
+    //如果已经有监听器，先清除
+    if (eventListener) eventListener();
+    //监听滚动事件
+    eventListener = useEventListener(
       useDirectory.scrollEl,
-      "scroll",
-      useThrottle((event) => {
+      'scroll',
+      useThrottleFn((event) => {
         if (isMutaScroll.value) return;
         const arr: Directory[] = [];
 
         //@ts-ignore
         let scrollTop = event.target.scrollTop;
         if (scrollTop < 250) {
-          activeHeading.value = "abstract";
+          activeHeading.value = 'abstract';
         }
         directory.forEach((element: any, index) => {
-          if (scrollTop - 100 >= element.top) {
+          if (scrollTop >= element.top - 350) {
             arr.push(element);
           }
         });
-        activeHeading.value = arr.length > 0 ? arr[arr.length - 1]!.id : "abstract";
-      }, 50)
+        activeHeading.value =
+          arr.length > 0 ? arr[arr.length - 1]!.id : 'abstract';
+      }, 50),
     );
-  });
+  }
 });
 
 onUnmounted(() => {
@@ -100,7 +105,7 @@ li.active a {
 
 li:before {
   background-color: transparent;
-  content: " ";
+  content: ' ';
   display: block;
   float: left;
   margin-top: 2px;

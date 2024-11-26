@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { timeAgo, numFormat } from "~/utils/common.js";
-import type { ArticleDetail } from "~/types/Articles";
-import type { Directory } from "~/types/Directory";
+import { numFormat, timeAgo } from '~/utils/common.js';
+import type { Directory } from '~/types/Directory';
 
 const mainContent = ref();
-const windowY: any = inject("windowY");
+const windowY: any = inject('windowY');
 const { requestData } = useRequestDataStore();
 const details = computed(() => requestData.detailData);
 
@@ -12,34 +11,34 @@ const useDirectory = useDirectoryStore();
 
 const countInfoArr = [
   {
-    title: "发表时间",
+    title: '发表时间',
     value: timeAgo(details.value.createDate),
-    icon: "iconoir:alarm",
+    icon: 'iconoir:alarm',
   },
   {
-    title: "浏览量",
+    title: '浏览量',
     value: numFormat(details.value.accessCount),
-    icon: "iconoir:fire-flame",
+    icon: 'iconoir:fire-flame',
   },
   {
-    title: "评论数",
+    title: '评论数',
     value: numFormat(details.value.commentCount),
-    icon: "iconoir:chat-lines",
+    icon: 'iconoir:chat-lines',
   },
 ];
 
 // 滚动到指定标题
 const scrollToElement = (item: Directory) => {
   const article = mainContent.value?.articleMain;
-  const articleChild = article.querySelectorAll("h2,h3,h4");
+  const articleChild = article.querySelectorAll('h2,h3,h4');
 
-  useDirectory.scrollEl?.scrollTo({ top: item.top + 200, behavior: "smooth" });
+  useDirectory.scrollEl?.scrollTo({ top: item.top - 200, behavior: 'smooth' });
 
   articleChild.forEach(async (element: HTMLElement) => {
     if (element.id === item.id) {
-      element.classList.add("animate__shakeX");
+      element.classList.add('animate__shakeX');
       await awaitTime(() => {
-        element.classList.remove("animate__shakeX");
+        element.classList.remove('animate__shakeX');
       }, 1000);
     }
   });
@@ -78,10 +77,16 @@ const scrollToElement = (item: Directory) => {
       </div>
     </header>
     <!-- 文章主体 -->
-    <section class="mt-5 grid gap-2 grid-cols-1 lg:grid-cols-[calc(100%-255px)_255px]">
+    <section
+      class="mt-5 grid gap-2 grid-cols-1 lg:grid-cols-[calc(100%-255px)_255px]"
+    >
       <div class="flex flex-col gap-3">
         <ClientOnly>
-          <DetailMaincontent ref="mainContent" :main="details.main" :aid="details.aid" />
+          <DetailMaincontent
+            ref="mainContent"
+            :main="details.main"
+            :aid="details.aid"
+          />
         </ClientOnly>
         <footer
           v-transition="'animate__fadeInUp'"
