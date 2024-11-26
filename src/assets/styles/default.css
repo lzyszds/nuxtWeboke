@@ -185,7 +185,7 @@ html,
 body {
     scroll-behavior: smooth;
 
-    font-family: 'Red Hat Display';
+    font-family: var(--font-family);
     font-variant-numeric: tabular-nums;
     /* 使用等宽特性 */
     font-variation-settings: 'wght' 430;

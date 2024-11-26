@@ -1,6 +1,6 @@
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import { TDesignResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -15,10 +15,14 @@ export default defineNuxtConfig({
     apiSecret: 'my-secret',
     // 公开的配置，客户端和服务端均可访问
     public: {
-      BASE_URL: "http://101.201.171.168:2024",
-      VITE_ROUTER_MODE: "history",
+      BASE_URL:
+        process.env.NODE_ENV === 'production'
+          ? 'http://101.201.171.168:2024'
+          : 'http://localhost:2024',
+      VITE_ROUTER_MODE: 'history',
     },
   },
+
   srcDir: './src',
 
   css: [
@@ -26,27 +30,25 @@ export default defineNuxtConfig({
     '~/assets/styles/animation.css',
     '~/assets/styles/font.css',
     '~/assets/styles/default.css',
-    '@fancyapps/ui/dist/fancybox/fancybox.css'
+    '@fancyapps/ui/dist/fancybox/fancybox.css',
   ],
 
   modules: [
-    "@vueuse/nuxt",
-    "@pinia/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
-    "@nuxt/icon",
-    "@nuxtjs/color-mode",
-    "@nuxtjs/tailwindcss",
+    '@vueuse/nuxt',
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+    '@nuxt/icon',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/tailwindcss',
     // "@nuxtjs/seo",
     // '@nuxtjs/robots',
     '@vueuse/motion/nuxt',
     '@nuxt/eslint',
-    "nuxt-lodash",
+    // 'nuxt-lodash',
     // '@element-plus/nuxt',
   ],
 
-  plugins: [
-    '~/plugins/v-transition.ts',
-  ],
+  plugins: ['~/plugins/v-transition.ts'],
 
   tailwindcss: {
     configPath: './src/tailwind.config',
@@ -57,8 +59,6 @@ export default defineNuxtConfig({
     classSuffix: '',
   },
 
-
-
   // Sitemap module configuration: https://nuxtseo.com/site-config/getting-started/how-it-works
   // site: {
   //   url: process.env.NODE_ENV === 'production'
@@ -67,7 +67,7 @@ export default defineNuxtConfig({
   //   name: 'My Awesome Site',
   //   description: 'This is my great Nuxt.js website',
   //   defaultLocale: 'zh', // 默认语言
-  //   trailingSlash: false, // URL 是否以斜杠结尾 
+  //   trailingSlash: false, // URL 是否以斜杠结尾
 
   // },
 
@@ -108,7 +108,6 @@ export default defineNuxtConfig({
           }),
         ],
       }),
-
     ],
   },
 
@@ -116,24 +115,25 @@ export default defineNuxtConfig({
     head: {
       meta: [
         // <meta name="viewport" content="width=device-width, initial-scale=1">
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
       link: [
         // <link rel="stylesheet" href="https://myawesome-lib.css">
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap' },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap',
+        },
       ],
       script: [
         // { src: "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" },
-      ]
-    }
+      ],
+    },
   },
-
 
   future: {
     // 启用 Nuxt 4 功能前瞻
     compatibilityVersion: 4,
   },
 
-
   compatibilityDate: '2024-07-19',
-})
+});

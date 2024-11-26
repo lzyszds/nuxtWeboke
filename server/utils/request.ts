@@ -18,12 +18,13 @@ export default async function makeRequest<T = any>({
   headers,
   timeout = 10000,
 }: AxiosRequestConfig): Promise<T> {
+  const runtimeConfig = useRuntimeConfig(); // 获取 nuxt 的运行时配置
+
   const defaultConfig: AxiosConfig = {
-    baseURL: process.env.BASE_URL + '/api', //'http://101.201.171.168:2024/api',//process.env.NODE_ENV === 'development' ? 'http://localhost:2024/api' : 'http://localhost:2024/api',
+    baseURL: runtimeConfig.public.BASE_URL + '/api', //'http://101.201.171.168:2024/api',//process.env.NODE_ENV === 'development' ? 'http://localhost:2024/api' : 'http://localhost:2024/api',
     timeout,
     headers: {
       'Content-Type': 'application/json',
-      'x-real-ip': '180.139.210.222',
     },
   };
 

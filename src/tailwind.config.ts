@@ -21,7 +21,7 @@ export const theme = {
     text: {
     },
     fontFamily: {
-      sans: ['Red Hat Display'],
+      sans: ['HarmonyOS_Regular'],
       dindin: ['dindin']
     },
     dropShadow: {
