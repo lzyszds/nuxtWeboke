@@ -85,7 +85,7 @@ export const useOpenaiStore = defineStore('openai', () => {
     }
 
     try {
-      const response = await fetch(`/api/openai/getAiFoxProxy?aid=${aid}`)
+      const response = await fetch(`/api/openai/getSiliconflowiAi?aid=${aid}`)
       if (!response.ok) {
         throw new Error('API请求失败')
       }
