@@ -100,7 +100,7 @@ provide("windowY", y);
 <template>
   <div
     ref="el"
-    class="w-screen h-screen bg-white overflow-x-hidden dark:bg-dark-background dark:text-white transition-all font-sans"
+    class="w-screen h-screen bg-white overflow-x-hidden dark:bg-dark-background dark:text-white font-sans"
     :class="{ bgLattice: route.name == 'detail-id' }"
   >
     <LayoutAppHeader ref="appHeader" />
