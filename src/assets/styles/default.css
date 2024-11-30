@@ -32,7 +32,6 @@
 
 body.dark {
     --color: #fff !important;
-
 }
 
 .dark ::-webkit-scrollbar-track {

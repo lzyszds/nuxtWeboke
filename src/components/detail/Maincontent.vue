@@ -1,20 +1,18 @@
 <!-- 详情页主要内容 -->
 
 <script setup lang="ts">
-import { onMounted, getCurrentInstance } from "vue";
-import { ElNotification } from "element-plus";
-import { useEventListener } from "@vueuse/core";
+import { useNotification } from '@/hooks/notification';
 
+const { notify, closeAll } = useNotification();
 const useDirectory = useDirectoryStore();
 const useOpenai = useOpenaiStore();
-const { proxy } = getCurrentInstance() as any;
 const props = defineProps({
   main: String,
   aid: Number,
 });
 
-const emit = defineEmits(["update"]);
-const articleMain = templateRef("articleMain");
+const emit = defineEmits(['update']);
+const articleMain = templateRef('articleMain');
 // const aiContentHtml = computed(() => {
 //   return xss.process(
 //     VueMarkdownEditor.vMdParser.themeConfig.markdownParser.render(useOpenai.content)
@@ -24,26 +22,32 @@ const doneFlag = ref(false);
 
 onMounted(() => {
   setTimeout(async () => {
-    //给当前页面所有代码块复制按钮添加复制声明
-    const copys = document.querySelectorAll("button.v-md-copy-code-btn") as any;
-    copys.forEach((element: any) => {
-      useEventListener(element, "click", (e: any) => {
+    //给当前所有pre标签添加复制按钮
+    const pres = document.querySelectorAll('pre') as any;
+    pres.forEach((element: any) => {
+      const btn = document.createElement('button');
+      btn.className = 'copy';
+      btn.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm-4 4q-.825 0-1.412-.587T3 20V6h2v14h11v2z"></path></svg>\n';
+      element.appendChild(btn);
+
+      useEventListener(btn, 'click', (e: any) => {
         const text = e.target.parentElement.firstChild.innerText;
+        if (!text) return;
         //将text复制到剪切板
         navigator.clipboard.writeText(text).then(
           () => {
-            ElNotification.closeAll();
-            ElNotification({
-              dangerouslyUseHTMLString: true,
-              message: `<i class="fa fa-copy"></i> 复制成功,转载请声明来源！`,
-              position: "bottom-right",
+            closeAll();
+            notify({
+              message: `${btn.innerHTML} 复制成功,转载请声明来源！`,
+              position: 'bottom-center',
               duration: 2000,
-              customClass: "copy-success",
+              dangerouslyUseHTMLString: true,
             });
           },
           function (res) {
-            console.log("lzy ~ res", res);
-          }
+            console.log('lzy ~ res', res);
+          },
         );
       });
     });
@@ -71,11 +75,15 @@ defineExpose({ articleMain });
         class="bg-borderColor text-black rounded-lg mt-0 px-4 font-dindin flex items-center"
         id="abstract"
       >
-        <LzyIcon name="mdi:robot-excited-outline" size="18" class="mr-1.5"></LzyIcon
-        >文章摘要
+        <LzyIcon
+          name="mdi:robot-excited-outline"
+          size="18"
+          class="mr-1.5"
+        ></LzyIcon>
+        文章摘要
       </p>
       <div
-        class="min-h-10 mt-4 flex justify-center items-center font-semibold tracking-wider border border-[#ddd] shadow-[0_0_4px_#eee] rounded-xl text-sm py-2 px-4 break-all"
+        class="min-h-10 text-black mt-4 flex justify-center items-center font-medium tracking-wider border border-[#ddd] shadow-[0_0_4px_#eee] rounded-xl text-sm py-2 px-4 break-all"
       >
         <p class="indent-8 aiText">
           <span
@@ -90,7 +98,9 @@ defineExpose({ articleMain });
           ></LzyIcon>
         </p>
       </div>
-      <p class="affirm text-xs font-dindin indent-1.5 mt-2 font-medium dark:text-[#eee]">
+      <p
+        class="affirm text-xs font-dindin indent-1.5 mt-2 font-medium dark:text-[#eee]"
+      >
         此内容根据文章生成，未经过人工审核，仅用于文章内容的解释与总结，不承担任何法律责任！
       </p>
     </div>
@@ -108,7 +118,8 @@ defineExpose({ articleMain });
 </template>
 
 <style>
-@import "@/assets/styles/markPreview.css";
+@import '@/assets/styles/markPreview.css';
+
 .aiText p {
   display: inline;
   text-indent: 2em;

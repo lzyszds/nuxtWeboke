@@ -45,6 +45,7 @@ declare global {
   const markRaw: (typeof import('vue'))['markRaw']
   const motionLibrary: typeof import('../utils/motionLibrary')['default']
   const nextTick: (typeof import('vue'))['nextTick']
+  const notificationClient: typeof import('../hooks/notification.client')['default']
   const numFormat: typeof import('../utils/common')['numFormat']
   const numberJump: typeof import('../utils/common')['numberJump']
   const observeClassChange: typeof import('../utils/common')['observeClassChange']
@@ -118,6 +119,7 @@ declare global {
   const useLazyQuery: (typeof import('@vue/apollo-composable'))['useLazyQuery']
   const useLoadingStore: typeof import('../store/useLoading')['useLoadingStore']
   const useMutation: (typeof import('@vue/apollo-composable'))['useMutation']
+  const useNotification: typeof import('../hooks/notification')['useNotification']
   const useOpenaiStore: typeof import('../store/useOpenAi')['useOpenaiStore']
   const useQuery: (typeof import('@vue/apollo-composable'))['useQuery']
   const useRequestDataStore: typeof import('../store/useRequestData')['useRequestDataStore']
@@ -169,6 +171,7 @@ declare module 'vue' {
     readonly useDirectoryStore: UnwrapRef<typeof import('../store/useDirectoy')['useDirectoryStore']>
     readonly useInformationStore: UnwrapRef<typeof import('../store/useInformation')['useInformationStore']>
     readonly useLoadingStore: UnwrapRef<typeof import('../store/useLoading')['useLoadingStore']>
+    readonly useNotification: UnwrapRef<typeof import('../hooks/notification')['useNotification']>
     readonly useOpenaiStore: UnwrapRef<typeof import('../store/useOpenAi')['useOpenaiStore']>
     readonly useRequestDataStore: UnwrapRef<typeof import('../store/useRequestData')['useRequestDataStore']>
     readonly useThreadTasks: UnwrapRef<typeof import('../store/useThreadTasks')['useThreadTasks']>

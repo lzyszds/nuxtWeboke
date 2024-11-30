@@ -29,6 +29,7 @@
     "@vueuse/motion": "^2.2.5",
     "@vueuse/nuxt": "^11.1.0",
     "axios": "^1.7.7",
+    "daisyui": "^4.12.14",
     "gsap": "^3.12.5",
     "nuxt": "^3.13.2",
     "pinia": "^2.2.2",
