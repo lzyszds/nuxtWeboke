@@ -53,11 +53,11 @@
         font-weight: 600;
         font-family: "dindin";
 
-        &::before {
-            content: "#";
-            color: #ff6d6d;
-            margin-right: 20px;
-        }
+        /*&::before {*/
+        /*    content: "#";*/
+        /*    color: #ff6d6d;*/
+        /*    margin-right: 20px;*/
+        /*}*/
     }
 
     h3 {
@@ -65,11 +65,11 @@
         font-size: 18px;
         font-weight: 600;
 
-        &:before {
-            content: "🌠";
-            color: var(--themeColor);
-            margin-right: 20px;
-        }
+        /*&:before {*/
+        /*    content: "🌠";*/
+        /*    color: var(--themeColor);*/
+        /*    margin-right: 20px;*/
+        /*}*/
     }
 
     h4 {
@@ -78,10 +78,10 @@
         font-size: 18px;
         font-weight: 600;
 
-        &:before {
-            content: "~";
-            color: var(--themeColor);
-        }
+        /*&:before {*/
+        /*    content: "~";*/
+        /*    color: var(--themeColor);*/
+        /*}*/
     }
 
     p {
