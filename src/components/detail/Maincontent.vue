@@ -2,6 +2,8 @@
 
 <script setup lang="ts">
 import { useNotification } from '@/hooks/notification';
+//@ts-ignore
+import { Fancybox } from '@fancyapps/ui'; //图片放大
 
 const { notify, closeAll } = useNotification();
 const useDirectory = useDirectoryStore();
@@ -22,7 +24,7 @@ const doneFlag = ref(false);
 
 onMounted(() => {
   setTimeout(async () => {
-    //给当前所有pre标签添加复制按钮
+    // 给当前所有pre标签添加复制按钮
     const pres = document.querySelectorAll('pre') as any;
     pres.forEach((element: any) => {
       const btn = document.createElement('button');
@@ -31,10 +33,17 @@ onMounted(() => {
         '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm-4 4q-.825 0-1.412-.587T3 20V6h2v14h11v2z"></path></svg>\n';
       element.appendChild(btn);
 
+      // 给当前pre添加一个data-title属性 用于识别当前代码的语言
+      const code = element.querySelector('code');
+      if (code) {
+        const lang = code.className;
+        element.setAttribute('data-lang', lang.replace('language-', ''));
+      }
+      // 添加点击事件 复制代码
       useEventListener(btn, 'click', (e: any) => {
         const text = e.target.parentElement.firstChild.innerText;
         if (!text) return;
-        //将text复制到剪切板
+        // 将text复制到剪切板
         navigator.clipboard.writeText(text).then(
           () => {
             closeAll();
@@ -56,6 +65,15 @@ onMounted(() => {
     useDirectory.initDirectory(articleMain.value);
     useOpenai.getAbstract(props.aid!).then(() => {
       doneFlag.value = true;
+    });
+
+    // @ts-ignore 给所有图片添加
+    Fancybox.bind(articleMain.value, {
+      Carousel: {
+        Panzoom: {
+          zoomLevels: 5,
+        },
+      },
     });
   }, 50);
 });

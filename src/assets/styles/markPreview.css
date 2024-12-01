@@ -122,11 +122,13 @@
     }
 
     tr:nth-child(even) {
-        background-color: none;
+        background-color: transparent;
     }
 
 
     pre {
+        font-size: .9rem;
+        margin-top: 10px;
         padding: 0.75rem;
         border-radius: 0.25rem;
         margin-bottom: 1rem;
@@ -137,8 +139,8 @@
 
 
         &:before {
-            content: "";
-            color: #fff;
+            content: attr(data-lang);
+            color: #999;
             position: absolute;
             top: 15px;
             right: 20px;
