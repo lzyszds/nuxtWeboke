@@ -1,0 +1,56 @@
+@import url('../assets/font/HarmonyOS/regular.css');
+@import url('../assets/font/HarmonyOS/medium.css');
+
+
+@font-face {
+    font-family: 'dindin';
+    src: url('../assets/font/dindinjinbuti/DingTalk_JinBuTi_Regular.woff2');
+    /* 优先加载 */
+
+}
+
+@font-face {
+    font-family: 'almama';
+    src: url('../assets/font/alibaba/Alimama_ShuHeiTi_Bold.woff2');
+}
+
+@font-face {
+    font-family: 'logo';
+    src: url('../assets/font/logo.ttf');
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('../assets/font/FiraCode/FiraCode-Light.woff') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('../assets/font/FiraCode/FiraCode-Regular.woff') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('../assets/font/FiraCode/FiraCode-Medium.woff') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('../assets/font/FiraCode/FiraCode-SemiBold.woff') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('../assets/font/FiraCode/FiraCode-Bold.woff') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('../assets/font/FiraCode/FiraCode-VF.woff') format('truetype');
+    font-weight: 800;
+}

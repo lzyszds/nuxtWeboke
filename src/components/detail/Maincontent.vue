@@ -128,7 +128,7 @@ defineExpose({ articleMain });
       <section
         ref="articleMain"
         id="articleMain"
-        class="preview-pane"
+        class="preview-pane text-color dark:text-dark-color"
         v-html="props.main"
       ></section>
     </div>
@@ -136,7 +136,7 @@ defineExpose({ articleMain });
 </template>
 
 <style>
-@import '@/assets/styles/markPreview.css';
+@import '@/styles/markPreview.css';
 
 .aiText p {
   display: inline;

@@ -14,7 +14,7 @@ const aspectRatio = computed(() => {
 
 <template>
   <section
-    class="flex flex-col lg:flex-row gap-4 max-h-80 border-4 border-black bg-themeColor dark:border-white dark:bg-dark-background rounded-2xl p-2"
+    class="flex flex-col lg:flex-row gap-2 max-h-80 border-4 border-black bg-themeColor dark:border-white dark:bg-dark-background rounded-2xl p-2"
   >
     <div
       class="border-[3px] hidden lg:flex border-black rounded-xl bg-white dark:bg-dark-background overflow-hidden"

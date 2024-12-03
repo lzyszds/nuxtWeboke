@@ -1,35 +1,40 @@
 // tailwind config file
-import plugin from 'tailwindcss/plugin'
+import plugin from 'tailwindcss/plugin';
 
 // const Rem = generateRem()
 // console.log(`generateRem successful,1 = ${Rem[1]}`)
 
-export const mode = 'jit'
-export const darkMode = 'class'
+export const mode = 'jit';
+export const darkMode = 'class';
 export const theme = {
   extend: {
     colors: {
       'light-background': '#FFFFFF',
-      'dark-background': 'rgb(24, 23, 29)',
       'themeColor': '#5161ce',
       'themeColor-hover': '#5161ce40',
-      'borderColor': '#ffe14d'
+      'borderColor': '#ffe14d',
+      'color': '#180f21'/*light*/,
+
+      /*dark*/
+      'dark-background': 'rgb(29,29,36)',
+      'dark-color': '#c2c2c2',
+      'dark-color-level-b': '#c6c6c6',
+      'dark-color-level-d': '#d5d5d5',
     },
     backgroundImage: {
       // 'lattice': 'linear-gradient(#e0e0e0 2px, transparent 0), linear-gradient(90deg, #e0e0e0 1px, transparent 0)'
     },
-    text: {
-    },
+    text: {},
     fontFamily: {
       sans: ['HarmonyOS_Regular'],
-      dindin: ['dindin']
+      dindin: ['dindin'],
     },
     dropShadow: {
       'text': '0 0 1px #000000',
     },
     animation: {
       'spin-slow': 'spin 3s linear infinite',
-      'jackInTheBox': "jackInTheBox .5s both"
+      'jackInTheBox': 'jackInTheBox .5s both',
     },
     // spacing: {
     //   'banner-height': '494px',
@@ -64,10 +69,10 @@ export const theme = {
     xl: '1280px',
     '2xl': '1536px',
   },
-}
+};
 
 export const plugins = [
-  plugin(function ({ addUtilities }) {
+  plugin(function({ addUtilities }) {
     addUtilities({
       '.scrollbar-hide': {
         /* IE and Edge */
@@ -81,10 +86,10 @@ export const plugins = [
           display: 'none',
         },
       },
-    })
+    });
   }),
-]
-export const content = ['app.vue', '/pages/**/*.vue']
+];
+export const content = ['app.vue', '/pages/**/*.vue'];
 
 /**1 = 1/16rem */
 // function generateRem() {

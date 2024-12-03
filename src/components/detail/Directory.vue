@@ -63,11 +63,13 @@ onUnmounted(() => {
       class="mt-10 bg-themeColor sticky top-16 p-2.5 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
     >
       <div
-        class="bg-white dark:bg-black p-1 px-3 text-lg rounded-2xl border-4 border-black text-[15px]"
+        class="bg-white dark:bg-dark-background p-1 px-3 text-lg rounded-2xl border-4 border-black text-[15px]"
       >
-        <h2 class="bg-[#ffe14d] px-3 my-2 font-semibold rounded-xl select-none">
-          <img class="w-8 inline-block" src="/icon/icon-ship.svg" />
-          <span class="align-text-top">目录</span>
+        <h2
+          class="bg-[#ffe14d] px-3 my-2 font-semibold rounded-xl flex items-center select-none"
+        >
+          <LzyIcon size="20"  name="iconoir:book-stack"></LzyIcon>
+          <span class="align-text-top mt-[-2px]">目录</span>
         </h2>
         <ul class="px-2 relative">
           <li

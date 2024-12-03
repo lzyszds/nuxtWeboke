@@ -8,9 +8,7 @@ const { requestData } = useRequestDataStore();
 const details = computed(() => requestData.detailData);
 
 const useDirectory = useDirectoryStore();
-watchEffect(() => {
-  console.log(details.value);
-});
+
 const countInfoArr = computed(() => [
   {
     title: '发表时间',
@@ -117,14 +115,17 @@ const scrollToElement = (item: Directory) => {
 
 <style>
 .bgLattice {
-  background-size: 28px 28px;
-  background: rgb(255, 255, 255) linear-gradient(#e0e0e0 1px, transparent 0),
-  linear-gradient(87deg, #e0e0e0 1px, transparent 0),
-  linear-gradient(96deg, #8077ff 1px, transparent 0) repeat;
+  background-image: linear-gradient(0deg, #a4a4a4 1px, transparent 0),
+  linear-gradient(90deg, #a4a4a4 1px, transparent 0);
+  background-size: 24px 24px;
+  background-repeat: repeat;
 }
 
 .dark .bgLattice {
-  background: var(--darkBgcolor);
+  background-image: linear-gradient(#2a2a2a 1px, transparent 0),
+  linear-gradient(90deg, #2a2a2a 1px, transparent 0);
+  background-size: 28px 28px;
+  background-repeat: repeat;
 }
 
 .detailsSection {
