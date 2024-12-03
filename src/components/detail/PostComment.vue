@@ -1,25 +1,26 @@
 <script setup lang="ts">
-import type { Replydata, CommentsType } from "~/types/Comment";
+import type { CommentsType, Replydata } from '~/types/Comment';
 
 const route = useRoute();
 const aid = route.params.id;
-const selcetRound = templateRef("selcetRound");
+const selcetRound = templateRef('selcetRound');
 const getDefaultValue = () => {
-  const defaultval = selcetRound.value.parentNode?.querySelectorAll("img")[
-    information.rangeIndex
-  ];
+  const defaultval =
+    selcetRound.value.parentNode?.querySelectorAll('img')[
+      information.rangeIndex
+    ];
   return defaultval;
 };
 
 //主题card class
 const cardClass =
-  "bg-white dark:bg-dark-background p-2 px-6 text-lg rounded-2xl border-[3px] border-black text-[15px]";
+  'bg-white dark:bg-dark-background p-2 px-6 text-lg rounded-2xl border-[3px] border-black text-[15px]';
 
-const { data: comImg } = await useFetch("/api/comment/getCommentAvatar");
+const { data: comImg } = await useFetch('/api/comment/getCommentAvatar');
 
 const replyArr = reactive({
   replyId: new Map(), //回复评论的id
-  replyName: "发表评论", //回复评论初始变量
+  replyName: '发表评论', //回复评论初始变量
 });
 
 const remarkList = ref<Replydata[]>([]);
@@ -29,7 +30,7 @@ const oldRemarkList = ref<Replydata[]>([]);
 const getRemarkList = async () => {
   const replyId = replyArr.replyId;
   //初始的评论列表
-  const { data } = await useFetch("/api/comment/getArticleComment", {
+  const { data } = await useFetch('/api/comment/getArticleComment', {
     params: {
       aid: aid,
     },
@@ -63,9 +64,9 @@ const getRemarkList = async () => {
 await getRemarkList();
 
 //评论上方的诗句请求
-const textbefore = ref<String>("寻找中...");
+const textbefore = ref<String>('寻找中...');
 setTimeout(async () => {
-  const { data: content } = await useFetch("/api/toolkit/getVerse", {
+  const { data: content } = await useFetch('/api/toolkit/getVerse', {
     transform: (data: any) => {
       return data.data.content;
     },
@@ -78,19 +79,19 @@ const { information } = useInformationStore();
 //评论人个人信息验证
 const comInfo = () => {
   if (information.comContent.length == 0) {
-    return console.log("评论内容不能为空");
-  } else if (information.name == "") {
+    return console.log('评论内容不能为空');
+  } else if (information.name == '') {
     information.nameError = true;
     setTimeout(() => {
       information.nameError = false;
     }, 820);
-    return console.log("昵称不能为空");
-  } else if (information.email == "") {
+    return console.log('昵称不能为空');
+  } else if (information.email == '') {
     information.emailError = true;
     setTimeout(() => {
       information.emailError = false;
     }, 820);
-    return console.log("邮箱不能为空");
+    return console.log('邮箱不能为空');
   }
   return true;
 };
@@ -123,15 +124,15 @@ const comSubmit = async () => {
     webSite: information.webSite, //评论人网站
     content: information.comContent, //评论内容
     imgIndex: information.rangeIndex, //评论人头像
-    userIp: "", //用户ip
-    replyPeople: replyArr.replyName.replace("@", ""),
+    userIp: '', //用户ip
+    replyPeople: replyArr.replyName.replace('@', ''),
   };
   //发送请求,提交评论
-  await useFetch("/api/comment/postRemarkList", {
-    method: "POST",
+  await useFetch('/api/comment/postRemarkList', {
+    method: 'POST',
     body: remarkData,
     headers: {
-      "user-agent": navigator.userAgent,
+      'user-agent': navigator.userAgent,
     },
     transform: (data: any) => {
       return data.data;
@@ -140,7 +141,7 @@ const comSubmit = async () => {
   console.log(`评论成功,感谢你的评论！`);
   await getRemarkList();
   //清空评论内容
-  information.comContent = "";
+  information.comContent = '';
   remReplyComment();
 };
 
@@ -154,17 +155,18 @@ const replyComment = (item: any, index: any) => {
     isReply: true,
     groundId: index,
   });
-  replyArr.replyName = "@" + item.userName;
+  replyArr.replyName = '@' + item.userName;
   //给textarea获取焦点
-  const textarea = document.querySelector("#textarea") as any;
+  const textarea = document.querySelector('#textarea') as any;
   textarea?.focus();
 };
 
 //取消回复
 const remReplyComment = () => {
   handleReplyData();
-  replyArr.replyName = "发表评论";
+  replyArr.replyName = '发表评论';
 };
+
 function handleReplyData() {
   const replyId = replyArr.replyId;
   //每次选择回复都要将其他的回复id置为-1
@@ -188,9 +190,10 @@ onMounted(() => {
   wheel.value!.scrollTo({
     left: defaultval!,
     top: 0,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 });
+
 //评论头像更换事件
 function setRange(clickIndex: number) {
   information.rangeIndex = clickIndex;
@@ -204,7 +207,7 @@ function setRange(clickIndex: number) {
 }
 
 //滚轮事件 用于选择头像
-const wheel = templateRef("wheel");
+const wheel = templateRef('wheel');
 let scrollx = 0;
 const onWheelfn = (e: any) => {
   const defaultval = getDefaultValue()?.width;
@@ -214,7 +217,7 @@ const onWheelfn = (e: any) => {
   wheel.value!.scrollTo({
     left: scrollx,
     top: 0,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 };
 </script>
@@ -259,7 +262,10 @@ const onWheelfn = (e: any) => {
       <div :class="cardClass" class="w-full">
         <div class="overflow-hidden flex gap-1">
           <button>
-            <LzyIcon name="gg:chevron-left" animation="animate__heartBeat" />
+            <LzyIcon
+              name="iconoir:nav-arrow-left"
+              animation="animate__heartBeat"
+            />
           </button>
           <div @wheel="onWheelfn" ref="wheel" class="overflow-x-scroll">
             <p class="flex gap-4 relative px-2">
@@ -275,14 +281,20 @@ const onWheelfn = (e: any) => {
                 :src="item"
                 @click="setRange(index)"
                 :class="{ animate__headShake: information.rangeIndex == index }"
+                alt=""
               />
             </p>
           </div>
           <button>
-            <lzy-icon name="gg:chevron-right" animation="animate__heartBeat"></lzy-icon>
+            <lzy-icon
+              name="iconoir:nav-arrow-right"
+              animation="animate__heartBeat"
+            ></lzy-icon>
           </button>
         </div>
-        <p class="my-2 text-sm text-center font-dindin font-semibold dark:text-white">
+        <p
+          class="my-2 text-sm text-center font-dindin font-semibold dark:text-white"
+        >
           昵称：
           <input
             type="text"
@@ -291,7 +303,9 @@ const onWheelfn = (e: any) => {
             placeholder="昵称或者QQ号"
           />
         </p>
-        <p class="mb-2 text-sm text-center font-dindin font-semibold dark:text-white">
+        <p
+          class="mb-2 text-sm text-center font-dindin font-semibold dark:text-white"
+        >
           邮箱：
           <input
             type="text"
@@ -300,9 +314,15 @@ const onWheelfn = (e: any) => {
             placeholder="xxx@xxx.xxx"
           />
         </p>
-        <p class="mb-2 text-sm text-center font-dindin font-semibold dark:text-white">
+        <p
+          class="mb-2 text-sm text-center font-dindin font-semibold dark:text-white"
+        >
           网站：
-          <input type="text" v-model="information.webSite" placeholder="你的网站(选填)" />
+          <input
+            type="text"
+            v-model="information.webSite"
+            placeholder="你的网站(选填)"
+          />
         </p>
         <p
           class="bg-borderColor mt-5 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto border-2 border-black"
@@ -334,13 +354,12 @@ const onWheelfn = (e: any) => {
           class="text-black text-center font-semibold py-4"
           v-if="remarkList.length == 0"
         >
-          <p>
-            <LzyIcon
-              size="150px"
-              class="text-black"
-              name="icon-park-outline:baby-taste"
-            ></LzyIcon>
-          </p>
+          <LzyIcon
+            size="150px"
+            class="text-black"
+            name="iconoir:send-mail"
+          ></LzyIcon>
+          <br />
           暂无评论，快来试试评论吧！
         </h3>
         <DetailReply
@@ -369,17 +388,20 @@ const onWheelfn = (e: any) => {
   border: 4px solid #000;
   z-index: 2;
   background-color: #ffe14d;
-  box-shadow: -1px 3px 1px 0 #fff, -1px 3px 3px 5px #000;
+  box-shadow:
+    -1px 3px 1px 0 #fff,
+    -1px 3px 3px 5px #000;
   color: #000;
   text-align: center;
   line-height: 100px;
   font-size: 15px;
-  font-family: "dindin";
+  font-family: 'dindin';
   /* 超出部分显示省略号 */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 #selcetRound {
   box-shadow: inset 0 0 10px 1px var(--themeColor);
   transition: 0.14s;
@@ -392,10 +414,11 @@ input {
   border: 2px solid black;
   border-radius: 10px;
   padding: 4px 10px;
-  font-family: "dindin";
+  font-family: 'dindin';
   font-weight: 100;
   color: var(--color);
   transition: 0.3s;
+
   &:focus {
     outline: none;
     border-color: var(--themeColor);

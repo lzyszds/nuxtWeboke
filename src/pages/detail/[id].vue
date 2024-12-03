@@ -8,8 +8,10 @@ const { requestData } = useRequestDataStore();
 const details = computed(() => requestData.detailData);
 
 const useDirectory = useDirectoryStore();
-
-const countInfoArr = [
+watchEffect(() => {
+  console.log(details.value);
+});
+const countInfoArr = computed(() => [
   {
     title: '发表时间',
     value: timeAgo(details.value.createDate),
@@ -22,10 +24,10 @@ const countInfoArr = [
   },
   {
     title: '评论数',
-    value: numFormat(details.value.commentCount),
+    value: numFormat(details.value.commentCount) || '暂无评论',
     icon: 'iconoir:chat-lines',
   },
-];
+]);
 
 // 滚动到指定标题
 const scrollToElement = (item: Directory) => {
@@ -57,10 +59,10 @@ const scrollToElement = (item: Directory) => {
       </h1>
       <!-- 文章类型 -->
       <div
-        class="flex gap-2 font-dindin p-1 px-2 bg-white dark:bg-dark-background rounded-md mx-auto w-fit mt-1"
+        class="flex gap-3 font-dindin p-1 px-2 bg-white dark:bg-dark-background rounded-md mx-auto w-fit mt-1"
       >
         <span
-          class="flex text-sm place-content-center place-items-center"
+          class="flex gap-1 text-sm place-content-center place-items-center"
           v-for="(item, index) in countInfoArr"
           :key="index"
         >
@@ -94,8 +96,9 @@ const scrollToElement = (item: Directory) => {
         >
           <div class="text-center">
             <LzyIcon
-              name="mdi:creative-commons"
+              name="iconoir:closed-captions-tag"
               class="text-white align-text-top mr-1 pt-[18px]"
+              size="20"
             />
             <a
               class="text-white"
@@ -114,12 +117,10 @@ const scrollToElement = (item: Directory) => {
 
 <style>
 .bgLattice {
-  background: rgb(255, 255, 255);
-  background-image: linear-gradient(#e0e0e0 1px, transparent 0),
-    linear-gradient(87deg, #e0e0e0 1px, transparent 0),
-    linear-gradient(96deg, #8077ff 1px, transparent 0);
   background-size: 28px 28px;
-  background-repeat: repeat;
+  background: rgb(255, 255, 255) linear-gradient(#e0e0e0 1px, transparent 0),
+  linear-gradient(87deg, #e0e0e0 1px, transparent 0),
+  linear-gradient(96deg, #8077ff 1px, transparent 0) repeat;
 }
 
 .dark .bgLattice {

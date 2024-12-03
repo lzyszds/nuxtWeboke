@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
-    "@iconify-json/iconoir": "^1.2.2",
+    "@iconify-json/iconoir": "^1.2.5",
     "@nuxt/devtools": "1.4.2",
     "@nuxt/eslint": "^0.5.5",
     "@nuxt/icon": "^1.5.1",

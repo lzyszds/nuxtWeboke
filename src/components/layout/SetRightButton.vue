@@ -11,7 +11,7 @@ const funcOption = [
   },
   {
     name: "返回顶部",
-    icon: "typcn:media-eject",
+    icon: "iconoir:rocket",
     callback: () => (windowY!.value = 0),
   },
 ];
@@ -20,19 +20,19 @@ const bgThemeOption = [
   {
     name: "方格纸",
     colorClass: "bg-gridThemeColor",
-    icon: "material-symbols:background-grid-small-sharp",
+    icon: "iconoir:cell-2x2",
     color: "#fff",
   },
   {
     name: "纯色",
     colorClass: "bg-solidThemeColor",
-    icon: "solar:document-broken",
+    icon: "iconoir:web-window",
     color: "#fff",
   },
   {
     name: "牛皮纸",
     colorClass: "bg-paperThemeColor",
-    icon: "solar:document-text-bold",
+    icon: "iconoir:notes",
     color: "#ffe6cccc",
   },
 ];

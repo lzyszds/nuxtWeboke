@@ -1,15 +1,18 @@
 <!-- 文章列表中的长方形组件 -->
 <script setup lang="ts">
+//@ts-ignore
 import dayjs from "dayjs";
+//@ts-ignore
 import _ from "lodash";
+//@ts-ignore
 import { gsap } from "gsap";
 
 import type { Article } from "~/types/Articles";
 const list = [
-  { name: "typcn:time" },
+  { name: "iconoir:alarm" },
   { name: "iconoir:stackoverflow" },
-  { name: "typcn:eye-outline" },
-  { name: "typcn:messages" },
+  { name: "iconoir:fire-flame" },
+  { name: "iconoir:chat-lines" },
 ];
 
 interface Props {
