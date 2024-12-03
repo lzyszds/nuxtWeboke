@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { dayjs } from "element-plus";
-import { gsap } from "gsap";
+import dayjs from 'dayjs';
 const { getWeatherImage } = useWeatherStore();
 const image_path = await getWeatherImage();
 

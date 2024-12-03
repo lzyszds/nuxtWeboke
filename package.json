@@ -14,6 +14,8 @@
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
     "@iconify-json/iconoir": "^1.2.5",
+    "@iconify-json/logos": "^1.2.3",
+    "@iconify/utils": "^2.1.33",
     "@nuxt/devtools": "1.4.2",
     "@nuxt/eslint": "^0.5.5",
     "@nuxt/icon": "^1.5.1",
@@ -30,6 +32,7 @@
     "@vueuse/nuxt": "^11.1.0",
     "axios": "^1.7.7",
     "daisyui": "^4.12.14",
+    "dayjs": "^1.11.13",
     "gsap": "^3.12.5",
     "nuxt": "^3.13.2",
     "pinia": "^2.2.2",
@@ -38,9 +41,7 @@
     "vue": "latest"
   },
   "devDependencies": {
-    "@iconify-json/logos": "^1.2.3",
     "@commitlint/cli": "^19.3.0",
-    "@element-plus/nuxt": "^1.0.10",
     "@eslint/js": "^9.8.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@types/node": "^22.5.3",

@@ -5,9 +5,7 @@
 // import type { MessageOptions, messageType } from 'element-plus';
 // import { ElMessage, ElNotification } from 'element-plus';
 
-import { dayjs } from "element-plus"
-
-
+import dayjs from 'dayjs';
 
 // 此函数获取一个数组并将其拆分为更小的块
 export const splitArray = (array: any, size: number) => {
@@ -16,56 +14,56 @@ export const splitArray = (array: any, size: number) => {
   // 在原始阵列上循环
   for (let i = 0; i < array.length; i += size) {
     // 对于每个迭代，向新数组添加一个新块
-    data.push(array.slice(i, i + size))
+    data.push(array.slice(i, i + size));
   }
   // return 一个新数组
-  return data
-}
+  return data;
+};
 
 //时间格式化为字符串 比如说前天 几天前，几小时前
 export const timeAgo = (time: string | number) => {
   //判断当前time是否为时间戳，如果不是，则转换为时间戳
   if (!Number.isNaN(time)) {
-    time = dayjs(time).unix()
+    time = dayjs(time).unix();
   }
-  time = parseInt(time as string)
+  time = parseInt(time as string);
   if (time < 10e8) {
-    time = time * 1000
+    time = time * 1000;
   }
-  const t = dayjs().unix() - time // Y-m-d H:i:s
-  let i = 60
-  let h = i * 60
-  let d = h * 24
-  let m = d * 30
-  let y = m * 12
+  const t = dayjs().unix() - time; // Y-m-d H:i:s
+  let i = 60;
+  let h = i * 60;
+  let d = h * 24;
+  let m = d * 30;
+  let y = m * 12;
   const mp: any = new Map([
     //n是时间戳（key），t是当前时间戳 ,>>0 是向下取整
     [(n: any) => n < i, () => '一分钟'],
-    [(n: any) => n < h, (n: any) => (n / i >> 0) + '分钟'],
-    [(n: any) => n < d, (n: any) => (n / h >> 0) + '小时'],
-    [(n: any) => n < m, (n: any) => (n / d >> 0) + '天'],
-    [(n: any) => n < y, (n: any) => (n / m >> 0) + '个月'],
-    [() => true, n => (n / y >> 0) + '年'],
-  ])
-  return ([...mp].find(([n]) => n(t)).pop())(t) + '前'
-}
+    [(n: any) => n < h, (n: any) => ((n / i) >> 0) + '分钟'],
+    [(n: any) => n < d, (n: any) => ((n / h) >> 0) + '小时'],
+    [(n: any) => n < m, (n: any) => ((n / d) >> 0) + '天'],
+    [(n: any) => n < y, (n: any) => ((n / m) >> 0) + '个月'],
+    [() => true, (n) => ((n / y) >> 0) + '年'],
+  ]);
+  return [...mp].find(([n]) => n(t)).pop()(t) + '前';
+};
 
 //浏览量转换成 k m b
 export const numFormat = (num: number) => {
   if (num >= 1e3 && num < 1e6) {
-    return (num / 1e3).toFixed(1) + 'k'
+    return (num / 1e3).toFixed(1) + 'k';
   } else if (num >= 1e6 && num < 1e9) {
-    return (num / 1e6).toFixed(1) + 'm'
+    return (num / 1e6).toFixed(1) + 'm';
   } else if (num >= 1e9) {
-    return (num / 1e9).toFixed(1) + 'b'
+    return (num / 1e9).toFixed(1) + 'b';
   } else {
-    return num
+    return num;
   }
-}
+};
 
 export function base64toBlob(dataurl: string) {
   // base64 转 二进制流(blob)
-  let arr = dataurl.split(","),
+  let arr = dataurl.split(','),
     mime = arr[0]!.match(/:(.*?);/)![1],
     bstr = atob(arr[1]!),
     n = bstr.length,
@@ -77,6 +75,7 @@ export function base64toBlob(dataurl: string) {
     type: mime,
   });
 }
+
 // 二进制流转换为base64 格式。
 export function getBase64(data: BlobPart, type: string) {
   return new Promise((resolve, reject) => {
@@ -88,15 +87,13 @@ export function getBase64(data: BlobPart, type: string) {
   });
 }
 
-
-
 // //上传图片，图片太大，如何在前端实现图片压缩后上传
 export function compressPic(file: Blob, quality: number = 0.5) {
   return new Promise((resolve, reject) => {
     getBase64(file, file.type).then((res) => {
       // 这里quality的范围是（0-1）
-      const canvas = document.createElement("canvas") as HTMLCanvasElement;
-      const ctx: any = canvas.getContext("2d");
+      const canvas = document.createElement('canvas') as HTMLCanvasElement;
+      const ctx: any = canvas.getContext('2d');
       const img: any = new Image();
       img.src = res;
       img.onload = function () {
@@ -106,11 +103,11 @@ export function compressPic(file: Blob, quality: number = 0.5) {
         // 转换成base64格式 quality为图片压缩质量 0-1之间  值越小压缩的越大 图片质量越差
         const base64 = canvas.toDataURL(file.type, quality);
         const fileCompress = base64toBlob(base64);
-        resolve({ base64, fileCompress })
-        reject('压缩失败')
-      }
-    })
-  })
+        resolve({ base64, fileCompress });
+        reject('压缩失败');
+      };
+    });
+  });
 }
 
 // //提示弹窗
@@ -150,44 +147,44 @@ export function compressPic(file: Blob, quality: number = 0.5) {
 //获取cookie
 export const getCookie = (name: any) => {
   let cookie = document.cookie.split('; ').map((item) => {
-    return item.split('=')
-  })
-  cookie = Object.fromEntries(cookie)
-  return cookie[name]
-}
+    return item.split('=');
+  });
+  cookie = Object.fromEntries(cookie);
+  return cookie[name];
+};
 
 //设置cookie
 export const setCookie = (name: string, value: string, time: number) => {
-  let date = dayjs()
-  date = date.add(time, 'day')
-  document.cookie = `${name}=${value};expires=${date}`
-}
+  let date = dayjs();
+  date = date.add(time, 'day');
+  document.cookie = `${name}=${value};expires=${date}`;
+};
 
 /* 数组去重 arr: 要处理数组, key: 去重的key值 单一数组不需要key */
 export const unique = (arr: any[], key?: string) => {
   const res = new Map();
   return arr.filter((a) => {
-    const arrKey = key ? a[key] : a
+    const arrKey = key ? a[key] : a;
     // has判断当前值是否在map对象中存在 ,如果不存在则将当前值添加进map对象中
-    return !res.has(arrKey) && res.set(arrKey, 1)
-  })
-}
+    return !res.has(arrKey) && res.set(arrKey, 1);
+  });
+};
 
 /* 页面滚动到指定位置XY轴 */
 export const scrollTo = (x: number, y: number) => {
-  window.scrollTo({ left: x, top: y, behavior: 'smooth' })
-}
+  window.scrollTo({ left: x, top: y, behavior: 'smooth' });
+};
 
 /* 同步延时函数 */
 export const awaitTime = (fn: Function, time: number | string = 1000) => {
-  const tense = typeof time === 'string' ? parseInt(time) : time
+  const tense = typeof time === 'string' ? parseInt(time) : time;
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      fn()
-      resolve("成功")
-    }, tense)
-  })
-}
+      fn();
+      resolve('成功');
+    }, tense);
+  });
+};
 
 // 数字跳动
 export const numberJump = (num: any, sum: any) => {
@@ -204,7 +201,7 @@ export const numberJump = (num: any, sum: any) => {
       }
     }, 60);
   }
-}
+};
 
 // 在 Vue 组件中监听某个元素的 class 名变化
 export function observeClassChange(element: Element, callback: Function) {
@@ -212,7 +209,7 @@ export function observeClassChange(element: Element, callback: Function) {
     mutations.forEach((mutation) => {
       if (mutation.attributeName === 'class') {
         //@ts-ignore
-        callback(mutation.target)
+        callback(mutation.target);
       }
     });
   });
@@ -223,20 +220,19 @@ export function observeClassChange(element: Element, callback: Function) {
   });
 }
 
-
 export const allFunction = {
-  splitArray,//把一个数组拆分成几个数组
-  timeAgo,//时间转换
-  base64toBlob,//base64转二进制流
-  getBase64,//二进制流转换为base64 格式。
-  compressPic,//上传图片，图片太大，如何在前端实现图片压缩后上传
+  splitArray, //把一个数组拆分成几个数组
+  timeAgo, //时间转换
+  base64toBlob, //base64转二进制流
+  getBase64, //二进制流转换为base64 格式。
+  compressPic, //上传图片，图片太大，如何在前端实现图片压缩后上传
   // copyTip,//复制内容提示版权信息
   // LNotification,//提示弹窗
-  getCookie,//获取cookie
-  setCookie,//设置cookie
-  unique,//数组对象去重（区别单数组以及数组中嵌套一层对象）
-  scrollTo,//页面滚动到指定位置XY轴
-  awaitTime,//延迟函数
-  numberJump,//数字跳动
-  observeClassChange,//在 Vue 组件中监听某个元素的 class 名变化
-}
+  getCookie, //获取cookie
+  setCookie, //设置cookie
+  unique, //数组对象去重（区别单数组以及数组中嵌套一层对象）
+  scrollTo, //页面滚动到指定位置XY轴
+  awaitTime, //延迟函数
+  numberJump, //数字跳动
+  observeClassChange, //在 Vue 组件中监听某个元素的 class 名变化
+};

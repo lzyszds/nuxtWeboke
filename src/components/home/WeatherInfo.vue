@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dayjs } from 'element-plus';
+import dayjs from 'dayjs';
 
 const { weatherData, image_path } = useWeatherStore();
 const {
