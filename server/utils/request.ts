@@ -19,7 +19,6 @@ export default async function makeRequest<T = any>({
   timeout = 10000,
 }: AxiosRequestConfig): Promise<T> {
   const runtimeConfig = useRuntimeConfig(); // 获取 nuxt 的运行时配置
-
   const defaultConfig: AxiosConfig = {
     baseURL: runtimeConfig.public.BASE_URL + '/api', //'http://101.201.171.168:2024/api',//process.env.NODE_ENV === 'development' ? 'http://localhost:2024/api' : 'http://localhost:2024/api',
     timeout,

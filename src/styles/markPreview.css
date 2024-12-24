@@ -133,6 +133,8 @@
         line-height: 23px;
         outline: 2px solid #282C34;
         position: relative;
+        background-color: #282C34;
+        color: #fff;
 
 
         &:before {
@@ -141,19 +143,25 @@
             position: absolute;
             top: 15px;
             right: 20px;
-
+            transition: .22s opacity;
         }
 
-        &:hover .copy {
-            opacity: 1;
-            border: 1px solid #999;
+        &:hover {
+            .copy {
+                opacity: 1;
+                border: 1px solid #999;
+            }
+
+            &:before {
+                opacity: 0;
+            }
         }
 
         & .copy {
             content: "复制";
             color: #fff;
             position: absolute;
-            width: 50px;
+            width: 30px;
             height: 30px;
             top: 10px;
             right: 10px;
@@ -183,7 +191,7 @@
 
             span.line {
                 position: relative;
-                padding-left: 40px;
+                padding-left: 30px;
 
             }
 
@@ -196,12 +204,13 @@
                 /* 行号的宽度，可以调整 */
                 text-align: left;
                 user-select: none;
-                width: 30px;
+                width: 25px;
                 /* 行号和代码的间距 */
-                color: #495162;
+                color: #a0a0a0;
                 position: absolute;
-                top: -1px;
+                top: -1.5px;
                 left: 0;
+                font-size: 12px;
 
             }
         }
