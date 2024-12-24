@@ -15,8 +15,7 @@ const getDefaultValue = () => {
 //主题card class
 const cardClass =
   'bg-white dark:bg-dark-background p-2 px-6 text-lg rounded-2xl border-[3px] border-black text-[15px]';
-
-const { data: comImg } = await useFetch('/api/comment/getCommentAvatar');
+const comImg = ref([]);
 
 const replyArr = reactive({
   replyId: new Map(), //回复评论的id
@@ -30,15 +29,10 @@ const oldRemarkList = ref<Replydata[]>([]);
 const getRemarkList = async () => {
   const replyId = replyArr.replyId;
   //初始的评论列表
-  const { data } = await useFetch('/api/comment/getArticleComment', {
-    params: {
-      aid: aid,
-    },
-    transform: (data: any) => {
-      return data.data;
-    },
-  });
-  oldRemarkList.value = data.value;
+  const { data } = await fetch('/api/comment/getArticleComment', {
+    body: JSON.stringify({ aid: aid }),
+  }).then((res) => res.json());
+  oldRemarkList.value = data;
   remarkList.value = [];
   //初始化回复评论的id
   data.value.forEach((remark: any) => {
@@ -61,7 +55,6 @@ const getRemarkList = async () => {
     }
   }
 };
-await getRemarkList();
 
 //评论上方的诗句请求
 const textbefore = ref<String>('寻找中...');
@@ -183,7 +176,15 @@ const moveTo = () => {
   const defaultval = getDefaultValue()?.offsetLeft;
   selcetRound.value.style.transform = `translateX(${defaultval! - 8}px)`;
 };
-onMounted(() => {
+onMounted(async () => {
+  // 获取评论头像
+  const data = await fetch('/api/comment/getCommentAvatar').then(
+    (res) => res.json(),
+  );
+  comImg.value = data;
+
+  //获取评论列表
+  await getRemarkList();
   /* 默认选中头像 并且 滚动条移动到默认位置 */
   moveTo();
   const defaultval = getDefaultValue()?.offsetLeft;

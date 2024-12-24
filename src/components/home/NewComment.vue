@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import type { Comment } from "~/types/Comment";
-import { timeAgo } from "~/utils/common";
+import type { Comment } from '~/types/Comment';
+import { timeAgo } from '~/utils/common';
+
+const runtimeConfig = useRuntimeConfig(); // 获取 nuxt 的运行时配置
+
 const comment = ref<Comment[]>([]);
-const { data, error } = await useFetch("/api/comment/getNewComment");
+onMounted(async () => {
+  const { data } = await fetch('/api/comment/getNewComment').then((res) =>
+    res.json(),
+  );
 
-if (data.value) {
-  comment.value = data.value.data;
-}
-if (error.value) {
-  console.log(error.value);
-}
-console.log();
+  if (data) {
+    comment.value = data;
+  }
+});
 
-const baseUrl = useRuntimeConfig().public.BASE_URL
+const baseUrl = useRuntimeConfig().public.BASE_URL;
 </script>
 
 <template>
@@ -22,9 +25,13 @@ const baseUrl = useRuntimeConfig().public.BASE_URL
     <div
       class="border-[3px] h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-dark-background flex items-center justify-between"
     >
-      <div class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"></div>
+      <div
+        class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"
+      ></div>
       <div class="comment-title">最新评论</div>
-      <div class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"></div>
+      <div
+        class="h-5 w-5 bg-themeColor border-black border-[3px] rounded-full"
+      ></div>
     </div>
     <LzyEnterVisible
       class="border-[3px] opacity-0 h-11 mb-1 border-black p-1 px-2 rounded-xl bg-white dark:bg-dark-background flex gap-2 items-center justify-between"

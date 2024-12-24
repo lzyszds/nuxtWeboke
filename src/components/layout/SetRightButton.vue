@@ -53,7 +53,7 @@ defineExpose({ toolbar, barTheme, isOpenSet });
 <template>
   <section
     ref="toolbar"
-    class="fixed right-6 bottom-6 opacity-0 translate-x-8 z-50 p-2 grid gap-2"
+    class="fixed right-6 bottom-6 opacity-0 translate-x-10 z-50 p-2 grid gap-2"
   >
     <button
       v-for="(item, index) in bgThemeOption"

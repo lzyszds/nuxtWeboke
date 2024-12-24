@@ -17,8 +17,8 @@ export default defineNuxtConfig({
     public: {
       BASE_URL:
         process.env.NODE_ENV === 'production'
-          ? 'https://api.lzyszds.cn/'
-          : 'http://localhost:2024',
+          ? 'https://www.api.lzyszds.cn'
+          : 'https://www.api.lzyszds.cn',//'http://localhost:2024',
       VITE_ROUTER_MODE: 'history',
     },
   },

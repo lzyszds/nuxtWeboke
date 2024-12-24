@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { gsap } from "gsap";
-const el = templateRef("el");
+import { gsap } from 'gsap';
+
+const el = templateRef('el');
 const appHeader = ref<any>(null);
 const setRightButton = ref<any>(null);
 const { x, y, isScrolling, arrivedState, directions } = useScroll(el, {
-  behavior: "smooth",
+  behavior: 'smooth',
 });
 const route = useRoute(); // 获取路由
 const useDirectory = useDirectoryStore(); // 获取目录
@@ -17,50 +18,49 @@ onMounted(async () => {
     .to(
       appHeader.value!.navbar,
       {
-        backgroundColor: "#5161ce",
-        ease: "power2.inOut",
+        backgroundColor: '#5161ce',
+        ease: 'power2.inOut',
       },
-      0
+      0,
     )
     /* logo */
     .to(
       appHeader.value.navbar.querySelector("a[href='/'] span"),
       {
-        color: "#fff",
-        ease: "expo.out",
+        color: '#fff',
+        ease: 'expo.out',
       },
-      0
+      0,
     )
     /* 导航栏 上滑 */
     .to(
       appHeader.value!.navContainer,
       {
         delay: 0,
-        transform: "translateY(-48px)",
-        ease: "expo.out",
+        transform: 'translateY(-48px)',
+        ease: 'expo.out',
       },
-      0
+      0,
     )
     /*  导航栏内容 上滑 */
     .to(
       appHeader.value!.navContainer.lastChild,
       {
-        transform: "translateY(0px)",
-        ease: "expo.out",
+        transform: 'translateY(0px)',
+        ease: 'expo.out',
       },
-      0
+      0,
     )
     /* 右下角工具栏 */
     .to(
       setRightButton.value.toolbar,
       {
         opacity: 1,
-        transform: "translateX(0px)",
-        ease: "expo.out",
+        transform: 'translateX(0px)',
+        ease: 'expo.out',
       },
-      0
+      0,
     );
-
   watchEffect(() => {
     if (y.value > 10) {
       tl.play();
@@ -75,17 +75,18 @@ onMounted(async () => {
     setRightButton.value.barTheme,
     {
       opacity: 1,
-      transform: "translateX(0)",
-      ease: "expo.out",
+      transform: 'translateX(0)',
+      ease: 'expo.out',
     },
-    0
+    0,
   );
   watch(
     () => setRightButton.value.isOpenSet,
     (newValue) => {
+      console.log(setRightButton.value);
       if (newValue) tl2.play();
       else tl2.reverse();
-    }
+    },
   );
 
   await nextTick();
@@ -94,7 +95,7 @@ onMounted(async () => {
   }
 });
 
-provide("windowY", y);
+provide('windowY', y);
 </script>
 
 <template>
