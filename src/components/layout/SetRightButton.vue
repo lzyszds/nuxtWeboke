@@ -1,52 +1,52 @@
 <script setup lang="ts">
-const windowY = inject<Ref<number>>("windowY");
+const windowY = inject<Ref<number>>('windowY');
 const isOpenSet = ref(false); // 是否开启多种背景颜色设置
 const funcOption = [
   {
-    name: "设置",
-    icon: "iconoir:settings",
+    name: '设置',
+    icon: 'iconoir:settings',
     callback: () => {
       isOpenSet.value = !isOpenSet.value;
     },
   },
   {
-    name: "返回顶部",
-    icon: "iconoir:rocket",
+    name: '返回顶部',
+    icon: 'iconoir:rocket',
     callback: () => (windowY!.value = 0),
   },
 ];
 
 const bgThemeOption = [
   {
-    name: "方格纸",
-    colorClass: "bg-gridThemeColor",
-    icon: "iconoir:cell-2x2",
-    color: "#fff",
+    name: '方格纸',
+    colorClass: 'bg-gridThemeColor',
+    icon: 'iconoir:cell-2x2',
+    color: '#fff',
   },
   {
-    name: "纯色",
-    colorClass: "bg-solidThemeColor",
-    icon: "iconoir:web-window",
-    color: "#fff",
+    name: '纯色',
+    colorClass: 'bg-solidThemeColor',
+    icon: 'iconoir:web-window',
+    color: '#fff',
   },
   {
-    name: "牛皮纸",
-    colorClass: "bg-paperThemeColor",
-    icon: "iconoir:notes",
-    color: "#ffe6cccc",
+    name: '牛皮纸',
+    colorClass: 'bg-paperThemeColor',
+    icon: 'iconoir:notes',
+    color: '#ffe6cccc',
   },
 ];
 
 function setTheme(colorClass: string) {
   /* 先检查 当前的classname是什么，就删除 */
   document
-    .querySelector(".bgLattice")
+    .querySelector('.bgLattice')
     ?.classList.remove(...bgThemeOption.map((item) => item.colorClass));
-  document.querySelector(".bgLattice")?.classList.add(colorClass);
+  document.querySelector('.bgLattice')?.classList.add(colorClass);
 }
 
-const toolbar = templateRef("toolbar");
-const barTheme = templateRef("barTheme");
+const toolbar = ref();
+const barTheme = ref();
 defineExpose({ toolbar, barTheme, isOpenSet });
 </script>
 

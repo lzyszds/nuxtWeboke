@@ -29,13 +29,13 @@ const oldRemarkList = ref<Replydata[]>([]);
 const getRemarkList = async () => {
   const replyId = replyArr.replyId;
   //初始的评论列表
-  const { data } = await fetch('/api/comment/getArticleComment', {
-    body: JSON.stringify({ aid: aid }),
-  }).then((res) => res.json());
+  const { data } = await fetch(
+    '/api/comment/getArticleComment?aid=' + aid,
+  ).then((res) => res.json());
   oldRemarkList.value = data;
   remarkList.value = [];
-  //初始化回复评论的id
-  data.value.forEach((remark: any) => {
+   //初始化回复评论的id
+  data.forEach((remark: any) => {
     remark.children = [];
     replyId.set(remark.commentId, {
       isReply: false,
@@ -43,11 +43,11 @@ const getRemarkList = async () => {
     });
   });
   // 遍历评论列表，为每个评论添加回复列表
-  for (let item of data.value) {
+  for (let item of data) {
     if (item.replyId == 0) {
       remarkList.value.push(item);
     } else {
-      for (let remark of data.value) {
+      for (let remark of data) {
         if (remark.commentId == item.groundId) {
           remark.children.push(item);
         }
@@ -178,8 +178,8 @@ const moveTo = () => {
 };
 onMounted(async () => {
   // 获取评论头像
-  const data = await fetch('/api/comment/getCommentAvatar').then(
-    (res) => res.json(),
+  const data = await fetch('/api/comment/getCommentAvatar').then((res) =>
+    res.json(),
   );
   comImg.value = data;
 
