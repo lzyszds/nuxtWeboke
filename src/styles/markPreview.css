@@ -83,8 +83,9 @@
 
     p {
         margin-bottom: 1rem;
-        margin: 0;
+        margin: 3px 0;
         font-size: 16px;
+        overflow-x: hidden;
     }
 
     & a,
@@ -92,7 +93,7 @@
         color: var(--themeColor);
     }
 
-    a > .v-md-svg-outbound {
+    a>.v-md-svg-outbound {
         color: var(--themeColor);
         vertical-align: text-bottom;
         display: initial;
@@ -321,12 +322,13 @@
     }
 
     blockquote {
-        margin: 1rem 0;
+        margin: .7rem 0;
         color: #999;
         font-size: 1.5rem;
         border-left: 0.2rem solid var(--themeColor);
         background: aliceblue;
         font-family: "dindin";
+        overflow-x: auto;
 
         p {
             padding: 0.5rem;
@@ -375,12 +377,41 @@
             color: #fff;
             font-size: 12px;
             line-height: var(--height);
+            text-wrap: nowrap;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            user-select: none;
 
             &::before {
                 content: attr(data-clipboard-text);
                 width: 100%;
                 height: 100%;
             }
+        }
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .markdown-preview {
+        padding: 0 10px;
+    }
+
+    .preview-pane {
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-size: 18px;
+        }
+
+        p,
+        strong,
+        a,
+        li {
+            font-size: 14px;
         }
     }
 }

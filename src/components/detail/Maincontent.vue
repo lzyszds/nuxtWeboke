@@ -87,7 +87,7 @@ defineExpose({ articleMain });
     class="mt-10 bg-themeColor p-2.5 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
   >
     <div
-      class="bg-white dark:bg-dark-background p-2.5 px-6 text-lg rounded-2xl border-4 border-black text-[15px]"
+      class="bg-white dark:bg-dark-background p-2.5 px-2 xl:px-6 text-lg rounded-2xl border-4 border-black text-[15px]"
     >
       <p
         class="bg-borderColor text-black rounded-lg mt-0 px-4 font-dindin flex items-center"
@@ -123,7 +123,7 @@ defineExpose({ articleMain });
       </p>
     </div>
     <div
-      class="mainHtml bg-white dark:bg-dark-background rounded-3xl mt-3 px-8 py-5 border-4 border-black"
+      class="mainHtml bg-white dark:bg-dark-background rounded-3xl mt-3 px-2 sm:px-8 text-sm sm:text-base py-5 border-4 border-black"
     >
       <section
         ref="articleMain"
@@ -142,6 +142,7 @@ defineExpose({ articleMain });
   display: inline;
   text-indent: 2em;
 }
+
 
 .aiText .lzyIcon {
   animation: blinking-cursor 1s infinite;

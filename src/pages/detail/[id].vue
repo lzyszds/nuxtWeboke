@@ -90,13 +90,13 @@ const scrollToElement = (item: Directory) => {
         </ClientOnly>
         <footer
           v-transition="'animate__fadeInUp'"
-          class="p-1 rounded-xl text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline"
+          class="p-1 rounded-xl text-xs sm:text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline"
         >
-          <div class="text-center">
+          <div class="text-center flex place-items-center place-content-center">
             <LzyIcon
               name="iconoir:closed-captions-tag"
               class="text-white align-text-top mr-1 pt-[18px]"
-              size="20"
+              size=".8rem"
             />
             <a
               class="text-white"

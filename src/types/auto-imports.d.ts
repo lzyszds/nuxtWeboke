@@ -135,6 +135,7 @@ declare global {
   const watchSyncEffect: (typeof import('vue'))['watchSyncEffect']
   const weather: typeof import('../utils/weather')['default']
 }
+
 // for vue template auto import
 import { UnwrapRef } from 'vue'
 declare module 'vue' {

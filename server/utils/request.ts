@@ -65,6 +65,8 @@ export default async function makeRequest<T = any>({
       data,
       headers,
     });
+
+
     if (response.data !== undefined) {
       return response.data;
     }
