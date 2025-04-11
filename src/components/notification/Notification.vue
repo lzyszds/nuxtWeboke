@@ -45,12 +45,12 @@
 
 <script setup lang="ts">
 type NotificationPosition =
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right';
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
 
 interface Props {
   message: string;
@@ -61,27 +61,27 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  position: 'top-right',
+  position: "top-right",
   duration: 4500,
   dangerouslyUseHTMLString: false,
 });
 
 const positionClass = computed(() => {
   switch (props.position) {
-    case 'top-left':
-      return 'top-4 left-4';
-    case 'top-center':
-      return 'top-4 left-1/2 -translate-x-1/2';
-    case 'top-right':
-      return 'top-4 right-4';
-    case 'bottom-left':
-      return 'bottom-4 left-4';
-    case 'bottom-center':
-      return 'bottom-4 left-1/2 -translate-x-1/2';
-    case 'bottom-right':
-      return 'bottom-4 right-4';
+    case "top-left":
+      return "top-4 left-4";
+    case "top-center":
+      return "top-4 left-1/2 -translate-x-1/2";
+    case "top-right":
+      return "top-4 right-4";
+    case "bottom-left":
+      return "bottom-4 left-4";
+    case "bottom-center":
+      return "bottom-4 left-1/2 -translate-x-1/2";
+    case "bottom-right":
+      return "bottom-4 right-4";
     default:
-      return 'top-4 right-4';
+      return "top-4 right-4";
   }
 });
 
@@ -103,9 +103,7 @@ onUnmounted(() => {
 <style scoped>
 .fadeNotif {
   transition: 0.3s;
-  animation:
-    fadeIn 0.5s,
-    fadeOut 0.5s 4s;
+  animation: fadeIn 0.5s, fadeOut 0.5s 4s;
 }
 
 @keyframes fadeIn {

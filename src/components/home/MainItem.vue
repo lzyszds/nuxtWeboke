@@ -60,7 +60,6 @@ const mouseenter = _.debounce(
     tl.set(mask, {
       opacity: 0,
       scale: 0.5,
-      rotation: gsap.utils.random(1, 2) >= 1.5 ? -15 : 15, // 旋转角度
       transformOrigin: "center center",
     })
       .to(mask, {
@@ -68,12 +67,12 @@ const mouseenter = _.debounce(
         scale: 1.1,
         zIndex: 1,
         rotation: 0,
-        duration: 0.4,
+        duration: 0.1,
         ease: "back.out(1.7)",
       })
       .to(mask, {
         scale: 1,
-        duration: 0.2,
+        duration: 0.1,
         ease: "power1.inOut",
       })
       .to(mask, {
@@ -84,30 +83,20 @@ const mouseenter = _.debounce(
         ease: "power1.inOut",
       })
       .to(mask, {
-        boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-        duration: 0.3,
+        boxShadow: "0 10px 33px rgba(0,0,0,0.1)",
+        duration: 0.1,
       });
 
     // 添加颜色变化效果
     tl.to(
       mask,
       {
-        duration: 0.5,
-        backgroundColor: "rgba(255, 114, 86, 0.2)", // 半透明的亮粉色
+        duration: 0.2,
+        backgroundColor: "rgba(81, 97, 206, .1)", // 半透明的亮粉色
         color: "#ffffff",
         ease: "none",
       },
       "-=0.7"
-    );
-
-    // 最后的强调效果
-    tl.to(
-      mask,
-      {
-        boxShadow: "0 0 20px rgba(255, 105, 180, 0.7)",
-        duration: 0.3,
-      },
-      "-=0.3"
     );
   },
   100,
@@ -130,9 +119,7 @@ const mouseleave = _.debounce(
 
 <template>
   <div
-    class="pb-1 rounded-lg transition-all duration-500 relative pointer-events-auto overflow-hidden dark:hover:bg-[#ffffff20]"
-    @mouseenter="mouseenter"
-    @mouseleave="mouseleave"
+    class="mainCard pb-1 rounded-lg transition-all duration-100 relative pointer-events-auto overflow-hidden dark:hover:bg-[#ffffff20]"
   >
     <div class="maskContent w-full h-32 dark:w-0"></div>
     <div
@@ -175,9 +162,14 @@ const mouseleave = _.debounce(
   left: 0;
   z-index: -1;
   opacity: 0;
-  background-color: rgba(var(--themeColorRgb), 0.3);
   border-radius: 10px;
   /* 禁止该元素接收鼠标事件 */
   pointer-events: none;
+}
+.mainCard {
+  &:hover {
+    cursor: pointer;
+    background-color: #eee;
+  }
 }
 </style>

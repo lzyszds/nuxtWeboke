@@ -54,7 +54,7 @@ defineExpose({ navbar, navContainer });
         href="/"
       >
         <span
-          class="font-extrabold block drop-shadow-[1px_2px_1px_#000 text-themeColor dark:text-white w-full text-3xl font-[logo]"
+          class="font-extrabold block drop-shadow-[1px_2px_1px_#000  dark:text-white w-full text-3xl font-[logo]"
           style="text-shadow: 1px 2px 2px #000, 0 0 2px #000000"
         >
           Jz

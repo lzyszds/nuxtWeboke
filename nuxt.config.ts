@@ -15,10 +15,10 @@ export default defineNuxtConfig({
     apiSecret: 'my-secret',
     // 公开的配置，客户端和服务端均可访问
     public: {
-      BASE_URL:
-        process.env.NODE_ENV === 'production'
-          ? 'https://www.api.lzyszds.cn'
-          : 'https://www.api.lzyszds.cn',//'http://localhost:2024',
+      BASE_URL:'http://localhost:2024',
+        // process.env.NODE_ENV === 'production'
+        //   ? 'https://www.api.lzyszds.cn'
+        //   : 'https://www.api.lzyszds.cn',//'http://localhost:2024',
       VITE_ROUTER_MODE: 'history',
     },
   },

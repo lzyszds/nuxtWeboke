@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const mytext = "编程是一场艺术，逻辑是它的画笔，创新是它的灵魂".split("");
 const pageCount = ref(1);
 const isLoading = ref(false);
@@ -45,14 +44,19 @@ const onCurrentChange = async (index: number) => {
   isLoading.value = false;
 };
 
-const baseUrl = useRuntimeConfig().public.BASE_URL
+const baseUrl = useRuntimeConfig().public.BASE_URL;
+
+//跳转至steam个人资料界面
+const open = (url: string) => {
+  window.open(url, "_blank");
+};
 </script>
 
 <template>
   <div class="z-10 w-full" v-observer-load>
-    <HomeMyCard>
+    <!-- <HomeMyCard>
       <span class="text-sm" v-for="item in mytext">{{ item }}</span>
-    </HomeMyCard>
+    </HomeMyCard> -->
 
     <HomeDoubleCard aspect="square" class="mt-2">
       <template #first>
@@ -60,7 +64,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL
           <LzyEnterVisible animate-class="animate__zoomInLeft">
             <p class="text-5xl font-semibold leading-tight">
               过去无法挽留<br />
-              <span>未来仍可改变</span>
+              <span class="text-emerald-600 dark:text-emerald-400">未来仍可改变</span>
             </p>
             <p class="small pt-4 pl-2 text-[12px]">
               <span>编程</span>、 <span>逻辑</span>、 <span>创新</span>、
@@ -85,7 +89,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL
       <!-- 文章内容 -->
       <div class="w-full">
         <div
-          class="grid gap-2.5 mt-5 relative overflow-hidden "
+          class="grid gap-2.5 mt-5 relative overflow-hidden"
           :style="{ minHeight: (cardHeight + 10) * limit + 'px' }"
           v-if="!isLoading"
         >
@@ -94,7 +98,6 @@ const baseUrl = useRuntimeConfig().public.BASE_URL
             :id="'list' + item.aid"
             v-for="(item, index) in listData"
             :key="index"
-
           >
             <LzyEnterVisible
               :index="index"
@@ -122,6 +125,17 @@ const baseUrl = useRuntimeConfig().public.BASE_URL
             <HomeWeatherInfo />
           </ClientOnly>
           <HomeNewComment />
+
+          <!-- Steam个人资料 -->
+          <img
+            width="400"
+            height="140"
+            src="https://card.yuy1n.io/card/76561198970922610/light,badge,group,text-fff,bg-game-1217060,badges,games,screenshots"
+            class="w-full h-full object-cover rounded-lg mt-3"
+            title="Steam个人信息"
+            alt="Steam个人信息"
+            @click="() => open('https://steamcommunity.com/profiles/76561198970922610')"
+          />
         </LzyEnterVisible>
       </div>
     </div>

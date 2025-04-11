@@ -13,19 +13,11 @@ const aspectRatio = computed(() => {
 </script>
 
 <template>
-  <section
-    class="flex flex-col lg:flex-row gap-2 max-h-80 border-4 border-black bg-themeColor dark:border-white dark:bg-dark-background rounded-2xl p-2"
-  >
-    <div
-      class="border-[3px] hidden lg:flex border-black rounded-xl bg-white dark:bg-dark-background overflow-hidden"
-      :class="aspectRatio[0]"
-    >
+  <section class="flex flex-col lg:flex-row gap-2 max-h-80 rounded-2xl p-2">
+    <div class="hidden lg:flex rounded-xl overflow-hidden shadow-sm border-[1px]"  :class="aspectRatio[0]">
       <slot name="first"></slot>
     </div>
-    <div
-      class="border-[3px] border-black rounded-xl bg-white dark:bg-dark-background overflow-hidden"
-      :class="aspectRatio[1]"
-    >
+    <div class="rounded-xl overflow-hidden shadow-lg border-[1px]" :class="aspectRatio[1]">
       <slot name="second"></slot>
     </div>
   </section>
