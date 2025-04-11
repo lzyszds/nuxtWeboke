@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { numFormat, timeAgo } from '~/utils/common.js';
-import type { Directory } from '~/types/Directory';
+import { numFormat, timeAgo } from "~/utils/common.js";
+import type { Directory } from "~/types/Directory";
 
 const mainContent = ref();
-const windowY: any = inject('windowY');
+const windowY: any = inject("windowY");
 const { requestData } = useRequestDataStore();
 const details = computed(() => requestData.detailData);
 
@@ -11,34 +11,34 @@ const useDirectory = useDirectoryStore();
 
 const countInfoArr = computed(() => [
   {
-    title: '发表时间',
+    title: "发表时间",
     value: timeAgo(details.value.createDate),
-    icon: 'iconoir:alarm',
+    icon: "iconoir:alarm",
   },
   {
-    title: '浏览量',
+    title: "浏览量",
     value: numFormat(details.value.accessCount),
-    icon: 'iconoir:fire-flame',
+    icon: "iconoir:fire-flame",
   },
   {
-    title: '评论数',
-    value: numFormat(details.value.commentCount) || '暂无评论',
-    icon: 'iconoir:chat-lines',
+    title: "评论数",
+    value: numFormat(details.value.commentCount) || "暂无评论",
+    icon: "iconoir:chat-lines",
   },
 ]);
 
 // 滚动到指定标题
 const scrollToElement = (item: Directory) => {
   const article = mainContent.value?.articleMain;
-  const articleChild = article.querySelectorAll('h2,h3,h4');
+  const articleChild = article.querySelectorAll("h2,h3,h4");
 
-  useDirectory.scrollEl?.scrollTo({ top: item.top - 200, behavior: 'smooth' });
+  useDirectory.scrollEl?.scrollTo({ top: item.top - 200, behavior: "smooth" });
 
   articleChild.forEach(async (element: HTMLElement) => {
     if (element.id === item.id) {
-      element.classList.add('animate__shakeX');
+      element.classList.add("animate__shakeX");
       await awaitTime(() => {
-        element.classList.remove('animate__shakeX');
+        element.classList.remove("animate__shakeX");
       }, 1000);
     }
   });
@@ -48,16 +48,18 @@ const scrollToElement = (item: Directory) => {
 <template>
   <main v-observer-load ref="main">
     <!-- 文章头部 -->
-    <header>
+    <header
+      class="h-12 pt-16 p-2.5 text-lg rounded-2xl flex flex-col justify-center pr-0 lg:pr-72"
+    >
       <h1
-        class="text-themeColor font-semibold font-dindin text-center mb-5 drop-shadow-[1px_5px_1px_#000]"
-        style="font-size: clamp(0.7rem, 4vw, 3rem)"
+        class="font-semibold font-dindin mb-5"
+        style="font-size: clamp(2rem, 4vw, 3rem)"
       >
         {{ details.title }}
       </h1>
       <!-- 文章类型 -->
       <div
-        class="flex gap-3 font-dindin p-1 px-2 bg-white dark:bg-dark-background rounded-md mx-auto w-fit mt-1"
+        class="flex gap-3 font-dindin p-1 px-2  dark:bg-dark-background rounded-md w-fit mt-1"
       >
         <span
           class="flex gap-1 text-sm place-content-center place-items-center"
@@ -77,29 +79,23 @@ const scrollToElement = (item: Directory) => {
       </div>
     </header>
     <!-- 文章主体 -->
-    <section
-      class="mt-5 grid gap-2 grid-cols-1 lg:grid-cols-[calc(100%-255px)_255px]"
-    >
+    <section class="mt-5 grid gap-2 grid-cols-1 lg:grid-cols-[calc(100%-255px)_255px]">
       <div class="flex flex-col gap-3">
         <ClientOnly>
-          <DetailMaincontent
-            ref="mainContent"
-            :main="details.main"
-            :aid="details.aid"
-          />
+          <DetailMaincontent ref="mainContent" :main="details.main" :aid="details.aid" />
         </ClientOnly>
         <footer
           v-transition="'animate__fadeInUp'"
-          class="p-1 rounded-xl text-xs sm:text-base bg-themeColor border-4 border-black font-dindin text-white hover:underline"
+          class="p-1 rounded-xl text-xs sm:text-base font-dindin hover:underline"
         >
           <div class="text-center flex place-items-center place-content-center">
             <LzyIcon
               name="iconoir:closed-captions-tag"
-              class="text-white align-text-top mr-1 pt-[18px]"
+              class="align-text-top mr-1 pt-[18px]"
               size=".8rem"
             />
             <a
-              class="text-white"
+              class="text-black dark:text-white"  
               target="_blank"
               href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
               >知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a
@@ -115,6 +111,9 @@ const scrollToElement = (item: Directory) => {
 
 <style>
 .bgLattice {
+  background: #fff;
+}
+/* .bgLattice {
   background-image: linear-gradient(0deg, #a4a4a4 1px, transparent 0),
   linear-gradient(90deg, #a4a4a4 1px, transparent 0);
   background-size: 24px 24px;
@@ -126,7 +125,7 @@ const scrollToElement = (item: Directory) => {
   linear-gradient(90deg, #2a2a2a 1px, transparent 0);
   background-size: 28px 28px;
   background-repeat: repeat;
-}
+} */
 
 .detailsSection {
   grid-template-columns: calc(100% - 255px) 255px;

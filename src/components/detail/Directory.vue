@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Directory } from '~/types/Directory';
+import type { Directory } from "~/types/Directory";
 
 const headingRefs: any = ref([]);
-const activeHeading = ref('abstract');
+const activeHeading = ref("abstract");
 const isMutaScroll = ref(false);
 
 const emit = defineEmits<{
-  (e: 'scrollToElement', item: Directory): void;
+  (e: "scrollToElement", item: Directory): void;
 }>();
 
 const useDirectory = useDirectoryStore();
@@ -14,7 +14,7 @@ const scrollToElement = (item: Directory) => {
   if (isMutaScroll.value) return;
   isMutaScroll.value = true;
   activeHeading.value = item.id;
-  emit('scrollToElement', item);
+  emit("scrollToElement", item);
   setTimeout(() => {
     isMutaScroll.value = false;
   }, 1000);
@@ -29,7 +29,7 @@ watchEffect(() => {
     //监听滚动事件
     eventListener = useEventListener(
       useDirectory.scrollEl,
-      'scroll',
+      "scroll",
       useThrottleFn((event) => {
         if (isMutaScroll.value) return;
         const arr: Directory[] = [];
@@ -37,16 +37,15 @@ watchEffect(() => {
         //@ts-ignore
         let scrollTop = event.target.scrollTop;
         if (scrollTop < 250) {
-          activeHeading.value = 'abstract';
+          activeHeading.value = "abstract";
         }
         directory.forEach((element: any, index) => {
           if (scrollTop >= element.top - 350) {
             arr.push(element);
           }
         });
-        activeHeading.value =
-          arr.length > 0 ? arr[arr.length - 1]!.id : 'abstract';
-      }, 50),
+        activeHeading.value = arr.length > 0 ? arr[arr.length - 1]!.id : "abstract";
+      }, 50)
     );
   }
 });
@@ -60,16 +59,16 @@ onUnmounted(() => {
 <template>
   <section id="directory" class="hidden lg:block">
     <div
-      class="mt-10 bg-themeColor sticky top-16 p-2.5 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
+      class="mt-10 sticky top-16 p-2.5 px-0 text-lg rounded-2xl shadow-[0_0_4px_#eee] border-[1px] text-color"
     >
       <div
-        class="bg-white dark:bg-dark-background p-1 px-3 text-lg rounded-2xl border-4 border-black text-[15px]"
+        class="bg-white dark:bg-dark-background p-1 px-3 text-lg rounded-2xl text-[15px]"
       >
         <h2
-          class="bg-[#ffe14d] px-3 my-2 font-semibold rounded-xl flex items-center select-none"
+          class="px-1 my-2 font-semibold rounded-xl flex items-center select-none"
         >
-          <LzyIcon size="20"  name="iconoir:book-stack"></LzyIcon>
-          <span class="align-text-top mt-[-2px]">目录</span>
+          <LzyIcon size="20" name="iconoir:book-stack"></LzyIcon>
+          <span class="align-text-top mt-[-2px]">文章目录</span>
         </h2>
         <ul class="px-2 relative">
           <li
@@ -107,7 +106,7 @@ li.active a {
 
 li:before {
   background-color: transparent;
-  content: ' ';
+  content: " ";
   display: block;
   float: left;
   margin-top: 2px;

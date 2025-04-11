@@ -2,8 +2,9 @@
 :root {
     --themeColor: #5161ce;
     --themeColorRgb: 81, 97, 206;
+    
     --bgcolor: #fff;
-    --color: #000;
+    --color: #2c3e50;
     --darkBgcolor: rgb(24, 23, 29);
     --darkContentBgcolor: #1E1E1E;
     --darkColor: rgb(255, 255, 255, .8);

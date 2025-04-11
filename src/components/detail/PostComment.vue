@@ -13,7 +13,7 @@ const getDefaultValue = () => {
 
 //主题card class
 const cardClass =
-  "bg-white dark:bg-dark-background p-2 px-6 text-lg rounded-2xl border-[3px] border-black text-[15px]";
+  "bg-white dark:bg-dark-background p-2 px-6 text-lg rounded-2xl text-[15px]";
 const comImg = ref([]);
 
 const replyArr = reactive({
@@ -28,12 +28,12 @@ const oldRemarkList = ref<Replydata[]>([]);
 const getRemarkList = async () => {
   const replyId = replyArr.replyId;
   //初始的评论列表
-  const { data } = await fetch(
-    '/api/comment/getArticleComment?aid=' + aid,
-  ).then((res) => res.json());
+  const { data } = await fetch("/api/comment/getArticleComment?aid=" + aid).then((res) =>
+    res.json()
+  );
   oldRemarkList.value = data;
   remarkList.value = [];
-   //初始化回复评论的id
+  //初始化回复评论的id
   data.forEach((remark: any) => {
     remark.children = [];
     replyId.set(remark.commentId, {
@@ -225,19 +225,20 @@ const onWheelfn = (e: any) => {
   <div v-transition="'animate__fadeInUp'" class="grid sm:flex w-full gap-2">
     <!-- 发布评论 -->
     <section
-      class="bg-themeColor flex-1 p-3 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
+      class="transition-all flex-1 p-3 text-lg rounded-2xl border-[1px] shadow-sm hover:shadow-lg text-color"
     >
       <div
         :class="cardClass"
         class="py-[4px] rounded-full relative text-black dark:border-white mb-2 font-dindin"
       >
-        <span class="px-7 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
-        <div
-          class="w-5 h-5 select-none rounded-full border-black dark:border-white absolute top-2.5 left-2 border-2 bg-themeColor"
-        ></div>
-        <div
-          class="w-5 h-5 select-none rounded-full border-black dark:border-white absolute top-2.5 right-2 border-2 bg-themeColor"
-        ></div>
+        <LzyIcon
+          class="absolute top-1/2 left-2 -translate-y-1/2"
+          name="iconoir:chat-plus-in"
+          size="20"
+        ></LzyIcon>
+
+        <span class="px-2 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
+        
       </div>
       <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
@@ -255,7 +256,7 @@ const onWheelfn = (e: any) => {
 
     <!-- 头像选择 -->
     <section
-      class="bg-themeColor flex-1 p-2 text-lg rounded-2xl flex border-4 border-black text-[#2c3e50]"
+      class="flex-1 p-2 text-lg rounded-2xl flex border-[1px] shadow-sm hover:shadow-lg text-color"
     >
       <div :class="cardClass" class="w-full">
         <div class="overflow-hidden flex gap-1">
@@ -310,7 +311,7 @@ const onWheelfn = (e: any) => {
           <input type="text" v-model="information.webSite" placeholder="你的网站(选填)" />
         </p>
         <p
-          class="bg-borderColor mt-5 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto border-2 border-black"
+          class="bg-borderColor mt-5 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto"
           @click="comSubmit"
         >
           <button>发布评论</button>
@@ -323,15 +324,15 @@ const onWheelfn = (e: any) => {
   <!-- 评论列表 -->
   <div
     v-transition="'animate__fadeInUp'"
-    class="bg-themeColor overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-4 border-black text-[#2c3e50]"
+    class="overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-[1px] text-color shadow-lg"
   >
     <header class="before">{{ textbefore }}</header>
     <div :class="cardClass" class="rounded-3xl pt-10">
       <div
-        class="w-5 h-5 select-none rounded-full border-black absolute top-6 left-6 border-2 bg-themeColor"
+        class="w-5 h-5 select-none rounded-full absolute top-6 left-6 bg-themeColor"
       ></div>
       <div
-        class="w-5 h-5 select-none rounded-full border-black absolute top-6 right-6 border-2 bg-themeColor"
+        class="w-5 h-5 select-none rounded-full absolute top-6 right-6 bg-themeColor"
       ></div>
 
       <div class="comContent">
@@ -357,7 +358,7 @@ const onWheelfn = (e: any) => {
 </template>
 
 <style scoped>
-.before {
+/* .before {
   user-select: none;
   position: absolute;
   top: -40px;
@@ -375,11 +376,10 @@ const onWheelfn = (e: any) => {
   line-height: 100px;
   font-size: 15px;
   font-family: "dindin";
-  /* 超出部分显示省略号 */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
+} */
 
 #selcetRound {
   box-shadow: inset 0 0 10px 1px var(--themeColor);

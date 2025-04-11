@@ -13,7 +13,7 @@ export const theme = {
       'themeColor': '#5161ce',
       'themeColor-hover': '#5161ce40',
       'borderColor': '#ffe14d',
-      'color': '#180f21'/*light*/,
+      'color': '#2c3e50'/*light*/,
 
       /*dark*/
       'dark-background': 'rgb(29,29,36)',
