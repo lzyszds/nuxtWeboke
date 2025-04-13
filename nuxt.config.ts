@@ -82,7 +82,6 @@ export default defineNuxtConfig({
   },
   vite: {
     // envDir: path.resolve(__dirname, './env'),
-
     vue: {
       script: {
         defineModel: true,
