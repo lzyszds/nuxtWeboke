@@ -15,10 +15,10 @@ export default defineNuxtConfig({
     apiSecret: 'my-secret',
     // 公开的配置，客户端和服务端均可访问
     public: {
-      BASE_URL:'http://localhost:2024',
-        // process.env.NODE_ENV === 'production'
-        //   ? 'https://www.api.lzyszds.cn'
-        //   : 'https://www.api.lzyszds.cn',//'http://localhost:2024',
+      BASE_URL:
+        process.env.NODE_ENV === 'production'
+          ? 'https://www.api.lzyszds.cn'
+          : 'https://www.api.lzyszds.cn',//'http://localhost:2024',
       VITE_ROUTER_MODE: 'history',
     },
   },
@@ -114,12 +114,19 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      title: 'Jz - 分享你的生活',
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+
       meta: [
         // <meta name="viewport" content="width=device-width, initial-scale=1">
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
       link: [
         // <link rel="stylesheet" href="https://myawesome-lib.css">
+        // 网站图标
+        { rel: 'shortcut icon', href: '/icon/logo.svg' },
+        { rel: 'apple-touch-icon', href: '/icon/logo.svg' },
         {
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap',
