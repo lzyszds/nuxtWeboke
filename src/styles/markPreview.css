@@ -87,12 +87,32 @@
         margin-bottom: 1rem;
         margin: 8px 0;
         font-size: 16px;
-        overflow-x: hidden;
+        overflow: hidden;
     }
 
     & a,
     & p a code {
+        padding: 0 4px;
         color: var(--themeColor);
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            border-radius: 8px;
+            position: relative;
+
+            &::before {
+                content: "跳转访问";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #88c1ff;
+                border-radius: 8px;
+                color: #fff;
+                font-size: 12px;
+                text-align: center;
+            }
+        }
     }
 
     a>.v-md-svg-outbound {
@@ -325,15 +345,16 @@
 
     blockquote {
         margin: .7rem 0;
-        color: #999;
-        font-size: 1.5rem;
-        border-left: 0.2rem solid var(--themeColor);
-        background: aliceblue;
+        color: #888;
+        border-left: 0.3rem solid var(--themeColor);
+        background: rgb(246, 251, 255);
         font-family: "dindin";
         overflow-x: auto;
+        border-radius: 4px;
 
         p {
-            padding: 0.5rem;
+            padding: 0 0.5rem;
+            font-size: .8rem;
             padding-left: 10px;
         }
     }

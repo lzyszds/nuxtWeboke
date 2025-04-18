@@ -30,4 +30,5 @@
 
 :root[theme-mode="dark"] {
     --color: #eee;
+    --bgcolor: #1E1E1E;
 }
