@@ -100,7 +100,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
               <span>
                 <LzyIcon
                   name="iconoir:map-pin"
-                  style="vertical-align: middle; margin-right: 2px"
+                  style="vertical-align: text-bottom; margin-right: 2px"
                   size="15px"
                 />{{ item.userIp }}
               </span>
@@ -265,7 +265,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
           font-family: 'dindin';
           letter-spacing: 0px;
           user-select: none;
-          border-radius: 10px;
+          border-radius: 0;
           padding: 0 5px;
           gap: 5px;
 
@@ -306,7 +306,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
     font-family: 'dindin';
     letter-spacing: 0px;
     background-color: var(--themeColor);
-    border-radius: 7px;
+    border-radius: 4px;
     padding: 4px;
     user-select: none;
   }
@@ -325,7 +325,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
       font-family: 'dindin';
       letter-spacing: 0px;
       user-select: none;
-      border-radius: 10px;
+      border-radius: 0;
       padding: 0 5px;
       gap: 5px;
 

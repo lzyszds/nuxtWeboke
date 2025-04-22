@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { CommentsType, Replydata } from "~/types/Comment";
+import { useNotification } from "@/hooks/notification";
+const useOpenai = useOpenaiStore();
+const { notify, closeAll } = useNotification();
 
 const route = useRoute();
 const aid = route.params.id;
@@ -56,15 +59,15 @@ const getRemarkList = async () => {
 };
 
 //评论上方的诗句请求
-const textbefore = ref<String>("寻找中...");
-setTimeout(async () => {
-  const { data: content } = await useFetch("/api/toolkit/getVerse", {
-    transform: (data: any) => {
-      return data.data.content;
-    },
-  });
-  textbefore.value = content.value;
-}, 50);
+// const textbefore = ref<String>("寻找中...");
+// setTimeout(async () => {
+//   const { data: content } = await useFetch("/api/toolkit/getVerse", {
+//     transform: (data: any) => {
+//       return data.data.content;
+//     },
+//   });
+//   textbefore.value = content.value;
+// }, 50);
 
 //评论人个人信息
 const { information } = useInformationStore();
@@ -87,18 +90,19 @@ const comInfo = () => {
   }
   return true;
 };
+
+//处理回复评论的id 判断其否为二级评论，-1为一级评论，否则为二级评论
+const replyIdval = () => {
+  for (let [key, item] of replyArr.replyId) {
+    if (item.isReply) return key;
+  }
+  return 0;
+};
 //评论提交
 const comSubmit = async () => {
   const replyId = replyArr.replyId;
   //验证信息
   if (!comInfo()) return;
-  //处理回复评论的id 判断其否为二级评论，-1为一级评论，否则为二级评论
-  const replyIdval = () => {
-    for (let [key, item] of replyId) {
-      if (item.isReply) return key;
-    }
-    return 0;
-  };
   //处理一级评论的id
   const groundVal = () => {
     for (let [_key, item] of replyId) {
@@ -114,27 +118,46 @@ const comSubmit = async () => {
     name: information.name, //评论人昵称
     email: information.email, //评论人邮箱
     webSite: information.webSite, //评论人网站
-    content: information.comContent, //评论内容
+    content:
+      typeof information.comContent !== "string"
+        ? JSON.stringify(information.comContent)
+        : information.comContent, //评论内容
     imgIndex: information.rangeIndex, //评论人头像
     userIp: "", //用户ip
     replyPeople: replyArr.replyName.replace("@", ""),
   };
   //发送请求,提交评论
-  await useFetch("/api/comment/postRemarkList", {
+  fetch("/api/comment/addComment", {
     method: "POST",
-    body: remarkData,
+    body: JSON.stringify(remarkData),
     headers: {
       "user-agent": navigator.userAgent,
     },
-    transform: (data: any) => {
-      return data.data;
-    },
-  });
-  console.log(`评论成功,感谢你的评论！`);
-  await getRemarkList();
-  //清空评论内容
-  information.comContent = "";
-  remReplyComment();
+  })
+    .then((res) => res.json())
+    .then(async (res) => {
+      closeAll();
+      if (res.code == 200) {
+        console.log(`评论成功,感谢你的评论！`);
+        await getRemarkList();
+        //清空评论内容
+        information.comContent = "";
+        remReplyComment();
+        notify({
+          message: `评论成功,感谢你的评论！`,
+          position: "bottom-center",
+          duration: 2000,
+          dangerouslyUseHTMLString: true,
+        });
+      } else {
+        notify({
+          message: `评论失败,请稍后再试！`,
+          position: "bottom-center",
+          duration: 2000,
+          dangerouslyUseHTMLString: true,
+        });
+      }
+    });
 };
 
 //回复一级评论
@@ -218,6 +241,25 @@ const onWheelfn = (e: any) => {
     behavior: "smooth",
   });
 };
+
+//生成Ai评论
+const createAiComment = async () => {
+  //获取评论内容
+  useOpenai.getAiComment(Number(aid), replyIdval());
+  //给textarea获取焦点
+  const textarea = document.querySelector("#textarea") as any;
+  textarea?.focus();
+};
+
+// 监听ai生成的评论内容，这样才能实现流式显示
+watch(
+  () => useOpenai.commentContent,
+  (newVal) => {
+    if (newVal) {
+      information.comContent = newVal;
+    }
+  }
+);
 </script>
 
 <template>
@@ -231,23 +273,33 @@ const onWheelfn = (e: any) => {
         :class="cardClass"
         class="py-[4px] rounded-full relative text-black dark:border-white mb-2 font-dindin"
       >
-        <LzyIcon
-          class="absolute top-1/2 left-2 -translate-y-1/2"
-          name="iconoir:chat-plus-in"
-          size="20"
-        ></LzyIcon>
+        <span>
+          <LzyIcon
+            class="absolute top-1/2 left-2 -translate-y-1/2"
+            name="iconoir:chat-plus-in"
+            size="20"
+          ></LzyIcon>
 
-        <span class="px-2 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
-        
+          <span class="px-2 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
+        </span>
+        <span>
+          <LzyIcon
+            class="absolute top-1/2 right-2 -translate-y-1/2 hover:text-themeColor cursor-pointer"
+            name="iconoir:plug-type-a"
+            size="20"
+            title="生成Ai评论"
+            @click="createAiComment"
+          ></LzyIcon>
+        </span>
       </div>
       <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
-          class="w-full h-full text-lg resize-none outline-none dark:bg-dark-background"
+          class="w-full h-[90%] text-base resize-none outline-none dark:bg-dark-background"
           id="textarea"
           v-model="information.comContent"
         ></textarea>
         <div
-          class="w-[90%] pointer-events-none text-base select-none absolute bottom-2 text-center"
+          class="w-[90%] pointer-events-none text-base select-none absolute bottom-1 text-center"
         >
           “恶语伤人六月寒, 良言一句暖三冬”
         </div>
@@ -326,15 +378,8 @@ const onWheelfn = (e: any) => {
     v-transition="'animate__fadeInUp'"
     class="overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-[1px] text-color shadow-lg"
   >
-    <header class="before">{{ textbefore }}</header>
+    <!-- <header class="before">{{ textbefore }}</header> -->
     <div :class="cardClass" class="rounded-3xl pt-10">
-      <div
-        class="w-5 h-5 select-none rounded-full absolute top-6 left-6 bg-themeColor"
-      ></div>
-      <div
-        class="w-5 h-5 select-none rounded-full absolute top-6 right-6 bg-themeColor"
-      ></div>
-
       <div class="comContent">
         <h3
           class="text-black text-center font-semibold py-4"

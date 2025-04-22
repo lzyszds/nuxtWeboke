@@ -37,7 +37,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
       firstRenderNumber="5"
     >
       <img class="w-8 rounded-full" :src="baseUrl + item.headImg" alt="" />
-      <div class="flex-1">{{ item.content }}</div>
+      <div :title="item.content" class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{ item.content }}</div>
       <div>{{ timeAgo(item.createDate) }}</div>
     </LzyEnterVisible>
   </section>

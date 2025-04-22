@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   devServer: {
     port: 1027,
   },
+  
 
   runtimeConfig: {
     // 仅服务器端可用的配置
@@ -79,6 +80,13 @@ export default defineNuxtConfig({
     routeRules: {
       // '/api/openai/getAiFox': { cors: true },  // 允许跨域
     },
+    devProxy: {
+      '/api': {
+        target: 'http://localhost:2024/api', // 目标接口地址
+        changeOrigin: true,
+        prependPath: true // 是否保留路径前缀
+      }
+    }
   },
   vite: {
     // envDir: path.resolve(__dirname, './env'),
@@ -109,6 +117,8 @@ export default defineNuxtConfig({
         ],
       }),
     ],
+
+    
   },
 
   app: {
