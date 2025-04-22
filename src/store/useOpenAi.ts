@@ -65,9 +65,11 @@ export const useOpenaiStore = defineStore('openai', () => {
         for (const line of lines) {
           if (!line) continue
           await new Promise(resolve => requestAnimationFrame(resolve))
+          if(line.indexOf('data: ') === -1) continue
           temporaryContent += line.replace('data: ', '')
           if (type === 'abstract') {
             contentMap.value.set(aid, temporaryContent)
+            
           }else if (type === 'comment') {
             commentContent.value = temporaryContent
           }
@@ -115,7 +117,6 @@ export const useOpenaiStore = defineStore('openai', () => {
    * @param cid - 评论ID
   */
   const getAiComment = async (aid: number, cid: number) => {
-    console.log(aid, cid);
     
     try {
       const response = await fetch(`/api/openAI/getAiComment?aid=${aid}&cid=${cid}`)
