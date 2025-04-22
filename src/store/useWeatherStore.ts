@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { defineStore } from "pinia";
 import type { RequestResult } from "~/types/Result";
 import type { WeatherData } from "~/types/Weather";
@@ -9,6 +10,7 @@ export const useWeatherStore = defineStore(
   () => {
     // 定义一个响应式变量，用于存储天气数据
     const weatherData = ref<WeatherData>()
+
     // 定义一个响应式变量，用于存储天气图片的路径
     const weather_image_path = ref<string>('')
 
@@ -28,6 +30,22 @@ export const useWeatherStore = defineStore(
       const { data, error } = await useFetch<RequestResult<WeatherData>>('/api/toolkit/getWeather')
       if (error.value) {
         console.error(error)
+
+        setWeather({
+          province: "未知",
+          city: "未知",
+          adcode: "未知",
+          weather: "未知",
+          temperature: "未知",
+          winddirection: "未知",
+          windpower: "未知",
+          humidity: "未知",
+          reporttime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+          temperature_float: "未知",
+          humidity_float: "未知",
+          ip: "",
+        })
+
         return
       }
       // 更新天气数据

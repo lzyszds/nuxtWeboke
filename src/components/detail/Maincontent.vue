@@ -87,7 +87,7 @@ defineExpose({ articleMain });
     class="mt-10 px-2.5 text-lg rounded-2xl text-color dark:text-white dark:bg-dark-background"
   >
     <div
-      class="pb-2 pl-4 text-lg rounded-lg overflow-hidden text-[15px] border border-[#000] shadow-[0_0_4px_#999]"
+      class="pb-2 pl-4 transition-all text-lg rounded-lg overflow-hidden text-[15px] border border-[#999] hover:border-[#000] hover:shadow-[0_0_4px_#999]"
     >
       <p class="pt-4 font-dindin flex items-center" id="abstract">
         <LzyIcon name="mdi:robot-excited-outline" size="18" class="mr-1.5"></LzyIcon>

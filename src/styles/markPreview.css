@@ -47,7 +47,6 @@
 
     h2 {
         padding-bottom: 8px;
-        border-bottom: 2px dashed #000;
         color: var(--color);
         font-size: 24px;
         font-weight: 600;
