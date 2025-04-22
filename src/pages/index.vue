@@ -130,7 +130,7 @@ const open = (url: string) => {
           <img
             width="400"
             height="140"
-            src="https://card.yuy1n.io/card/76561198970922610/light,badge,group,text-fff,bg-game-1217060,badges,games,screenshots"
+            src="https://card.yuy1n.io/card/76561198970922610/radical,badge,group,text-fff,bg-game-1217060,badges,games,screenshots"
             class="w-full h-full object-cover rounded-lg mt-3"
             title="Steam个人信息"
             alt="Steam个人信息"
