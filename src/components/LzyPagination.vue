@@ -27,7 +27,7 @@ const nextPage = () => {
     <button
       v-for="(item, index) in totalLength"
       :key="index"
-      class="w-7 h-7 text-sm flex transition-all justify-center items-center rounded-sm mr-1 hover:bg-themeColor hover:text-white"
+      class="pageinationBtn w-7 h-7 text-sm flex transition-all justify-center items-center rounded-md mr-1 hover:bg-themeColor hover:text-white"
       :class="{ 'bg-themeColor text-white': index === newPage - 1 }"
       @click="onCurrentChange(index + 1)"
     >
@@ -42,4 +42,14 @@ const nextPage = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.pageinationBtn {
+  box-shadow: 2px 2px 0 0px rgba(0, 0, 0, 1);
+  border: .5px solid #111;
+  transition: all .22s;
+  &:hover{
+     transform: translateY(1px);
+     box-shadow: 0px 0px 0 0px rgba(0, 0, 0, 1);
+  }
+}
+</style>

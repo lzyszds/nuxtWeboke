@@ -123,9 +123,12 @@ const mouseleave = _.debounce(
   >
     <div class="maskContent w-full h-32 dark:w-0"></div>
     <div
-      class="w-full h-32 p-2.5 grid grid-rows-[40px_1fr_15px] gap-1.5 z-0 pointer-events-none"
+      class="w-full h-32 p-2.5 grid grid-rows-[24px_1fr_15px] lg:grid-rows-[40px_1fr_15px] gap-1.5 z-0 pointer-events-none"
     >
-      <div class="text-2xl text-black dark:text-white font-['dindin'] overflow-hidden">
+      <div
+        class="text-black dark:text-white font-dindin overflow-hidden"
+        style="font-size: clamp(0.8rem, 4.2vw, 1.5rem)"
+      >
         {{ data.title }}
       </div>
       <div class="text-sm text-gray-500 h-10 overflow-hidden line-clamp-2">

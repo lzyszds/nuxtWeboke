@@ -20,7 +20,7 @@ const formatTime = (time: string) => {
 </script>
 
 <template>
-  <section class="rounded-2xl p-4 shadow-sm border-[1px] grid grid-cols-2 text-center">
+  <section class="rounded-2xl mt-3 p-4 shadow-sm border-[1px] grid grid-cols-2 text-center">
       <p class="text-sm select-none" :title="ip">{{ province }} {{ city }}</p>
       <span class="underline underline-offset-1 ml-2 select-all text-xs">
         {{ ip }}

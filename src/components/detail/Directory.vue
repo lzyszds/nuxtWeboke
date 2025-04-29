@@ -65,12 +65,12 @@ onUnmounted(() => {
         class="bg-white dark:bg-dark-background p-1 px-3 text-lg rounded-2xl text-[15px]"
       >
         <h2
-          class="px-1 my-2 font-semibold rounded-xl flex items-center select-none"
+          class="px-1 my-2 font-semibold rounded-xl flex items-center select-none dark:text-[#eee]"
         >
           <LzyIcon size="20" name="iconoir:book-stack"></LzyIcon>
-          <span class="align-text-top mt-[-2px]">文章目录</span>
+          <span class="align-text-top mt-[-2px] ">文章目录</span>
         </h2>
-        <ul class="px-2 relative">
+        <ul class="px-2 relative ">
           <li
             v-for="item in useDirectory.directory"
             @click.prevent="scrollToElement(item)"
@@ -78,7 +78,7 @@ onUnmounted(() => {
             :class="[item.nodeName, activeHeading == item.id ? 'active' : '']"
           >
             <a
-              class="transition-all text-[#999]"
+              class="transition-all text-[#999] dark:text-[#eee]"
               :class="{ 'cursor-progress': isMutaScroll }"
             >
               {{ item.title }}</a

@@ -89,7 +89,7 @@ const open = (url: string) => {
       <!-- 文章内容 -->
       <div class="w-full">
         <div
-          class="grid gap-2.5 mt-5 relative overflow-hidden"
+          class="grid mt-5 relative overflow-hidden"
           :style="{ minHeight: (cardHeight + 10) * limit + 'px' }"
           v-if="!isLoading"
         >
@@ -121,6 +121,8 @@ const open = (url: string) => {
       </div>
       <div class="systemInfo relative mt-5 hidden lg:block">
         <LzyEnterVisible animateClass="animate__bounceInUp" class="sticky top-16">
+          <HomeSearchWeb :requestData="requestData" />
+
           <ClientOnly>
             <HomeWeatherInfo />
           </ClientOnly>
