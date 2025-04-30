@@ -4,6 +4,7 @@
 // import dayjs from "dayjs";
 // import type { MessageOptions, messageType } from 'element-plus';
 // import { ElMessage, ElNotification } from 'element-plus';
+import gsap from 'gsap';
 
 import dayjs from 'dayjs';
 
@@ -187,21 +188,55 @@ export const awaitTime = (fn: Function, time: number | string = 1000) => {
 };
 
 // 数字跳动
-export const numberJump = (num: any, sum: any) => {
-  let timer: any = [];
-  for (const key in num) {
-    num[key].value = 0;
-    timer[key] = setInterval(() => {
-      //去除小数点
-      num[key].value += Math.ceil(sum[key] / 10);
+export const numberJump = (
+  record: any,
+  duration = 2 // 动画持续时间（秒）
+): { counts: Record<string, Ref<number>>; stop: () => void } => {
+  const counts: Record<string, Ref<number>> = {}
+  const tweens: any[] = []
 
-      if (num[key].value >= sum[key]) {
-        num[key].value = sum[key];
-        clearInterval(timer[key]);
-      }
-    }, 60);
+  for (const key in record) {
+    counts[key] = ref(0) // 创建响应式 ref
+    const target = record[key].count
+
+    // 使用 GSAP 动画
+    const tween = gsap.to(counts[key], {
+      value: target, // 目标值
+      duration, // 动画时长
+      ease: 'power2.inOut', // 缓动效果
+      onUpdate: () => {
+        counts[key]!.value = Math.round(counts[key]!.value) // 确保整数
+      },
+    })
+
+    tweens.push(tween)
   }
-};
+
+  // 返回响应式 counts 和清理函数
+  return {
+    counts,
+    stop: () => {
+      tweens.forEach((tween) => tween.kill()) // 停止所有动画
+    },
+  }
+}
+
+// export const numberJump = (num: any, sum: any, duration = 2000) => {
+//   for (const key in num) {
+//     num[key]!.value = 0
+//     const target = sum[key]
+//     const startTime = performance.now()
+
+//     const { pause } = useRafFn(({ time }: any) => {
+//       const progress = Math.min((time - startTime) / duration, 1)
+//       num[key]!.value = Math.round(progress * target!)
+//       if (progress >= 1) pause() // 动画结束  
+//     })
+
+//     // 可选：返回 pause 函数用于手动停止
+//   }
+// }
+
 
 // 在 Vue 组件中监听某个元素的 class 名变化
 export function observeClassChange(element: Element, callback: Function) {

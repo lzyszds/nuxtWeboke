@@ -5,8 +5,6 @@ const image_path = await getWeatherImage();
 
 const loadStore = useLoadingStore();
 
-const loadImage = ref();
-
 function calculateSunBrightness() {
   const now = dayjs();
   const hour = now.hour();

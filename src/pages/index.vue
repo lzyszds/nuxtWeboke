@@ -62,7 +62,7 @@ const open = (url: string) => {
       <template #first>
         <div class="pt-20 pl-8 relative md:pt-14 w-full">
           <LzyEnterVisible animate-class="animate__zoomInLeft">
-            <p class="text-5xl font-semibold leading-tight">
+            <p class="text-5xl font-semibold font-dindin leading-tight">
               过去无法挽留<br />
               <span class="text-emerald-600 dark:text-emerald-400">未来仍可改变</span>
             </p>

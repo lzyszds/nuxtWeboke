@@ -16,6 +16,16 @@ export const useRequestDataStore = defineStore('requestData', () => {
       name: 'homeArticleList',
       notes: '首页文章列表',
     },
+    {
+      url: `/api/toolkit/getGithubInfo`,
+      name: 'githubInfo',
+      notes: 'Github信息',
+    },
+    {
+      url: `/api/toolkit/getAdminHomeData`,
+      name: 'aboutInfo',
+      notes: '关于信息',
+    }
   ];
 
   // 定义数据结构
@@ -23,6 +33,7 @@ export const useRequestDataStore = defineStore('requestData', () => {
     homeArticleList: [],
     homeCommentList: [],
     detailData: {} as ArticleDetail,
+    githubInfo: {},
   });
 
   // 统一请求接口，并进行错误处理
@@ -30,6 +41,7 @@ export const useRequestDataStore = defineStore('requestData', () => {
     try {
       const { data, error } = await useFetch(url);
       if (error.value) throw new Error(`请求失败: ${url}`);
+
       //@ts-ignore
       return data.value?.data || [];
     } catch (err) {
@@ -46,8 +58,13 @@ export const useRequestDataStore = defineStore('requestData', () => {
 
     // 将结果赋值给 requestData
     urls.forEach((item, index) => {
+      if (typeof result[index] !== 'object') {
+        return requestData.value[item.name] = JSON.parse(result[index]);
+      }
       requestData.value[item.name] = result[index];
     });
+    console.log('请求数据:', requestData.value);
+    
   };
 
   // 详情页数据的 computed

@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     '~/styles/animation.css',
     '~/styles/font.css',
     '~/styles/default.css',
-    '~/styles/variable.css',
+    '~/styles/globals.css',
     '@fancyapps/ui/dist/fancybox/fancybox.css',
   ],
 
@@ -42,6 +42,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
+
     // "@nuxtjs/seo",
     // '@nuxtjs/robots',
     '@vueuse/motion/nuxt',

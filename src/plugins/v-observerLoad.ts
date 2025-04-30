@@ -4,7 +4,8 @@ const observerLoadBody = {
     const observer = new IntersectionObserver((entries: any) => {
       const { isIntersecting } = entries[0];
       const { setLoading } = useLoadingStore();
-
+      console.log(isIntersecting);
+      
       if (isIntersecting) {
         setTimeout(() => {
           setLoading(isIntersecting);
