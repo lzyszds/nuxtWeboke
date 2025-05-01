@@ -39,8 +39,6 @@ export const useOpenaiStore = defineStore('openai', () => {
   watchEffect(() => {
     if (route.path.includes('/detail/')) {
       contentMap.value.clear()
-      console.log(contentMap.value);
-
     }
   })
 

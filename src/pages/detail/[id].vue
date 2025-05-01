@@ -7,11 +7,14 @@ const mainContent = ref();
 const windowY: any = inject("windowY");
 const { requestData } = useRequestDataStore();
 const details = computed(() => requestData.detailData);
+
 const title = useTitle();
+setTimeout(() => {
+  // 设置页面标题
+  title.value = details.value.title;
+}, 50);
 
 const useDirectory = useDirectoryStore();
-
-title.value = details.value.title;
 
 const countInfoArr = computed(() => [
   {

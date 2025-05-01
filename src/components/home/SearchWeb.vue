@@ -1,38 +1,3 @@
-<template>
-  <div>
-    <input
-      type="text "
-      class="rounded-xl w-full p-4 py-1 shadow-sm text-sm grid grid-cols-2"
-      placeholder="全站搜索..."
-      v-model="searchText"
-    />
-    <LzyIcon
-      name="iconoir:search"
-      class="absolute top-[5px] right-2 text-gray-400 hover:text-gray-500"
-      size="20"
-    />
-    <div class="search-card overflow-auto">
-      <img
-        v-if="!findResult.length"
-        src="https://www.api.lzyszds.cn/static/img/ezgif-3e9353c5b801c0.gif"
-        alt=""
-      />
-      <div
-        v-for="(item, index) in findResult"
-        :key="index"
-        class="text-sm text-gray-500 p-2 z-30"
-      >
-        <NuxtLink :to="'/detail/' + item.aid">
-          <span class="text-themeColor font-semibold">{{ item.title }}</span>
-          <span class="text-gray-400">...</span>
-        </NuxtLink>
-
-        <div class="h-[1px] bg-gray-200 my-2"></div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 const { requestData } = defineProps<{
   requestData: any;
@@ -69,8 +34,43 @@ const findResult = computed(() => {
   });
 });
 
-console.log(findResult.value);
 </script>
+
+
+<template>
+  <div>
+    <input
+      type="text "
+      class="rounded-xl w-full p-4 py-1 shadow-sm text-sm grid grid-cols-2"
+      placeholder="全站搜索..."
+      v-model="searchText"
+    />
+    <LzyIcon
+      name="iconoir:search"
+      class="absolute top-[5px] right-2 text-gray-400 hover:text-gray-500"
+      size="20"
+    />
+    <div class="search-card overflow-auto">
+      <img
+        v-if="!findResult.length"
+        src="https://www.api.lzyszds.cn/static/img/ezgif-3e9353c5b801c0.gif"
+        alt=""
+      />
+      <div
+        v-for="(item, index) in findResult"
+        :key="index"
+        class="text-sm text-gray-500 p-2 z-30"
+      >
+        <NuxtLink :to="'/detail/' + item.aid">
+          <span class="text-themeColor font-semibold">{{ item.title }}</span>
+          <span class="text-gray-400">...</span>
+        </NuxtLink>
+
+        <div class="h-[1px] bg-gray-200 my-2"></div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .search-card {
