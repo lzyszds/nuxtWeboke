@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { numFormat, timeAgo } from "~/utils/common.js";
 import type { Directory } from "~/types/Directory";
+import { useTitle } from "@vueuse/core";
 
 const mainContent = ref();
 const windowY: any = inject("windowY");
 const { requestData } = useRequestDataStore();
 const details = computed(() => requestData.detailData);
+const title = useTitle();
 
 const useDirectory = useDirectoryStore();
+
+title.value = details.value.title;
 
 const countInfoArr = computed(() => [
   {
@@ -59,7 +63,7 @@ const scrollToElement = (item: Directory) => {
       </h1>
       <!-- 文章类型 -->
       <div
-        class="flex gap-3 font-dindin p-1 px-2  dark:bg-dark-background rounded-md w-fit mt-1"
+        class="flex gap-3 font-dindin p-1 px-2 dark:bg-dark-background rounded-md w-fit mt-1"
       >
         <span
           class="flex gap-1 text-sm place-content-center place-items-center"
@@ -95,7 +99,7 @@ const scrollToElement = (item: Directory) => {
               size=".8rem"
             />
             <a
-              class="text-black dark:text-white"  
+              class="text-black dark:text-white"
               target="_blank"
               href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
               >知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a

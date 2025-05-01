@@ -6,7 +6,7 @@ const runtimeConfig = useRuntimeConfig(); // 获取 nuxt 的运行时配置
 
 const comment = ref<Comment[]>([]);
 onMounted(async () => {
-  const { data } = await fetch("/api/comment/getNewComment").then((res) => res.json());
+  const { data } = await fetch("/nuxtApi/comment/getNewComment").then((res) => res.json());
 
   if (data) {
     comment.value = data;

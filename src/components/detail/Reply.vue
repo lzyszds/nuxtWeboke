@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { timeAgo } from '@/utils/common';
-import type { Replydata } from '~/types/Comment';
+import { timeAgo } from "@/utils/common";
+import type { Replydata } from "~/types/Comment";
 
 interface Props {
   oldReplicate: Replydata[];
@@ -22,7 +22,7 @@ const replydata = computed(() => props.replydata);
 const oldReplicate = computed(() => props.oldReplicate);
 //评论的id
 const replyId = props.replyId;
-const emit = defineEmits(['replying', 'remReply']);
+const emit = defineEmits(["replying", "remReply"]);
 const nowReplyId = ref(0);
 
 //显示评论的数量，分别显示一级和二级评论
@@ -35,23 +35,23 @@ const showNumber = ref({
 const replyComment = (item: Replydata) => {
   //判断是否是回复评论
   if (item.replyId == 0) {
-    emit('replying', item, item.commentId);
+    emit("replying", item, item.commentId);
   } else {
-    emit('replying', item, item.groundId);
+    emit("replying", item, item.groundId);
   }
   /* 让滚动条滚动到textarea底部 */
-  const textarea = document.querySelector('#textarea');
+  const textarea = document.querySelector("#textarea");
   setTimeout(() => {
     textarea?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
+      behavior: "smooth",
+      block: "center",
     });
   }, 100);
 };
 //取消回复评论方法
 const remReplyComment = (item: any, index: any) => {
   //判断是否是回复评论
-  emit('remReply', item, index);
+  emit("remReply", item, index);
 };
 
 //根据评论回复id查询评论
@@ -67,9 +67,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
     <section v-for="(item, index) in replydata" :key="index">
       <div
         :class="item.replyId == 0 ? 'mainReply item' : 'secondaryReply item'"
-        v-if="
-          index < (item.replyId == 0 ? showNumber.level1 : showNumber.level2)
-        "
+        v-if="index < (item.replyId == 0 ? showNumber.level1 : showNumber.level2)"
       >
         <section class="item-left">
           <img :src="baseUrl + item.headImg" alt="" />
@@ -79,9 +77,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
             <span class="item-right-top-name dark:text-white text-black">
               {{ item.userName }}
             </span>
-            <span class="item-right-top-time">{{
-              timeAgo(item.createDate)
-            }}</span>
+            <span class="item-right-top-time">{{ timeAgo(item.createDate) }}</span>
             <button
               v-if="!replyId.get(item.commentId)!.isReply"
               class="item-right-top-reply"
@@ -120,14 +116,11 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
               </span>
             </span>
           </div>
-          <div
-            class="item-right-bottom"
-            @click="nowReplyId = item.commentId"
-            @mouseleave="nowReplyId = 0"
-          >
-            <span>
-              {{ item.replyPeople ? '@' + item.replyPeople : '' }}
+          <div class="item-right-bottom" @mouseleave="nowReplyId = 0">
+            <span @click="nowReplyId = item.commentId">
+              {{ item.replyPeople ? "@" + item.replyPeople : "" }}
             </span>
+
             <LzyEnterVisible
               animate-class="zyAnimate__fadeInUp"
               target="section"
@@ -152,12 +145,8 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
       </div>
       <button
         class="text-center w-full rounded-xl mb-4 text-sm font-dindin bg-borderColor block border-[3px] border-black"
-        v-if="
-          index == (item.replyId == 0 ? showNumber.level1 : showNumber.level2)
-        "
-        @click="
-          () => (showNumber[item.replyId == 0 ? 'level1' : 'level2'] += 3)
-        "
+        v-if="index == (item.replyId == 0 ? showNumber.level1 : showNumber.level2)"
+        @click="() => (showNumber[item.replyId == 0 ? 'level1' : 'level2'] += 3)"
       >
         显示更多评论...
       </button>
@@ -215,7 +204,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
         & > span {
           font-size: 14px;
           color: #002f9e;
-          font-family: 'dindin';
+          font-family: "dindin";
           letter-spacing: 0px;
           user-select: none;
 
@@ -237,9 +226,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
           padding: 5px;
           display: flex;
           gap: 10px;
-          box-shadow:
-            14px 19px 25px rgba(0, 0, 0, 0.1),
-            0 1px 4px rgb(0, 0, 0,.3);
+          box-shadow: 14px 19px 25px rgba(0, 0, 0, 0.1), 0 1px 4px rgb(0, 0, 0, 0.3);
 
           img {
             margin-right: 0;
@@ -262,7 +249,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
           line-height: 16px;
           font-size: 12px;
           color: #000;
-          font-family: 'dindin';
+          font-family: "dindin";
           letter-spacing: 0px;
           user-select: none;
           border-radius: 0;
@@ -294,7 +281,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
     font-size: 12px;
     color: #999;
     margin: 0 10px;
-    font-family: 'dindin';
+    font-family: "dindin";
     letter-spacing: 0px;
   }
 
@@ -303,7 +290,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
     color: #ffff;
     height: 20px;
     line-height: 10px;
-    font-family: 'dindin';
+    font-family: "dindin";
     letter-spacing: 0px;
     background-color: var(--themeColor);
     border-radius: 4px;
@@ -322,7 +309,7 @@ const baseUrl = useRuntimeConfig().public.BASE_URL;
       line-height: 16px;
       font-size: 12px;
       color: #000;
-      font-family: 'dindin';
+      font-family: "dindin";
       letter-spacing: 0px;
       user-select: none;
       border-radius: 0;

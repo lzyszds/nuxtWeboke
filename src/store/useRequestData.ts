@@ -63,8 +63,6 @@ export const useRequestDataStore = defineStore('requestData', () => {
       }
       requestData.value[item.name] = result[index];
     });
-    console.log('请求数据:', requestData.value);
-    
   };
 
   // 详情页数据的 computed

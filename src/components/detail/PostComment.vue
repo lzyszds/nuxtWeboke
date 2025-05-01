@@ -16,7 +16,7 @@ const getDefaultValue = () => {
 
 //主题card class
 const cardClass =
-  "bg-white dark:bg-dark-background p-2 px-6 text-lg rounded-2xl text-[15px]";
+  "bg-white dark:bg-dark-background p-2 px-6 pb-7 text-lg rounded-2xl text-[15px]";
 const comImg = ref([]);
 
 const replyArr = reactive({
@@ -28,34 +28,38 @@ const remarkList = ref<Replydata[]>([]);
 const oldRemarkList = ref<Replydata[]>([]);
 
 // 获取评论列表
-const getRemarkList = async () => {
+const getRemarkList = () => {
   const replyId = replyArr.replyId;
-  //初始的评论列表
-  const { data } = await fetch("/api/comment/getArticleComment?aid=" + aid).then((res) =>
-    res.json()
-  );
-  oldRemarkList.value = data;
-  remarkList.value = [];
-  //初始化回复评论的id
-  data.forEach((remark: any) => {
-    remark.children = [];
-    replyId.set(remark.commentId, {
-      isReply: false,
-      groundId: remark.commentId,
-    });
-  });
-  // 遍历评论列表，为每个评论添加回复列表
-  for (let item of data) {
-    if (item.replyId == 0) {
-      remarkList.value.push(item);
-    } else {
-      for (let remark of data) {
-        if (remark.commentId == item.groundId) {
-          remark.children.push(item);
+  return new Promise((resolve) => {
+    //初始的评论列表
+    fetch("/nuxtApi/comment/getArticleComment?aid=" + aid)
+      .then((res) => res.json())
+      .then(({ data }) => {
+        oldRemarkList.value = data;
+        remarkList.value = [];
+        //初始化回复评论的id
+        data.forEach((remark: any) => {
+          remark.children = [];
+          replyId.set(remark.commentId, {
+            isReply: false,
+            groundId: remark.commentId,
+          });
+        });
+        // 遍历评论列表，为每个评论添加回复列表
+        for (let item of data) {
+          if (item.replyId == 0) {
+            remarkList.value.push(item);
+          } else {
+            for (let remark of data) {
+              if (remark.commentId == item.groundId) {
+                remark.children.push(item);
+              }
+            }
+          }
         }
-      }
-    }
-  }
+        resolve(remarkList.value);
+      });
+  });
 };
 
 //评论上方的诗句请求
@@ -127,7 +131,7 @@ const comSubmit = async () => {
     replyPeople: replyArr.replyName.replace("@", ""),
   };
   //发送请求,提交评论
-  fetch("/api/comment/addComment", {
+  fetch("/nuxtApi/comment/addComment", {
     method: "POST",
     body: JSON.stringify(remarkData),
     headers: {
@@ -139,15 +143,16 @@ const comSubmit = async () => {
       closeAll();
       if (res.code == 200) {
         console.log(`评论成功,感谢你的评论！`);
-        await getRemarkList();
-        //清空评论内容
-        information.comContent = "";
-        remReplyComment();
-        notify({
-          message: `评论成功,感谢你的评论！`,
-          position: "bottom-center",
-          duration: 2000,
-          dangerouslyUseHTMLString: true,
+        getRemarkList().then(() => {
+          //清空评论内容
+          information.comContent = "";
+          remReplyComment();
+          notify({
+            message: `评论成功,感谢你的评论！`,
+            position: "bottom-center",
+            duration: 2000,
+            dangerouslyUseHTMLString: true,
+          });
         });
       } else {
         notify({
@@ -200,7 +205,7 @@ const moveTo = () => {
 };
 onMounted(async () => {
   // 获取评论头像
-  const data = await fetch("/api/comment/getCommentAvatar").then((res) => res.json());
+  const data = await fetch("/nuxtApi/comment/getCommentAvatar").then((res) => res.json());
   comImg.value = data;
 
   //获取评论列表
@@ -271,37 +276,34 @@ watch(
     >
       <div
         :class="cardClass"
-        class="py-[4px] rounded-full relative text-black dark:border-white mb-2 font-dindin"
+        class="py-[4px] rounded-full flex content-center justify-between w-full relative text-black dark:border-white mb-2 font-dindin"
       >
         <span>
-          <LzyIcon
-            class="absolute top-1/2 left-2 -translate-y-1/2"
-            name="iconoir:chat-plus-in"
-            size="20"
-          ></LzyIcon>
-
+          <LzyIcon style="vertical-align: sub;" name="iconoir:chat-plus-in" size="20"></LzyIcon>
           <span class="px-2 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
         </span>
-        <span>
-          <LzyIcon
-            class="absolute top-1/2 right-2 -translate-y-1/2 hover:text-themeColor cursor-pointer"
-            name="iconoir:plug-type-a"
-            size="20"
-            title="生成Ai评论"
-            @click="createAiComment"
-          ></LzyIcon>
-        </span>
+        <LzyIcon
+          class="hover:text-themeColor cursor-pointer mt-1"
+          name="iconoir:plug-type-a"
+          size="20"
+          title="生成Ai评论"
+          @click="createAiComment"
+        ></LzyIcon>
       </div>
       <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
-          class="w-full h-[90%] text-base resize-none outline-none dark:bg-dark-background"
+          class="w-full h-[88%] transition-all text-base border-b-[1px] focus:border-b-[#2c3e50] resize-none outline-none dark:bg-dark-background"
           id="textarea"
           v-model="information.comContent"
         ></textarea>
-        <div
-          class="w-[90%] pointer-events-none text-base select-none absolute bottom-1 text-center"
-        >
-          “恶语伤人六月寒, 良言一句暖三冬”
+        <div class="w-[90%] text-base select-none absolute bottom-0 text-right">
+          <LzyIcon
+            class="absolute top-1/2 left-2 -translate-y-1/2 z-50 hover:text-themeColor"
+            name="iconoir:emoji-satisfied"
+            size="20"
+          ></LzyIcon>
+
+          <span class="pointer-events-none"> “恶语伤人六月寒, 良言一句暖三冬”</span>
         </div>
       </div>
     </section>
@@ -378,8 +380,11 @@ watch(
     v-transition="'animate__fadeInUp'"
     class="overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-[1px] text-color shadow-lg"
   >
-    <!-- <header class="before">{{ textbefore }}</header> -->
-    <div :class="cardClass" class="rounded-3xl pt-10">
+    <header class="block px-6 font-dindin">
+      <LzyIcon name="iconoir:message-text" style="vertical-align: middle"></LzyIcon>
+      评论区
+    </header>
+    <div :class="cardClass" class="rounded-3xl">
       <div class="comContent">
         <h3
           class="text-black text-center font-semibold py-4"

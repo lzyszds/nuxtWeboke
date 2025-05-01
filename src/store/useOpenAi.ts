@@ -94,7 +94,7 @@ export const useOpenaiStore = defineStore('openai', () => {
     }
 
     try {
-      const response = await fetch(`/api/openAI/getSiliconflowiAi?aid=${aid}`)
+      const response = await fetch(`/nuxtApi/openAI/getSiliconflowiAi?aid=${aid}`)
       if (!response.ok) {
         throw new Error('API请求失败')
       }
@@ -119,7 +119,7 @@ export const useOpenaiStore = defineStore('openai', () => {
   const getAiComment = async (aid: number, cid: number) => {
     
     try {
-      const response = await fetch(`/api/openAI/getAiComment?aid=${aid}&cid=${cid}`)
+      const response = await fetch(`/nuxtApi/openAI/getAiComment?aid=${aid}&cid=${cid}`)
       if (!response.ok) {
         throw new Error('API请求失败')
       }

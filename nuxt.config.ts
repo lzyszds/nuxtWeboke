@@ -82,7 +82,7 @@ export default defineNuxtConfig({
       // '/api/openai/getAiFox': { cors: true },  // 允许跨域
     },
     devProxy: {
-      '/api': {
+      '/nuxtApi': {
         target: 'http://localhost:2024/api', // 目标接口地址
         changeOrigin: true,
         prependPath: true // 是否保留路径前缀
