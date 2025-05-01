@@ -198,7 +198,7 @@ export const numberJump = (
   for (const key in record) {
     counts[key] = ref(0) // 创建响应式 ref
     const target = record[key].count
-
+    if (!gsap) continue
     // 使用 GSAP 动画
     const tween = gsap.to(counts[key], {
       value: target, // 目标值

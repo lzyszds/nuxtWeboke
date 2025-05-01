@@ -12,7 +12,7 @@ export const useRequestDataStore = defineStore('requestData', () => {
   // 需要请求的接口路径
   const urls = [
     {
-      url: `/api/article/getArticleList?pages=1&limit=99999`,
+      url: `/api/article/getArticleListForWeb?pages=1&limit=99999`,
       name: 'homeArticleList',
       notes: '首页文章列表',
     },
