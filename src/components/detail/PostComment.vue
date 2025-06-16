@@ -292,7 +292,7 @@ watch(
       </div>
       <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
-          class="w-full h-[88%] transition-all text-base border-b-[1px] focus:border-b-[#2c3e50] resize-none outline-none dark:bg-dark-background"
+          class="w-full h-[88%] transition-all text-base border-b-[1px] focus:border-b-[#2c3e50] resize-none outline-none dark:bg-dark-background transition-none"
           id="textarea"
           v-model="information.comContent"
         ></textarea>
@@ -387,10 +387,10 @@ watch(
     <div :class="cardClass" class="rounded-3xl">
       <div class="comContent">
         <h3
-          class="text-black text-center font-semibold py-4"
+          class="text-black dark:text-white text-center font-semibold py-4"
           v-if="remarkList.length == 0"
         >
-          <LzyIcon size="150px" class="text-black" name="iconoir:send-mail"></LzyIcon>
+          <LzyIcon size="150px" class="text-black  dark:text-white " name="iconoir:send-mail"></LzyIcon>
           <br />
           暂无评论，快来试试评论吧！
         </h3>

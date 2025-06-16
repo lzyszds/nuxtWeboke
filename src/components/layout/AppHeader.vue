@@ -10,8 +10,8 @@ const data = ref({
   items: [
     { name: "首页", path: "/" },
     { name: "关于", path: "/about" },
-    { name: "相册", path: "/photo" },
-    { name: "疫情", path: "/episit" },
+    // { name: "相册", path: "/photo" },
+    // { name: "疫情", path: "/episit" },
   ],
   //选择器位置
   selectorpos: {
@@ -87,7 +87,7 @@ defineExpose({ navbar, navContainer });
         <ul class="list-reset h-10 lg:flex justify-center flex-1 items-center">
           <li class="mr-3" v-for="(item, index) in data.items" :key="index">
             <NuxtLink
-              class="inline-block text-white no-underline hover:text-underline font-dindin py-2 px-4 drop-shadow-[1px_2px_1px_#000]"
+              class="inline-block text-white no-underline hover:text-underline font-dindin py-2 px-4 drop-shadow-[1px_2px_1px_#000]  transition-all duration-300"
               :to="item.path"
             >
               {{ item.name }}
