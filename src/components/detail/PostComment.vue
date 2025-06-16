@@ -16,7 +16,7 @@ const getDefaultValue = () => {
 
 //主题card class
 const cardClass =
-  "bg-white dark:bg-dark-background p-2 px-6 pb-7 text-lg rounded-2xl text-[15px]";
+  "bg-white dark:bg-dark-background p-2 px-6 pb-3 text-lg rounded-2xl text-[15px]";
 const comImg = ref([]);
 
 const replyArr = reactive({
@@ -140,6 +140,7 @@ const comSubmit = async () => {
   })
     .then((res) => res.json())
     .then(async (res) => {
+      
       closeAll();
       if (res.code == 200) {
         console.log(`评论成功,感谢你的评论！`);
@@ -149,16 +150,18 @@ const comSubmit = async () => {
           remReplyComment();
           notify({
             message: `评论成功,感谢你的评论！`,
-            position: "bottom-center",
+            position: "bottom-right",
             duration: 2000,
+            type: "success",
             dangerouslyUseHTMLString: true,
           });
         });
       } else {
         notify({
-          message: `评论失败,请稍后再试！`,
-          position: "bottom-center",
-          duration: 2000,
+          message: res.msg || "评论失败，请稍后再试！",
+          position: "bottom-right",
+          duration: 3000,
+          type: "error",
           dangerouslyUseHTMLString: true,
         });
       }
@@ -279,7 +282,11 @@ watch(
         class="py-[4px] rounded-full flex content-center justify-between w-full relative text-black dark:border-white mb-2 font-dindin"
       >
         <span>
-          <LzyIcon style="vertical-align: sub;" name="iconoir:chat-plus-in" size="20"></LzyIcon>
+          <LzyIcon
+            style="vertical-align: sub"
+            name="iconoir:chat-plus-in"
+            size="20"
+          ></LzyIcon>
           <span class="px-2 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
         </span>
         <LzyIcon
@@ -365,11 +372,12 @@ watch(
           <input type="text" v-model="information.webSite" placeholder="你的网站(选填)" />
         </p>
         <p
-          class="bg-borderColor mt-5 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto"
+          class="bg-borderColor hover:text-white select-none mt-5 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto"
           @click="comSubmit"
         >
           <button>发布评论</button>
         </p>
+        <p class="text-center text-xs mt-2">评论内容将经过Ai进行审核</p>
         <!-- <p class="btn del"><button> 取消评论 </button></p> -->
       </div>
     </section>
@@ -390,7 +398,11 @@ watch(
           class="text-black dark:text-white text-center font-semibold py-4"
           v-if="remarkList.length == 0"
         >
-          <LzyIcon size="150px" class="text-black  dark:text-white " name="iconoir:send-mail"></LzyIcon>
+          <LzyIcon
+            size="150px"
+            class="text-black dark:text-white"
+            name="iconoir:send-mail"
+          ></LzyIcon>
           <br />
           暂无评论，快来试试评论吧！
         </h3>

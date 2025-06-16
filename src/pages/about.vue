@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import dayjs from "dayjs";
+
 const { requestData } = useRequestDataStore();
 const data = requestData.aboutInfo;
 
@@ -172,13 +174,13 @@ const skills = {
 /* 评论数 浏览数 标签数 运行天数 */
 const record = {
   view: {
-    count:  data.articleAccess,
+    count: data.articleAccess,
     labal: "浏览数",
     icon: "iconoir:reports-solid",
   },
   article: {
     count: data.articleCount,
-    labal: '文章数',
+    labal: "文章数",
     icon: "iconoir:open-book",
   },
   comment: {
@@ -187,7 +189,7 @@ const record = {
     icon: "iconoir:message-text",
   },
   run: {
-    count: 346,
+    count: dayjs().diff(dayjs("2024-11-24"), "day"),
     labal: "运行天数",
     icon: "iconoir:clock",
   },
@@ -227,7 +229,7 @@ const { counts, stop } = numberJump(record, 1);
               ></div>
             </div>
             <h2 class="text-2xl font-bold mb-2">Lzy</h2>
-            <p class="text-muted-foreground text-center mb-4">设计师 / 开发者 / 博主</p>
+            <p class="text-muted-foreground text-center mb-4">开发者 / 设计师 / 博主</p>
             <div class="flex space-x-3">
               <a
                 href="#"
@@ -473,7 +475,7 @@ const { counts, stop } = numberJump(record, 1);
           希望通过分享我的经验和知识，能够帮助到更多的人。
         </p>
         <p class="mb-4">
-          博客使用 Next.js 构建，采用 Tailwind CSS 进行样式设计，部署在 Vercel 平台上。
+          博客使用 Nuxt.js 构建，采用 Tailwind CSS 进行样式设计。
           如果你对本站有任何建议或想法，欢迎通过邮件或社交媒体与我联系。
         </p>
         <div class="flex items-center text-sm text-muted-foreground">
