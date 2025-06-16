@@ -7,6 +7,8 @@ const { notify, closeAll } = useNotification();
 const route = useRoute();
 const aid = route.params.id;
 const selcetRound = templateRef("selcetRound");
+// @ts-ignore
+const replyMain = templateRef("replyMain"); // 评论列表的实例
 const getDefaultValue = () => {
   const defaultval = selcetRound.value.parentNode?.querySelectorAll("img")[
     information.rangeIndex
@@ -140,7 +142,6 @@ const comSubmit = async () => {
   })
     .then((res) => res.json())
     .then(async (res) => {
-      
       closeAll();
       if (res.code == 200) {
         console.log(`评论成功,感谢你的评论！`);
@@ -181,13 +182,43 @@ const replyComment = (item: any, index: any) => {
   replyArr.replyName = "@" + item.userName;
   //给textarea获取焦点
   const textarea = document.querySelector("#textarea") as any;
-  textarea?.focus();
+
+  textarea.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  // 使用 IntersectionObserver 检测元素是否进入视图
+  const observer = new IntersectionObserver(
+    (entries: any) => {
+      if (entries[0].isIntersecting) {
+        setTimeout(() => {
+          textarea.focus(); // 元素进入视图后聚焦
+        }, 200);
+        observer.disconnect(); // 断开观察
+      }
+    },
+    { threshold: 1 } // 确保元素完全进入视图
+  );
+
+  observer.observe(textarea);
 };
 
 //取消回复
 const remReplyComment = () => {
   handleReplyData();
   replyArr.replyName = "发表评论";
+};
+
+//返回查看评论
+const backToRemark = () => {
+  // 返回到当前选择的评论项
+  const replyId = replyArr.replyId;
+  const groundId = replyId.get(replyIdval())?.groundId || 0;
+  if (replyMain.value) {
+    const targetComment = replyMain.value.reply.querySelector(`#reply-${groundId}`);
+
+    if (targetComment) {
+      targetComment.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
 };
 
 function handleReplyData() {
@@ -279,24 +310,54 @@ watch(
     >
       <div
         :class="cardClass"
-        class="py-[4px] rounded-full flex content-center justify-between w-full relative text-black dark:border-white mb-2 font-dindin"
+        class="py-[4px] rounded-full flex content-center justify-between w-full relative text-black dark:border-white font-dindin"
       >
-        <span>
+        <p class="flex items-center">
           <LzyIcon
             style="vertical-align: sub"
             name="iconoir:chat-plus-in"
             size="20"
           ></LzyIcon>
           <span class="px-2 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
-        </span>
-        <LzyIcon
-          class="hover:text-themeColor cursor-pointer mt-1"
-          name="iconoir:plug-type-a"
-          size="20"
-          title="生成Ai评论"
-          @click="createAiComment"
-        ></LzyIcon>
+
+          <!-- <span
+            class="px-2 py-1 bg-themeColor rounded-[8px] text-xs text-white cursor-pointer"
+            v-if="replyArr.replyName !== '发表评论'"
+            @click="remReplyComment"
+          >
+            取消回复
+          </span> -->
+        </p>
+
+        <div class="flex items-center gap-2">
+          <Tooltip tooltipText="取消回复" v-if="replyArr.replyName !== '发表评论'">
+            <LzyIcon
+              class="hover:text-themeColor cursor-pointer text-red-500"
+              name="iconoir:xmark-square"
+              size="20"
+              @click="remReplyComment"
+            />
+          </Tooltip>
+
+          <Tooltip tooltipText="返回查看评论" v-if="replyArr.replyName !== '发表评论'">
+            <LzyIcon
+              class="hover:text-themeColor cursor-pointer text-black"
+              name="iconoir:long-arrow-left-down-solid"
+              size="20"
+              @click="backToRemark"
+            />
+          </Tooltip>
+
+          <Tooltip tooltipText="生成Ai评论" @click="createAiComment">
+            <LzyIcon
+              class="hover:text-themeColor cursor-pointer"
+              name="iconoir:plug-type-a"
+              size="20"
+            ></LzyIcon>
+          </Tooltip>
+        </div>
       </div>
+
       <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
           class="w-full h-[88%] transition-all text-base border-b-[1px] focus:border-b-[#2c3e50] resize-none outline-none dark:bg-dark-background transition-none"
@@ -309,7 +370,6 @@ watch(
             name="iconoir:emoji-satisfied"
             size="20"
           ></LzyIcon>
-
           <span class="pointer-events-none"> “恶语伤人六月寒, 良言一句暖三冬”</span>
         </div>
       </div>
@@ -371,13 +431,18 @@ watch(
           网站：
           <input type="text" v-model="information.webSite" placeholder="你的网站(选填)" />
         </p>
-        <p
-          class="bg-borderColor hover:text-white select-none mt-5 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto"
+        <Tooltip
+          class="block bg-borderColor hover:text-white select-none mt-4 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto"
+          tooltipText="评论内容将经过Ai进行审核"
+          tooltipPosition="bottom"
+          :disabled="information.comContent.length == 0"
+          disabledTooltipText="请在左侧填写评论内容"
           @click="comSubmit"
         >
-          <button>发布评论</button>
-        </p>
-        <p class="text-center text-xs mt-2">评论内容将经过Ai进行审核</p>
+          发布评论
+        </Tooltip>
+        <!-- <button>发布评论</button> -->
+        <!-- <p class="text-center text-xs mt-2">评论内容将经过Ai进行审核</p> -->
         <!-- <p class="btn del"><button> 取消评论 </button></p> -->
       </div>
     </section>
@@ -386,13 +451,16 @@ watch(
   <!-- 评论列表 -->
   <div
     v-transition="'animate__fadeInUp'"
-    class="overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-[1px] text-color shadow-lg"
+    class="overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-[1px] bg-[aliceblue] text-color shadow-lg"
   >
-    <header class="block px-6 font-dindin">
+    <header class="pb-2 font-dindin font-weight-bold text-xl flex items-center gap-2">
       <LzyIcon name="iconoir:message-text" style="vertical-align: middle"></LzyIcon>
       评论区
+      <span class="text-lg text-gray-500 dark:text-gray-400">
+        ({{ remarkList.length }})
+      </span>
     </header>
-    <div :class="cardClass" class="rounded-3xl">
+    <div :class="cardClass" class="rounded-3xl py-[1px]">
       <div class="comContent">
         <h3
           class="text-black dark:text-white text-center font-semibold py-4"
@@ -413,6 +481,7 @@ watch(
           :replyId="replyArr.replyId"
           @replying="replyComment"
           @remReply="remReplyComment"
+          ref="replyMain"
         />
       </div>
     </div>

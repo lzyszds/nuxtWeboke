@@ -36,6 +36,7 @@ const countInfoArr = computed(() => [
 
 // 滚动到指定标题
 const scrollToElement = (item: Directory) => {
+  console.log(mainContent.value)
   const article = mainContent.value?.articleMain;
   const articleChild = article.querySelectorAll("h2,h3,h4");
 

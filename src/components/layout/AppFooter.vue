@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const { data } = await useFetch("/api/system/getFooterInfo");
 const footData = data.value.data.filter((item: any) => item != null);
-console.log(footData);
 </script>
 
 <template>

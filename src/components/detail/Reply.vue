@@ -13,6 +13,7 @@ interface Props {
     }
   >;
 }
+const reply = templateRef("reply");
 
 const props = defineProps<Props>();
 
@@ -60,11 +61,17 @@ const findComment = (id: number) => {
 };
 
 const baseUrl = useRuntimeConfig().public.BASE_URL;
+
+defineExpose({ reply });
 </script>
 
 <template>
-  <div class="reply">
-    <section v-for="(item, index) in replydata" :key="index">
+  <div class="reply" ref="reply">
+    <section
+      v-for="(item, index) in replydata"
+      :key="index"
+      :id="'reply-' + item.commentId"
+    >
       <div
         :class="item.replyId == 0 ? 'mainReply item' : 'secondaryReply item'"
         v-if="index < (item.replyId == 0 ? showNumber.level1 : showNumber.level2)"
