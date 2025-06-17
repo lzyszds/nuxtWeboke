@@ -26,6 +26,24 @@ const replyId = props.replyId;
 const emit = defineEmits(["replying", "remReply"]);
 const nowReplyId = ref(0);
 
+const infoStates = [
+  {
+    name: "IP",
+    icon: "iconoir:map-pin",
+    key: "userIp",
+  },
+  {
+    name: "设备系统",
+    icon: "iconoir:brain-warning",
+    key: "deviceSystem",
+  },
+  {
+    name: "浏览器系统",
+    icon: "iconoir:window-check",
+    key: "browserSystem",
+  },
+];
+
 //显示评论的数量，分别显示一级和二级评论
 const showNumber = ref({
   level1: 5,
@@ -100,26 +118,9 @@ defineExpose({ reply });
               取消回复
             </button>
             <span class="item-right-info">
-              <span>
-                <LzyIcon
-                  name="iconoir:map-pin"
-                  style="vertical-align: text-bottom; margin-right: 2px"
-                  size="15px"
-                />{{ item.userIp }}
-              </span>
-              <span>
-                <LzyIcon
-                  name="iconoir:brain-warning"
-                  style="vertical-align: middle; margin-right: 2px"
-                  size="15px"
-                />{{ item.deviceSystem }}
-              </span>
-              <span>
-                <LzyIcon
-                  name="iconoir:window-check"
-                  style="vertical-align: middle; margin-right: 2px"
-                  size="15px"
-                />{{ item.browserSystem }}
+              <span v-for="info in infoStates" :key="info.name">
+                <LzyIcon :name="info.icon" preset="sm" />
+                {{ item[info.key] || "未知" }}
               </span>
             </span>
           </div>
@@ -162,200 +163,5 @@ defineExpose({ reply });
 </template>
 
 <style scoped>
-.reply {
-  .item {
-    margin: 20px 0;
-    display: grid;
-    grid-template-columns: 60px 2fr;
-    grid-template-rows: auto auto;
-
-    &.mainReply {
-      border-bottom: 1px solid #eee;
-    }
-
-    img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 20px;
-    }
-  }
-
-  .reply {
-    grid-column: 2/4;
-
-    .item {
-      margin: 10px 0 0;
-      grid-template-columns: 30px 2fr;
-      gap: 10px;
-
-      img {
-        width: 30px;
-        height: 30px;
-      }
-
-      .item-right-top {
-        margin-bottom: 4px;
-        letter-spacing: 2px;
-      }
-
-      .item-right-top-name {
-        font-size: 16px;
-      }
-
-      .item-right-bottom {
-        padding: 2px 0;
-        font-size: 14px;
-        position: relative;
-
-        & > span {
-          font-size: 14px;
-          color: #002f9e;
-          font-family: "dindin";
-          letter-spacing: 0px;
-          user-select: none;
-
-          &:hover {
-            color: #004cff80;
-          }
-        }
-
-        section {
-          position: absolute;
-          top: 30px;
-          left: 0;
-          width: 100%;
-          max-height: 130px;
-          background-color: #fff;
-          border-radius: 6px;
-          z-index: 10;
-          transition: 0.14s;
-          padding: 5px;
-          display: flex;
-          gap: 10px;
-          box-shadow: 14px 19px 25px rgba(0, 0, 0, 0.1), 0 1px 4px rgb(0, 0, 0, 0.3);
-
-          img {
-            margin-right: 0;
-          }
-
-          b {
-            color: #333;
-            max-width: calc(100% - 100px);
-            font-weight: 500;
-          }
-
-          b:nth-child(3) {
-            overflow-y: auto;
-          }
-        }
-      }
-
-      .item-right-info {
-        span {
-          line-height: 16px;
-          font-size: 12px;
-          color: #000;
-          font-family: "dindin";
-          letter-spacing: 0px;
-          user-select: none;
-          border-radius: 0;
-          padding: 0 5px;
-          gap: 5px;
-
-          svg {
-            vertical-align: middle;
-            margin: -2px 2px 0 0;
-          }
-        }
-      }
-    }
-  }
-
-  .item-right-top {
-    margin-bottom: 7px;
-    letter-spacing: 3px;
-  }
-
-  .item-right-top-name {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0px;
-    font-family: none;
-  }
-
-  .item-right-top-time {
-    font-size: 12px;
-    color: #999;
-    margin: 0 10px;
-    font-family: "dindin";
-    letter-spacing: 0px;
-  }
-
-  .item-right-top-reply {
-    font-size: 12px;
-    color: #ffff;
-    height: 20px;
-    line-height: 10px;
-    font-family: "dindin";
-    letter-spacing: 0px;
-    background-color: var(--themeColor);
-    border-radius: 4px;
-    padding: 4px;
-    user-select: none;
-  }
-
-  .item-right-bottom {
-    border-radius: 10px;
-    padding: 5px 0;
-    font-size: 15px;
-  }
-
-  .item-right-info {
-    span {
-      line-height: 16px;
-      font-size: 12px;
-      color: #000;
-      font-family: "dindin";
-      letter-spacing: 0px;
-      user-select: none;
-      border-radius: 0;
-      padding: 0 5px;
-      gap: 5px;
-
-      svg {
-        vertical-align: middle;
-        margin: -2px 2px 0 0;
-      }
-    }
-  }
-}
-
-.dark .reply {
-  .mainReply {
-    border-bottom: 1px solid #888;
-  }
-
-  .item-right-info {
-    span {
-      color: #fff;
-    }
-  }
-
-  .item-right-bottom {
-    span {
-      color: #afccff !important;
-    }
-
-    color: #fff;
-  }
-
-  .reply {
-    .item-right-info {
-      span {
-        color: #fff;
-      }
-    }
-  }
-}
+@import url("~/styles/reply.css");
 </style>

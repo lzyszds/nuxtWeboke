@@ -11,7 +11,12 @@ const tooltipPosition = props.tooltipPosition || "top";
 </script>
 
 <template>
-  <button class="tooltip-container" :class="{ disabled: disabled }" :disabled="disabled">
+  <button
+    class="tooltip-container"
+    :class="{ disabled: disabled }"
+    v-bind="$attrs"
+    :disabled="disabled"
+  >
     <span :class="['tooltip', tooltipPosition]" role="tooltip" :aria-label="tooltipText">
       {{ disabled ? disabledTooltipText : tooltipText }}
       <span class="tooltip-arrow" :class="tooltipPosition"></span>

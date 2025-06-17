@@ -1,53 +1,63 @@
 <script setup lang="ts">
-const windowY = inject<Ref<number>>('windowY');
-const isOpenSet = ref(false); // 是否开启多种背景颜色设置
-const funcOption = [
+const windowY = inject<Ref<number>>("windowY");
+const isOpenSet = ref(false); // 为了解决 禁用 SSR 水合检查（临时调试）
+const colorMode = useColorMode(); // 使用 Nuxt Color Mode 来处理主题颜色
+const themeValue = computed(() => colorMode.preference); // 获取当前主题值
+
+// 浮动操作按钮
+const quickToolsMethods = [
   {
-    name: '设置',
-    icon: 'iconoir:settings',
+    name: "跟随系统",
+    value: "system",
+    icon: "iconoir:modern-tv",
     callback: () => {
-      isOpenSet.value = !isOpenSet.value;
+      setTheme("system");
     },
   },
   {
-    name: '返回顶部',
-    icon: 'iconoir:rocket',
+    name: "浅色",
+    value: "light",
+    icon: "iconoir:sun-light",
+    callback: () => {
+      setTheme("light");
+    },
+  },
+  {
+    name: "深色",
+    value: "dark",
+    icon: "iconoir:half-moon",
+    callback: () => {
+      setTheme("dark");
+    },
+  },
+  // {
+  //   name: "设置",
+  //   icon: "iconoir:settings",
+  //   callback: () => {
+  //     isOpenSet.value = !isOpenSet.value;
+  //   },
+  // },
+  {
+    name: "返回顶部",
+    icon: "iconoir:rocket",
     callback: () => (windowY!.value = 0),
   },
 ];
-
-const bgThemeOption = [
-  {
-    name: '方格纸',
-    colorClass: 'bg-gridThemeColor',
-    icon: 'iconoir:cell-2x2',
-    color: '#fff',
-  },
-  {
-    name: '纯色',
-    colorClass: 'bg-solidThemeColor',
-    icon: 'iconoir:web-window',
-    color: '#fff',
-  },
-  {
-    name: '牛皮纸',
-    colorClass: 'bg-paperThemeColor',
-    icon: 'iconoir:notes',
-    color: '#ffe6cccc',
-  },
-];
-
-function setTheme(colorClass: string) {
-  /* 先检查 当前的classname是什么，就删除 */
-  document
-    .querySelector('.bgLattice')
-    ?.classList.remove(...bgThemeOption.map((item) => item.colorClass));
-  document.querySelector('.bgLattice')?.classList.add(colorClass);
+function setTheme(value: string) {
+  colorMode.preference = value;
+  // 强制同步客户端状态
+  if (import.meta.client) {
+    document.documentElement.classList.toggle("dark", value === "dark");
+  }
 }
 
 const toolbar = ref();
-const barTheme = ref();
-defineExpose({ toolbar, barTheme, isOpenSet });
+
+onMounted(() => {
+  isOpenSet.value = true; //  禁用 SSR 水合检查（临时调试）
+});
+
+defineExpose({ toolbar });
 </script>
 
 <template>
@@ -55,24 +65,21 @@ defineExpose({ toolbar, barTheme, isOpenSet });
     ref="toolbar"
     class="fixed right-6 bottom-6 opacity-0 translate-x-10 z-50 p-2 grid gap-2"
   >
-    <button
-      v-for="(item, index) in bgThemeOption"
-      class="p-2 pb-0 bg-themeColor rounded-lg opacity-0 translate-x-8"
-      :title="item.name"
-      :style="{ color: item.color }"
-      ref="barTheme"
-      @click="setTheme(item.colorClass)"
-    >
-      <LzyIcon :name="item.icon" size="20" :title="item.name" />
-    </button>
-
-    <button
-      v-for="item in funcOption"
-      class="p-2 pb-0 bg-themeColor text-white rounded-lg"
+    <Tooltip
+      v-for="(item, index) in quickToolsMethods"
+      :class="[
+        'p-2 rounded-lg text-white bg-themeColor',
+        item.value && themeValue === item.value
+          ? 'bg-[var(--delColor)]'
+          : 'bg-themeColor',
+      ]"
       @click="item.callback"
+      tooltipPosition="left"
+      :tooltipText="item.name"
+      v-if="isOpenSet"
     >
       <LzyIcon :name="item.icon" size="20" :title="item.name" />
-    </button>
+    </Tooltip>
   </section>
 </template>
 

@@ -310,23 +310,15 @@ watch(
     >
       <div
         :class="cardClass"
-        class="py-[4px] rounded-full flex content-center justify-between w-full relative text-black dark:border-white font-dindin"
+        class="py-[4px] rounded-full flex content-center justify-between w-full relative dark:border-white font-dindin"
       >
         <p class="flex items-center">
           <LzyIcon
-            style="vertical-align: sub"
+            class="dark:text-dark-color"
             name="iconoir:chat-plus-in"
             size="20"
           ></LzyIcon>
           <span class="px-2 dark:text-[#eee]"> {{ replyArr.replyName }} </span>
-
-          <!-- <span
-            class="px-2 py-1 bg-themeColor rounded-[8px] text-xs text-white cursor-pointer"
-            v-if="replyArr.replyName !== '发表评论'"
-            @click="remReplyComment"
-          >
-            取消回复
-          </span> -->
         </p>
 
         <div class="flex items-center gap-2">
@@ -341,7 +333,7 @@ watch(
 
           <Tooltip tooltipText="返回查看评论" v-if="replyArr.replyName !== '发表评论'">
             <LzyIcon
-              class="hover:text-themeColor cursor-pointer text-black"
+              class="hover:text-themeColor cursor-pointer text-black dark:text-dark-color"
               name="iconoir:long-arrow-left-down-solid"
               size="20"
               @click="backToRemark"
@@ -350,7 +342,7 @@ watch(
 
           <Tooltip tooltipText="生成Ai评论" @click="createAiComment">
             <LzyIcon
-              class="hover:text-themeColor cursor-pointer"
+              class="dark:text-dark-color hover:text-themeColor cursor-pointer"
               name="iconoir:plug-type-a"
               size="20"
             ></LzyIcon>
@@ -360,11 +352,13 @@ watch(
 
       <div :class="cardClass" class="relative font-dindin h-[200px]">
         <textarea
-          class="w-full h-[88%] transition-all text-base border-b-[1px] focus:border-b-[#2c3e50] resize-none outline-none dark:bg-dark-background transition-none"
+          class="w-full h-[88%] transition-all text-base dark:text-dark-color border-b-[1px] focus:border-b-[#2c3e50] resize-none outline-none dark:bg-dark-background transition-none"
           id="textarea"
           v-model="information.comContent"
         ></textarea>
-        <div class="w-[90%] text-base select-none absolute bottom-0 text-right">
+        <div
+          class="w-[90%] text-base select-none absolute bottom-0 text-right dark:text-dark-color"
+        >
           <LzyIcon
             class="absolute top-1/2 left-2 -translate-y-1/2 z-50 hover:text-themeColor"
             name="iconoir:emoji-satisfied"
@@ -382,7 +376,7 @@ watch(
       <div :class="cardClass" class="w-full">
         <div class="overflow-hidden flex gap-1">
           <button>
-            <LzyIcon name="iconoir:nav-arrow-left" animation="animate__heartBeat" />
+            <LzyIcon name="iconoir:nav-arrow-left" animation="heartBeat" />
           </button>
           <div @wheel="onWheelfn" ref="wheel" class="overflow-x-scroll">
             <p class="flex gap-4 relative px-2">
@@ -403,16 +397,14 @@ watch(
             </p>
           </div>
           <button>
-            <lzy-icon
-              name="iconoir:nav-arrow-right"
-              animation="animate__heartBeat"
-            ></lzy-icon>
+            <lzy-icon name="iconoir:nav-arrow-right" animation="heartBeat"></lzy-icon>
           </button>
         </div>
         <p class="my-2 text-sm text-center font-dindin font-semibold dark:text-white">
           昵称：
           <input
             type="text"
+            class="dark:text-[var(--systemSelectColor)]"
             :class="{ 'apply-shake': information.nameError }"
             v-model="information.name"
             placeholder="昵称或者QQ号"
@@ -422,6 +414,7 @@ watch(
           邮箱：
           <input
             type="text"
+            class="dark:text-[var(--systemSelectColor)]"
             :class="{ 'apply-shake': information.emailError }"
             v-model="information.email"
             placeholder="xxx@xxx.xxx"
@@ -429,7 +422,13 @@ watch(
         </p>
         <p class="mb-2 text-sm text-center font-dindin font-semibold dark:text-white">
           网站：
-          <input type="text" v-model="information.webSite" placeholder="你的网站(选填)" />
+          <input
+            type="text"
+            class="dark:text-[var(--systemSelectColor)]"
+            :class="{ 'apply-shake': information.emailError }"
+            v-model="information.webSite"
+            placeholder="你的网站(选填)"
+          />
         </p>
         <Tooltip
           class="block bg-borderColor hover:text-white select-none mt-4 font-semibold cursor-pointer py-1 w-8/12 text-sm rounded-full text-center mx-auto"
@@ -451,10 +450,10 @@ watch(
   <!-- 评论列表 -->
   <div
     v-transition="'animate__fadeInUp'"
-    class="overflow-hidden relative flex-1 p-3 text-lg rounded-2xl border-[1px] bg-[aliceblue] text-color shadow-lg"
+    class="relative flex-1 p-3 text-lg rounded-2xl border-[1px] bg-[aliceblue] dark:bg-transparent text-color shadow-lg"
   >
-    <header class="pb-2 font-dindin font-weight-bold text-xl flex items-center gap-2">
-      <LzyIcon name="iconoir:message-text" style="vertical-align: middle"></LzyIcon>
+    <header class="pb-2 font-dindin font-weight-bold text-xl flex items-center gap-2 dark:text-dark-color">
+      <LzyIcon name="iconoir:message-text" size="22px"></LzyIcon>
       评论区
       <span class="text-lg text-gray-500 dark:text-gray-400">
         ({{ remarkList.length }})

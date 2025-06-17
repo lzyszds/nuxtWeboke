@@ -67,10 +67,10 @@ onUnmounted(() => {
         <h2
           class="px-1 my-2 font-semibold rounded-xl flex items-center select-none dark:text-[#eee]"
         >
-          <LzyIcon size="20" name="iconoir:book-stack"></LzyIcon>
-          <span class="align-text-top mt-[-2px] ">文章目录</span>
+          <LzyIcon name="iconoir:book-stack"></LzyIcon>
+          <span class="align-text-top mt-[-2px]">文章目录</span>
         </h2>
-        <ul class="px-2 relative ">
+        <ul class="px-2 relative">
           <li
             v-for="item in useDirectory.directory"
             @click.prevent="scrollToElement(item)"

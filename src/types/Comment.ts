@@ -27,6 +27,7 @@ export interface CommentsType {
 }
 
 export interface Replydata {
+  [key: string]: any,
   commentId: number,
   headImg: string,
   userName: string,
