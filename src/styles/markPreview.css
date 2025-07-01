@@ -1,6 +1,10 @@
 .preview-pane {
     font-size: 16px;
 
+    ::marker {
+        color: #828282;
+    }
+
     ol {
         padding-left: 20px;
     }
@@ -71,7 +75,7 @@
     }
 
     h4 {
-        color:  var(--boldColor);
+        color: var(--boldColor);
         position: relative;
         font-size: 18px;
         font-weight: 600;
@@ -84,7 +88,7 @@
 
     p {
         margin-bottom: 1rem;
-        margin: 8px 0;
+        margin: 12px 0;
         font-size: 16px;
         overflow: hidden;
     }
@@ -94,6 +98,7 @@
         padding: 0 4px;
         color: var(--themeColor);
         transition: all 0.2s ease-in-out;
+
         &:hover {
             border-radius: 8px;
             position: relative;
@@ -365,13 +370,13 @@
         padding: 5px 1px;
         border-radius: 10px;
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
-        cursor: zoom-in;
         margin: 5px 0 10px;
-        width: 100%;
+        width: auto;
         border: 1px solid #000;
         --tw-shadow: 0 0 4px #999;
         --tw-shadow-colored: 0 0 4px var(--tw-shadow-color);
         box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+        display: inline-block;
 
         &:hover {
             .img-pseudo::before {
@@ -384,10 +389,12 @@
         }
 
         img {
+            cursor: zoom-in;
             margin: var(--height) 5px 0;
             border-radius: 10px;
             transition: 0.5s;
-            width: calc(100% - 10px);
+            width: auto;
+            max-height: 500px;
         }
 
         .img-pseudo {
