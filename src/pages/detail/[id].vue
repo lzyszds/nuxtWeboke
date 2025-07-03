@@ -11,7 +11,7 @@ const details = computed(() => requestData.detailData);
 const title = useTitle();
 setTimeout(() => {
   // 设置页面标题
-  title.value = details.value.title;
+  title.value = "Jz - "+details.value.title;
 }, 50);
 
 const useDirectory = useDirectoryStore();

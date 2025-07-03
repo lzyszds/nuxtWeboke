@@ -152,7 +152,7 @@ defineExpose({ reply });
         </section>
       </div>
       <button
-        class="text-center w-full rounded-xl mb-4 text-sm font-dindin bg-borderColor block border-[3px] border-black"
+        class="text-center w-1/2 leading-7 rounded-xl m-auto mb-2 text-sm font-dindin bg-borderColor block border-[1px] border-black"
         v-if="index == (item.replyId == 0 ? showNumber.level1 : showNumber.level2)"
         @click="() => (showNumber[item.replyId == 0 ? 'level1' : 'level2'] += 3)"
       >

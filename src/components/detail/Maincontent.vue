@@ -41,17 +41,21 @@ onMounted(() => {
       }
       // 添加点击事件 复制代码
       useEventListener(btn, "click", (e: any) => {
-        const text = e.target.parentElement.firstChild.innerText;
+        console.log(123);
+
+        const text = e.target.previousSibling.innerText;
+
         if (!text) return;
         // 将text复制到剪切板
         navigator.clipboard.writeText(text).then(
           () => {
             closeAll();
             notify({
-              message: `${btn.innerHTML} 复制成功,转载请声明来源！`,
+              message: `复制成功,转载请声明来源！`,
               position: "bottom-center",
               duration: 2000,
               dangerouslyUseHTMLString: true,
+              type: "info",
             });
           },
           function (res) {

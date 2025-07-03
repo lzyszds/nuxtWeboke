@@ -151,7 +151,7 @@ const comSubmit = async () => {
           remReplyComment();
           notify({
             message: `评论成功,感谢你的评论！`,
-            position: "bottom-right",
+            position: "bottom-center",
             duration: 2000,
             type: "success",
             dangerouslyUseHTMLString: true,
@@ -160,7 +160,7 @@ const comSubmit = async () => {
       } else {
         notify({
           message: res.msg || "评论失败，请稍后再试！",
-          position: "bottom-right",
+          position: "bottom-center",
           duration: 3000,
           type: "error",
           dangerouslyUseHTMLString: true,

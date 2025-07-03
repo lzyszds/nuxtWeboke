@@ -206,6 +206,9 @@
             &:active {
                 background-color: #9999AA80;
             }
+            svg{
+                pointer-events: none;
+            }
         }
 
 

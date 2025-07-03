@@ -88,7 +88,7 @@ provide("windowY", y);
     :class="{ bgLattice: route.name == 'detail-id' }"
   >
     <LayoutAppHeader ref="appHeader" />
-    <main class="container w-full md:max-w-7xl mx-auto pt-20">
+    <main class="container w-full md:max-w-7xl mx-auto lg:pt-20 pt-12">
       <slot />
     </main>
     <LayoutAppFooter />

@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
+import { useTitle } from "@vueuse/core";
 
 const { requestData } = useRequestDataStore();
 const data = requestData.aboutInfo;
+
+const title = useTitle();
+setTimeout(() => {
+  // 设置页面标题
+  title.value = "Jz - 关于本站" 
+}, 50);
 
 const platform = [
   {

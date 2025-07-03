@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   devServer: {
     port: 1027,
   },
-  
+
 
   runtimeConfig: {
     // 仅服务器端可用的配置
@@ -19,7 +19,7 @@ export default defineNuxtConfig({
       BASE_URL:
         process.env.NODE_ENV === 'production'
           ? 'https://www.api.lzyszds.cn'
-          :'http://localhost:2024',// 'https://www.api.lzyszds.cn',//'http://localhost:2024',
+          : 'http://localhost:2024',// 'https://www.api.lzyszds.cn',//'http://localhost:2024',
       VITE_ROUTER_MODE: 'history',
     },
   },
@@ -119,7 +119,7 @@ export default defineNuxtConfig({
       }),
     ],
 
-    
+
   },
 
   app: {
@@ -127,7 +127,9 @@ export default defineNuxtConfig({
       title: 'Jz - 分享你的生活',
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
-
+      htmlAttrs: {
+        lang: 'zh',
+      },
       meta: [
         // <meta name="viewport" content="width=device-width, initial-scale=1">
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
