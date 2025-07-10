@@ -8,7 +8,7 @@ const data = requestData.aboutInfo;
 const title = useTitle();
 setTimeout(() => {
   // 设置页面标题
-  title.value = "Jz - 关于本站" 
+  title.value = "Jz - 关于本站";
 }, 50);
 
 const platform = [
@@ -243,7 +243,7 @@ const { counts, stop } = numberJump(record, 1);
                 class="w-9 h-9 p-2 rounded-full bg-themeColor/10 hover:text-white hover:bg-themeColor/80 transition-colors"
                 v-for="(plat, index) in platform"
               >
-                <LzyIcon :name="plat.icon" class="w-5 h-5" />
+                <LzyIcon :name="plat.icon"  style="vertical-align: inherit !important;width: 100% !important;" />
               </a>
             </div>
           </div>
@@ -259,7 +259,7 @@ const { counts, stop } = numberJump(record, 1);
               </p>
               <div class="flex flex-wrap gap-2">
                 <div
-                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-white/10"
+                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-[#0020ff1a]"
                   data-v0-t="badge"
                 >
                   <svg
@@ -281,7 +281,7 @@ const { counts, stop } = numberJump(record, 1);
                 </div>
 
                 <div
-                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-white/10"
+                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-[#0020ff1a]"
                   data-v0-t="badge"
                 >
                   <LzyIcon name="iconoir:server" class="mr-1"></LzyIcon>
@@ -289,7 +289,7 @@ const { counts, stop } = numberJump(record, 1);
                 </div>
 
                 <div
-                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-white/10"
+                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-[#0020ff1a]"
                   data-v0-t="badge"
                 >
                   <svg
@@ -315,7 +315,7 @@ const { counts, stop } = numberJump(record, 1);
                   >UI/UX设计
                 </div>
                 <div
-                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-white/10"
+                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-[#0020ff1a]"
                   data-v0-t="badge"
                 >
                   <svg
@@ -335,7 +335,7 @@ const { counts, stop } = numberJump(record, 1);
                   >技术写作
                 </div>
                 <div
-                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-white/10"
+                  class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground bg-[#0020ff1a]"
                   data-v0-t="badge"
                 >
                   <svg
